@@ -8,6 +8,7 @@ import com.omar.isdb62.pharmacy_management_backend.model.User;
 import com.omar.isdb62.pharmacy_management_backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,8 +62,17 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest){
         User user = new User(
-                userCreateRequest.email();
-        )
+                userCreateRequest.email(),
+                userCreateRequest.password(),
+                userCreateRequest.role(),
+                userCreateRequest.firstName(),
+                userCreateRequest.lastName(),
+                userCreateRequest.phoneNumber()
+
+        );
+
+        User createdUser = userService.createUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(convertToDTO(createdUser));
     }
 
 
