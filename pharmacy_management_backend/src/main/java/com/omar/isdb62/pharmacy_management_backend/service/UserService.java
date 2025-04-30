@@ -94,7 +94,7 @@ public class UserService {
     }
 
     @Transactional
-    public void changePassword(Long userId, String currentPassword, String newPassword) { {
+    public void changePassword(Long userId, String currentPassword, String newPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: "+ userId));
 
@@ -106,12 +106,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByEmail(username)
-            .map(CustomUserDetails::new)
-                .orElseThrow(() -> new RuntimeException("User not found with email" + username));
-        }
+    public UserDetails loadUserByUsername(String username){
+        Optional <User> byEmail = userRepository.findByEmail(username);
 
+        return byEmail.map(CustomUserDetails::new).orElseThrow(null);
     }
-
 }
