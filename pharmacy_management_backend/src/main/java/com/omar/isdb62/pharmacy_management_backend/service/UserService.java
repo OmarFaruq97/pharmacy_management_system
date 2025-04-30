@@ -1,6 +1,7 @@
 package com.omar.isdb62.pharmacy_management_backend.service;
 
 import com.omar.isdb62.pharmacy_management_backend.constants.Role;
+import com.omar.isdb62.pharmacy_management_backend.dto.UserResponse;
 import com.omar.isdb62.pharmacy_management_backend.model.CustomUserDetails;
 import com.omar.isdb62.pharmacy_management_backend.model.User;
 import com.omar.isdb62.pharmacy_management_backend.repository.UserRepository;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    public static List<UserResponse> getUsersByRole;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 

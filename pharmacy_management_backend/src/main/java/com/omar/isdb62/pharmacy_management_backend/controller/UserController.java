@@ -1,17 +1,17 @@
 package com.omar.isdb62.pharmacy_management_backend.controller;
 
 import com.omar.isdb62.pharmacy_management_backend.annotation.CurrentUser;
+import com.omar.isdb62.pharmacy_management_backend.constants.Role;
+import com.omar.isdb62.pharmacy_management_backend.dto.UserCreateRequest;
 import com.omar.isdb62.pharmacy_management_backend.dto.UserResponse;
 import com.omar.isdb62.pharmacy_management_backend.model.User;
 import com.omar.isdb62.pharmacy_management_backend.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +40,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     // Allow access if the user is an ADMIN or accessing their own user ID
     @PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id)")
     public ResponseEntity<UserResponse> getUsersById (@PathVariable Long id) {
@@ -49,7 +49,21 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("/role/{role}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserResponse> getUsersByRole(@PathVariable Role role){
+        return userService.getUsersByRole(role).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest){
+        User user = new User(
+                userCreateRequest.email();
+        )
+    }
 
 
     // Helper method to convert User entity to UserDTO (this method create as solve error)
