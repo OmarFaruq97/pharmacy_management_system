@@ -37,10 +37,10 @@ public class User {
     private String phoneNumber;
 
     @Column(name = "created_at")
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
     @Column(name = "updated_at")
-    private LocalDate updateAt;
+    private LocalDateTime updateAt;
 
     public User(String email, String password, String role, String firstName, String lastName, String phoneNumber){
         this.email=email;
@@ -53,12 +53,12 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        createAt = LocalDateTime.now();
+        updateAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected  void onUpdate(){
-        updatedAt = LocalDateTime.now();
+        updateAt = LocalDateTime.now();
     }
 }

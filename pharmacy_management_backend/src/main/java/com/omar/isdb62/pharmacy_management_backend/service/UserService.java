@@ -1,10 +1,13 @@
 package com.omar.isdb62.pharmacy_management_backend.service;
 
 import com.omar.isdb62.pharmacy_management_backend.constants.Role;
+import com.omar.isdb62.pharmacy_management_backend.model.CustomUserDetails;
 import com.omar.isdb62.pharmacy_management_backend.model.User;
 import com.omar.isdb62.pharmacy_management_backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,15 @@ public class UserService {
     }
 
     @Transactional
+    public User createUser(User user){
+        if (userRepository.existsByEmail(user.getEmail())){
+            throw new RuntimeException("Email is already in use");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Transactional
     public User updateUser(Long id, User userDetails){
         User user= userRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("User not found with id: " + id));
@@ -46,7 +58,7 @@ public class UserService {
         user.setPhoneNumber(userDetails.getPhoneNumber());
 
         if(!user.getEmail().equals(userDetails.getEmail())){
-            if (userRepository.existByEmail(userDetails.getEmail())){
+            if (userRepository.existsByEmail(userDetails.getEmail())){
                 throw  new RuntimeException("Email is already in use");
             }
             user.setEmail(userDetails.getEmail());
@@ -61,6 +73,45 @@ public class UserService {
             user.setRole(userDetails.getRole());
         }
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)){
+            throw new RuntimeException("User not found with id: " + id);
+        }
+        userRepository.deleteById(id);
+    }
+
+    public User getCurrentUser (Authentication authentication) {
+        if (authentication == null)
+            return null;
+
+        if (authentication.getPrincipal() instanceof CustomUserDetails){
+            return ((CustomUserDetails) authentication.getPrincipal()).user();
+        }
+        return null;
+    }
+
+    @Transactional
+    public void changePassword(Long userId, String currentPassword, String newPassword) { {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: "+ userId));
+
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    public UserDetails loadUserByUsername(String username) {
+        return userRepository.findByEmail(username)
+            .map(CustomUserDetails::new)
+                .orElseThrow(() -> new RuntimeException("User not found with email" + username));
+        }
+
     }
 
 }
