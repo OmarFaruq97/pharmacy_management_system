@@ -4,6 +4,7 @@ import com.omar.isdb62.pharmacy_management_backend.annotation.CurrentUser;
 import com.omar.isdb62.pharmacy_management_backend.constants.Role;
 import com.omar.isdb62.pharmacy_management_backend.dto.UserCreateRequest;
 import com.omar.isdb62.pharmacy_management_backend.dto.UserResponse;
+import com.omar.isdb62.pharmacy_management_backend.dto.UserUpdateRequest;
 import com.omar.isdb62.pharmacy_management_backend.model.User;
 import com.omar.isdb62.pharmacy_management_backend.service.UserService;
 import jakarta.validation.Valid;
@@ -64,24 +65,36 @@ public class UserController {
         User user = new User(
                 userCreateRequest.email(),
                 userCreateRequest.password(),
+
                 userCreateRequest.role(),
+
                 userCreateRequest.firstName(),
                 userCreateRequest.lastName(),
                 userCreateRequest.phoneNumber()
-
         );
 
         User createdUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(convertToDTO(createdUser));
     }
 
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id))" )
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest userUpdateRequest){
+        try {
+            User userDetails = new User();
+
+        }
+    }
 
     // Helper method to convert User entity to UserDTO (this method create as solve error)
     private UserResponse convertToDTO (User user){
         UserResponse dto = new UserResponse();
+
         dto.setId(user.getId());
         dto.setEmail(user.getEmail());
+
         dto.setRole(user.getRole());
+
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setPhoneNumber(user.getPhoneNumber());
