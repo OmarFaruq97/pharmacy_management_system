@@ -1,7 +1,9 @@
 package com.omar.isdb62.pharmacy_management_backend.controller;
 
 
+import com.omar.isdb62.pharmacy_management_backend.configaration.JwtTokenProvider;
 import com.omar.isdb62.pharmacy_management_backend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,4 +18,13 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+
+    @Autowired
+    public  AuthController(AuthenticationManager authenticationManager,
+                           JwtTokenProvider jwtTokenProvider,
+                           UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
+    }
 }
