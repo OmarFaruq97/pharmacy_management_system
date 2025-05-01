@@ -155,7 +155,6 @@ public class UserController {
     } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 
     //Convert user entity to UserResponse DTO
