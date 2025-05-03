@@ -1,7 +1,6 @@
 package com.omar.isdb62.pharmacy_management_backend.controller;
 
 
-import ch.qos.logback.core.util.StringUtil;
 import com.omar.isdb62.pharmacy_management_backend.configaration.JwtTokenProvider;
 import com.omar.isdb62.pharmacy_management_backend.dto.LoginRequest;
 import com.omar.isdb62.pharmacy_management_backend.dto.RegisterRequest;
@@ -20,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +36,7 @@ public class AuthController {
     private final UserService userService;
 
     // Constructor injection for required services
-    
+    @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
                           UserService userService) {
@@ -46,17 +46,18 @@ public class AuthController {
     }
 
     // ========== REGISTER USER ==========
+    // Endpoint for user registration (Admin or Pharmacist)
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(
             @Valid @RequestBody RegisterRequest registerRequest) {
         try {
-            // Convert RegisterRequest DTO to User entity
+            // Create a new User object from request data
             User user = new User();
 
              user.setEmail(registerRequest.email());
              user.setPassword(registerRequest.password());
 
-             user.setRole(registerRequest.role());
+             user.setRole(registerRequest.role()); // ROLE_ADMIN or ROLE_PHARMACIST
 
              user.setFirstName(registerRequest.firstName());
              user.setLastName(registerRequest.lastName());
@@ -81,12 +82,13 @@ public class AuthController {
     }
 
     // ========== LOGIN USER ==========
+    // Endpoint for user login
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(HttpServletRequest request,
                                               HttpServletResponse response,
                                               @Valid @RequestBody LoginRequest loginRequest){
         try {
-            //Authentication using email and password
+            // Try to authenticate the user with email and password
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.email(),
@@ -94,13 +96,13 @@ public class AuthController {
                     )
             );
 
-            //Store authentication in the security context
+            // Set the authentication in security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            //Generate JWT token
+            // Generate JWT token using authentication info
             String jwt = jwtTokenProvider.createToken(authentication);
 
-            //Extract user details from authentication
+            // Get user details from authenticated principal
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             User user = userDetails.user();
 
@@ -127,15 +129,29 @@ public class AuthController {
     }
 
     // ========== VALIDATE TOKEN ==========
+    // Endpoint to validate a JWT token and return the user info
     @GetMapping("/validate-token")
     public ResponseEntity <?> validateToken(HttpServletRequest request){
         //Extract token from request
         String jwt = getJwtFromRequest(request);
 
         if (jwt != null && jwtTokenProvider.validateToken(jwt)) {
+            String username = jwtTokenProvider.getUsernameFromToken(jwt);
+            UserDetails userDetails = userService.loadUserByUsername(username);
 
+            CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+            User user = customUserDetails.user();
+
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(user.getId());
+            userResponse.setEmail(user.getEmail());
+            userResponse.setRole(user.getRole());
+            userResponse.setFirstName(user.getFirstName());
+            userResponse.setLastName(user.getLastName());
+
+            return ResponseEntity.ok(userResponse);
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
     }
 
     //========== HELPER METHOD: Extract JWT token from request ==========
