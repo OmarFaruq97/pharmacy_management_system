@@ -1,6 +1,7 @@
 package com.omar.isdb62.pharmacy_management_backend.controller;
 
 
+import ch.qos.logback.core.util.StringUtil;
 import com.omar.isdb62.pharmacy_management_backend.configaration.JwtTokenProvider;
 import com.omar.isdb62.pharmacy_management_backend.dto.LoginRequest;
 import com.omar.isdb62.pharmacy_management_backend.dto.RegisterRequest;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -122,5 +124,27 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid username or password");
         }
+    }
+
+    // ========== VALIDATE TOKEN ==========
+    @GetMapping("/validate-token")
+    public ResponseEntity <?> validateToken(HttpServletRequest request){
+        //Extract token from request
+        String jwt = getJwtFromRequest(request);
+
+        if (jwt != null && jwtTokenProvider.validateToken(jwt)) {
+
+        }
+    }
+
+    //========== HELPER METHOD: Extract JWT token from request ==========
+    private String getJwtFromRequest(HttpServletRequest request){
+        String bearerToken = request.getHeader("Authorization");
+        //Token should be in format: "Bearer {token}"
+
+        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
+            return bearerToken.substring(7); // remove "Bearer " prefix
+        }
+        return null;
     }
 }
