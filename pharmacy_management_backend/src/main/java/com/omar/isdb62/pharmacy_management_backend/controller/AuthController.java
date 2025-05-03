@@ -135,6 +135,7 @@ public class AuthController {
         if (jwt != null && jwtTokenProvider.validateToken(jwt)) {
 
         }
+        return null;
     }
 
     //========== HELPER METHOD: Extract JWT token from request ==========
