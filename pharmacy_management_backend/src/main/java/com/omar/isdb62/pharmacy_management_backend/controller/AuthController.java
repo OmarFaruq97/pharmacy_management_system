@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @CrossOrigin
 @RestController
@@ -35,7 +34,7 @@ public class AuthController {
     private final UserService userService;
 
     // Constructor injection for required services
-    @Autowired
+    
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
                           UserService userService) {
@@ -50,17 +49,16 @@ public class AuthController {
             @Valid @RequestBody RegisterRequest registerRequest) {
         try {
             // Convert RegisterRequest DTO to User entity
-            User user = new User(
-                    registerRequest.email(),
-                    registerRequest.password(),
+            User user = new User();
 
-                    //should be "ADMIN" or "PHARMACIST"
-                    registerRequest.role(),
+             user.setEmail(registerRequest.email());
+             user.setPassword(registerRequest.password());
 
-                    registerRequest.firstName(),
-                    registerRequest.lastName(),
-                    registerRequest.phoneNumber()
-            );
+             user.setRole(registerRequest.role());
+
+             user.setFirstName(registerRequest.firstName());
+             user.setLastName(registerRequest.lastName());
+             user.setPhoneNumber(registerRequest.phoneNumber());
 
             // Save user using UserService
             User savedUser = userService.createUser(user);
