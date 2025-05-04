@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,11 +37,7 @@ public class AuthController {
     private final UserService userService;
 
     // Constructor injection for required services
-<<<<<<< Updated upstream
     @Autowired
-=======
-
->>>>>>> Stashed changes
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
                           UserService userService) {
@@ -51,29 +49,22 @@ public class AuthController {
     // ========== REGISTER USER ==========
     // Endpoint for user registration (Admin or Pharmacist)
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(
-            @Valid @RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         try {
             // Create a new User object from request data
-            User user = new User();
+            User user = new User(
+                    registerRequest.email(),
+                    registerRequest.password(),
+                    registerRequest.role(),           // e.g., ROLE_ADMIN or ROLE_PHARMACIST
+                    registerRequest.firstName(),
+                    registerRequest.lastName(),
+                    registerRequest.phoneNumber()
+            );
 
-            user.setEmail(registerRequest.email());
-            user.setPassword(registerRequest.password());
-
-<<<<<<< Updated upstream
-             user.setRole(registerRequest.role()); // ROLE_ADMIN or ROLE_PHARMACIST
-=======
-            user.setRole(registerRequest.role());
->>>>>>> Stashed changes
-
-            user.setFirstName(registerRequest.firstName());
-            user.setLastName(registerRequest.lastName());
-            user.setPhoneNumber(registerRequest.phoneNumber());
-
-            // Save user using UserService
+            // Save the user using the service layer
             User savedUser = userService.createUser(user);
 
-            // Prepare UserResponse DTO to return (excluding password)
+            // Prepare a response DTO (excluding password!)
             UserResponse userResponse = new UserResponse();
             userResponse.setId(savedUser.getId());
             userResponse.setEmail(savedUser.getEmail());
@@ -83,7 +74,7 @@ public class AuthController {
             userResponse.setPhoneNumber(savedUser.getPhoneNumber());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
