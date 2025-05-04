@@ -24,7 +24,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity // Enables role-based method protection (e.g., @PreAuthorize)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class SecurityConfig {
 
     // Custom JWT filter that checks the token in each request
