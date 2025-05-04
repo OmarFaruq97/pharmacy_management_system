@@ -11,8 +11,7 @@ import com.omar.isdb62.pharmacy_management_backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +35,11 @@ public class AuthController {
     private final UserService userService;
 
     // Constructor injection for required services
+<<<<<<< Updated upstream
     @Autowired
+=======
+
+>>>>>>> Stashed changes
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
                           UserService userService) {
@@ -54,14 +57,18 @@ public class AuthController {
             // Create a new User object from request data
             User user = new User();
 
-             user.setEmail(registerRequest.email());
-             user.setPassword(registerRequest.password());
+            user.setEmail(registerRequest.email());
+            user.setPassword(registerRequest.password());
 
+<<<<<<< Updated upstream
              user.setRole(registerRequest.role()); // ROLE_ADMIN or ROLE_PHARMACIST
+=======
+            user.setRole(registerRequest.role());
+>>>>>>> Stashed changes
 
-             user.setFirstName(registerRequest.firstName());
-             user.setLastName(registerRequest.lastName());
-             user.setPhoneNumber(registerRequest.phoneNumber());
+            user.setFirstName(registerRequest.firstName());
+            user.setLastName(registerRequest.lastName());
+            user.setPhoneNumber(registerRequest.phoneNumber());
 
             // Save user using UserService
             User savedUser = userService.createUser(user);
