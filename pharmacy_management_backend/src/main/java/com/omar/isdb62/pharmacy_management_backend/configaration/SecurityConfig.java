@@ -30,6 +30,10 @@ public class SecurityConfig {
     // Custom JWT filter that checks the token in each request
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    public SecurityConfig (JwtAuthenticationFilter jwtAuthenticationFilter){
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
+
     // Main security configuration
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -42,7 +46,9 @@ public class SecurityConfig {
 
                 // Set up route access rules
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()   // Anyone can access login/register
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
+                        // Anyone can access login/register
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // Only ADMIN can access admin routes
                         .anyRequest().authenticated() // All other routes require authentication
                 )

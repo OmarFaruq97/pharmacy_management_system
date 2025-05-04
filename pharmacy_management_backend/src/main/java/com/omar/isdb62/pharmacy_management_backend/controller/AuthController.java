@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,7 +38,6 @@ public class AuthController {
     private final UserService userService;
 
     // Constructor injection for required services
-    @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
                           UserService userService) {
@@ -49,13 +49,14 @@ public class AuthController {
     // ========== REGISTER USER ==========
     // Endpoint for user registration (Admin or Pharmacist)
     @PostMapping("/register")
+//    @PreAuthorize("hasRole('ADMIN')") // Only Admins can create users
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         try {
             // Create a new User object from request data
             User user = new User(
                     registerRequest.email(),
                     registerRequest.password(),
-                    registerRequest.role(),           // e.g., ROLE_ADMIN or ROLE_PHARMACIST
+                    registerRequest.role(),    // e.g., ROLE_ADMIN or ROLE_PHARMACIST
                     registerRequest.firstName(),
                     registerRequest.lastName(),
                     registerRequest.phoneNumber()
