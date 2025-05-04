@@ -127,19 +127,24 @@ public class AuthController {
     }
 
     // ========== VALIDATE TOKEN ==========
-    // Endpoint to validate a JWT token and return the user info
     @GetMapping("/validate-token")
-    public ResponseEntity <?> validateToken(HttpServletRequest request){
-        //Extract token from request
+    public ResponseEntity<?> validateToken(HttpServletRequest request) {
+            //Extract token from Authorization header
         String jwt = getJwtFromRequest(request);
 
+            //Validate the token
         if (jwt != null && jwtTokenProvider.validateToken(jwt)) {
-            String username = jwtTokenProvider.getUsernameFromToken(jwt);
-            UserDetails userDetails = userService.loadUserByUsername(username);
+            //  Get email instead of username from token (we use email as subject)
+            String email = jwtTokenProvider.getEmailFromToken(jwt);
 
+            //  Load user details by email (your CustomUserDetailsService should support this)
+            UserDetails userDetails = userService.loadUserByUsername(email); // ❗You may want to rename this method to `loadUserByEmail` for clarity
+
+            //  Cast to CustomUserDetails to access your custom fields
             CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
-            User user = customUserDetails.user();
+            User user = customUserDetails.user(); // Assuming you return `User` from your wrapper
 
+            //  Build user response object
             UserResponse userResponse = new UserResponse();
             userResponse.setId(user.getId());
             userResponse.setEmail(user.getEmail());
@@ -149,8 +154,11 @@ public class AuthController {
 
             return ResponseEntity.ok(userResponse);
         }
+
+        //  If token is invalid or missing
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
     }
+
 
     //========== HELPER METHOD: Extract JWT token from request ==========
     private String getJwtFromRequest(HttpServletRequest request){
