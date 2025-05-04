@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin("http://localhost:4200")
 public class UserController {
 
     private final UserService userService;
@@ -89,8 +90,9 @@ public class UserController {
 
     //ADMIN or the user himself can update user
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id))" )
-    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest userUpdateRequest){
+    @PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id)")
+    public ResponseEntity<UserResponse>
+    updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest userUpdateRequest){
         try {
             User userDetails = new User();
 
@@ -117,7 +119,7 @@ public class UserController {
 
     //Only ADMIN can delete users
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole(''ADMIN)")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable Long id){
         try {
             userService.deleteUser(id);
