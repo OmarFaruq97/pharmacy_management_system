@@ -17,6 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     public CustomUserDetailsService(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
 
