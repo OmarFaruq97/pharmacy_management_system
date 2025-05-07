@@ -28,7 +28,6 @@ public class InventoryController {
     @PostMapping("/receive")
     public Inventory receivedMed(@RequestBody Inventory inventory){
         return inventoryService.saveMedicine(inventory);
-
     }
 
     @DeleteMapping("/delete-by-name")
