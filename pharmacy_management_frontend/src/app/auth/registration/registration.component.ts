@@ -8,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class RegistrationComponent {
 
+
+  user = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
+    role: ''
+  };
+  
 }

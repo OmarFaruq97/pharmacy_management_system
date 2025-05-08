@@ -1,1 +1,43 @@
-<p>registration works!</p>
+<div class="registration-container">
+    <h2>Register</h2>
+    <form #registerForm="">
+      <table>
+        <tr>
+          <td><label for="firstName">First Name:</label></td>
+          <td><input type="text" id="firstName" name="firstName"  required /></td>
+        </tr>
+        <tr>
+          <td><label for="lastName">Last Name:</label></td>
+          <td><input type="text" id="lastName" name="lastName"  required /></td>
+        </tr>
+        <tr>
+          <td><label for="email">Email:</label></td>
+          <td><input type="email" id="email" name="email" required /></td>
+        </tr>
+        <tr>
+          <td><label for="phoneNumber">Phone Number:</label></td>
+          <td><input type="text" id="phoneNumber" name="phoneNumber"  required /></td>
+        </tr>
+        <tr>
+          <td><label for="password">Password:</label></td>
+          <td><input type="password" id="password" name="password"  required /></td>
+        </tr>
+        <tr>
+          <td><label for="role">Role:</label></td>
+          <td>
+            <select id="role" name="role" required>
+              <option value="" disabled selected>Select a role</option>
+              <option value="ADMIN">Admin</option>
+              <option value="PHARMACIST">Pharmacist</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            <button type="submit">Register</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  
