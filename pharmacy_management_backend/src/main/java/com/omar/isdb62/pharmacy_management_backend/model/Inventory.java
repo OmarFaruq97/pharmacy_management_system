@@ -36,6 +36,6 @@ public class Inventory {
     @Column(name = "sell_price", precision = 10, scale = 2)
     private BigDecimal sellPrice;
 
-    @Column(name = "total_purchase_value", precision = 10, scale = 2)
-    private BigDecimal totalPriceValue;
+    @Column(name = "total_inventory_value", precision = 10, scale = 2)
+    private BigDecimal totalInventoryValue;
 }

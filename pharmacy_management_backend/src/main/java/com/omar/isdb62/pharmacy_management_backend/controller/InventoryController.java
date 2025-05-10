@@ -41,5 +41,4 @@ public class InventoryController {
         Inventory updated = inventoryService.updateMedicineByName(name, updatedInventory);
         return ResponseEntity.ok(updated);
     }
-
 }
