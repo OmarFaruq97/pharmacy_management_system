@@ -18,22 +18,29 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "Company")
+    private String companyName;
+
     @Column(name = "item_name", nullable = false)
     private String itemName;
+
+    private String strength;
+
+    private String category;
 
     @Column(nullable = false)
     private int quantity;
 
-    @Column(name = "unit_price", precision = 10, scale = 2)
-    private BigDecimal unitPrice;
-
-    @Column(precision = 10, scale = 2)
-    private BigDecimal amount;
+    @Column(name = "unit_price", precision = 10, scale = 2 , nullable = false)
+    private BigDecimal unitPrice;   //regular purchase price
 
     @Column(name = "purchase_discount", precision = 10, scale = 2)
     private BigDecimal purchaseDiscount;
 
-    @Column(name = "sell_price", precision = 10, scale = 2)
+    @Column(name = "net_purchase_price", precision = 10, scale = 2)
+    private BigDecimal netPurchasePrice;
+
+    @Column(name = "sell_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal sellPrice;
 
     @Column(name = "total_inventory_value", precision = 10, scale = 2)

@@ -33,7 +33,7 @@ public class InventoryController {
     @DeleteMapping("/delete-by-name")
     public ResponseEntity<String> deleteMedicineByName(@RequestParam String name) {
         inventoryService.deleteMedicineByName(name);
-        return ResponseEntity.ok("Medicine deleted successfully with name: " + name);
+        return ResponseEntity.ok( name+ ": Medicine deleted successfully" );
     }
 
     @PutMapping("/update-by-name")
