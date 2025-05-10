@@ -1,24 +1,17 @@
 import { Routes } from '@angular/router';
-import { AdminpanelControllerComponent } from './view-controller/adminpanel-controller/adminpanel-controller.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
+import { HomeComponent } from './home/home.component';
+import { ReceivedMedicieneComponent } from './received-mediciene/received-mediciene.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 export const routes: Routes = [
 
     {path: '', component: LoginComponent},
     {path: 'login', component: LoginComponent},
     {path: 'registration', component: RegistrationComponent},
-
-
-    {path: 'dashboard', component: AdminpanelControllerComponent,
-        children: [
-            {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-            {path: 'dashboard', component: DashboardComponent},
-
-            
-        ]
-    }
-    // {path: '', redirectTo: 'login', pathMatch: 'full'},
+    {path: 'home', component: HomeComponent},
+    {path: 'receive-med', component: ReceivedMedicieneComponent},    
+    {path: 'inventory', component: InventoryComponent},    
     
 ];

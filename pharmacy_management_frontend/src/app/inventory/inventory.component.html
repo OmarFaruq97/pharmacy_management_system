@@ -1,0 +1,34 @@
+<p>inventory works!</p>
+<h3>Inventory</h3>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Name</th>
+      <th>Strength</th>
+      <th>Category</th>
+      <th>Qty</th>
+      <th>Unit Price</th>
+      <th>Sell Price</th>
+      <th>Net Purchase</th>
+      <th>Total</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let med of medicines">
+      <td>{{ med.companyName }}</td>
+      <td>{{ med.itemName }}</td>
+      <td>{{ med.strength }}</td>
+      <td>{{ med.category }}</td>
+      <td>{{ med.quantity }}</td>
+      <td>{{ med.unitPrice }}</td>
+      <td>{{ med.sellPrice }}</td>
+      <td>{{ med.netPurchasePrice }}</td>
+      <td>{{ med.totalInventoryValue }}</td>
+      <td>
+        <button (click)="deleteMedicine(med.itemName)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

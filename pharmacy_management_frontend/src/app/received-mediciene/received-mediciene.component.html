@@ -1,0 +1,48 @@
+<p>received-mediciene works!</p>
+<h3>Add Medicine</h3>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <table>
+    <tr>
+        <td>Company:</td>
+        <td><input type="text" name="companyName" [(ngModel)]="medicine.companyName" required></td>
+    </tr>
+    <tr>
+        <td>Item Name:</td>
+        <td><input type="text" name="itemName" [(ngModel)]="medicine.itemName" required></td>
+    </tr>
+    <tr>
+        <td>Strength:</td>
+        <td><input type="text" name="strength" [(ngModel)]="medicine.strength"></td>
+    </tr>
+    <tr>
+        <td>Category:</td>
+        <td>
+          <select name="category" [(ngModel)]="medicine.category" required>
+            <option value="">-- Select Category --</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Capsule">Capsule</option>
+            <option value="Syrup">Syrup</option>
+            <option value="Injection">Injection</option>
+            <option value="Suppository">Suppository</option>
+            <option value="Other">Other</option>
+          </select>
+        </td>
+      </tr>
+      
+    <tr>
+        <td>Quantity:</td>
+        <td><input type="number" name="quantity" [(ngModel)]="medicine.quantity" required></td>
+    </tr>
+    <tr>
+        <td>Unit Price:</td>
+        <td><input type="number" name="unitPrice" [(ngModel)]="medicine.unitPrice" required></td>
+    </tr>
+    <tr>
+        <td>Purchase Discount:</td><td><input type="number" name="purchaseDiscount" [(ngModel)]="medicine.purchaseDiscount"></td></tr>
+    <tr>
+        <td>Sell Price:</td>
+        <td><input type="number" name="sellPrice" [(ngModel)]="medicine.sellPrice" required></td></tr>
+  </table>
+  <button type="submit">Save</button>
+</form>
+
