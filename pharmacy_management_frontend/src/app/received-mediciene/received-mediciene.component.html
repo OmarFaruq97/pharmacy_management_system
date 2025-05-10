@@ -4,15 +4,21 @@
   <table>
     <tr>
         <td>Company:</td>
-        <td><input type="text" name="companyName" [(ngModel)]="medicine.companyName" required></td>
+        <td>
+            <input type="text" name="companyName" [(ngModel)]="medicine.companyName" required>
+        </td>
     </tr>
     <tr>
         <td>Item Name:</td>
-        <td><input type="text" name="itemName" [(ngModel)]="medicine.itemName" required></td>
+        <td>
+            <input type="text" name="itemName" [(ngModel)]="medicine.itemName" required>
+        </td>
     </tr>
     <tr>
         <td>Strength:</td>
-        <td><input type="text" name="strength" [(ngModel)]="medicine.strength"></td>
+        <td
+        ><input type="text" name="strength" [(ngModel)]="medicine.strength">
+    </td>
     </tr>
     <tr>
         <td>Category:</td>
@@ -31,18 +37,27 @@
       
     <tr>
         <td>Quantity:</td>
-        <td><input type="number" name="quantity" [(ngModel)]="medicine.quantity" required></td>
+        <td>
+            <input type="number" name="quantity" [(ngModel)]="medicine.quantity" required>
+        </td>
     </tr>
     <tr>
         <td>Unit Price:</td>
-        <td><input type="number" name="unitPrice" [(ngModel)]="medicine.unitPrice" required></td>
+        <td>
+            <input type="number" name="unitPrice" [(ngModel)]="medicine.unitPrice" required>
+        </td>
     </tr>
     <tr>
-        <td>Purchase Discount:</td><td><input type="number" name="purchaseDiscount" [(ngModel)]="medicine.purchaseDiscount"></td></tr>
+        <td>Purchase Discount:</td>
+        <td>
+            <input type="number" name="purchaseDiscount" [(ngModel)]="medicine.purchaseDiscount">
+        </td>
+    </tr>
     <tr>
         <td>Sell Price:</td>
-        <td><input type="number" name="sellPrice" [(ngModel)]="medicine.sellPrice" required></td></tr>
+        <td>
+            <input type="number" name="sellPrice" [(ngModel)]="medicine.sellPrice" required></td>
+        </tr>
   </table>
   <button type="submit">Save</button>
 </form>
-

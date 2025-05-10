@@ -7,7 +7,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 
 export const routes: Routes = [
 
-    {path: '', component: LoginComponent},
+    {path: '', component: HomeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'registration', component: RegistrationComponent},
     {path: 'home', component: HomeComponent},

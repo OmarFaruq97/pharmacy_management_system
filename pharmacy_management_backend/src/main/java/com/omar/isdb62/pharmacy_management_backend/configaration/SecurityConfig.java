@@ -48,6 +48,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/inventory/**").permitAll()
+
                         // Anyone can access login/register
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // Only ADMIN can access admin routes
                         .anyRequest().authenticated() // All other routes require authentication

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../core/inventory.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-inventory',
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.css'
 })

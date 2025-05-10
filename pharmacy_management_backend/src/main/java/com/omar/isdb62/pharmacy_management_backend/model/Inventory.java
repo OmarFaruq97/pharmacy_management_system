@@ -26,6 +26,7 @@ public class Inventory {
 
     private String strength;
 
+    @Column(nullable = false)
     private String category;
 
     @Column(nullable = false)
