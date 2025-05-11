@@ -25,8 +25,7 @@ export class ReceivedMedicieneComponent {
   constructor(private inventoryService: InventoryService) {}
 
   onSubmit(form: NgForm) {
-    this.medicine.netPurchasePrice = this.medicine.unitPrice - this.medicine.purchaseDiscount;
-    
+    this.medicine.netPurchasePrice = this.medicine.unitPrice - this.medicine.purchaseDiscount;    
 
     this.inventoryService.addMedicine(this.medicine).subscribe({
       next: (res) => {
