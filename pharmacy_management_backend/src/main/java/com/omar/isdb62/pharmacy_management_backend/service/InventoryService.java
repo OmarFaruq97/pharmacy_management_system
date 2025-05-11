@@ -27,15 +27,15 @@ public class InventoryService {
         return inventoryRepository.findAllByItemNameContainingIgnoreCase(name);
     }
 
-    public void deleteMedicineByName(String name) {
-        Inventory inventory = inventoryRepository.findByItemName(name)
-                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name));
+    public void deleteMedicineByNameAndStrength(String name, String strength) {
+        Inventory inventory = inventoryRepository.findByItemNameAndStrength(name, strength)
+                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength+"mg or ml"));
         inventoryRepository.delete(inventory);
     }
 
-    public Inventory updateMedicineByName(String name, Inventory updatedInventory) {
-        Inventory inventory = inventoryRepository.findByItemName(name)
-                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name));
+    public Inventory updateMedicineByNameAndStrength(String name,String strength, Inventory updatedInventory) {
+        Inventory inventory = inventoryRepository.findByItemNameAndStrength(name, strength)
+                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength+"mg or ml"));
 
         inventory.setUnitPrice(updatedInventory.getUnitPrice());
         inventory.setPurchaseDiscount(updatedInventory.getPurchaseDiscount());

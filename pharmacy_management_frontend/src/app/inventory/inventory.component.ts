@@ -26,9 +26,9 @@ export class InventoryComponent implements OnInit{
     });
   }
 
-  deleteMedicine(name: string) {
-    if (confirm(`Delete ${name}?`)) {
-      this.inventoryService.deleteMedicineByName(name).subscribe(() => {
+  deleteMedicine(name: string , strength: string) {
+    if (confirm(`Delete ${name} ${strength}?`)) {
+      this.inventoryService.deleteMedicineByNameAndStrength(name, strength).subscribe(() => {
         this.loadInventory();
       });
     }

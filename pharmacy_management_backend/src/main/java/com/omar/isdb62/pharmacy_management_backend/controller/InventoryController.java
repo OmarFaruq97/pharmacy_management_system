@@ -30,15 +30,16 @@ public class InventoryController {
         return inventoryService.saveMedicine(inventory);
     }
 
-    @DeleteMapping("/delete-by-name")
-    public ResponseEntity<String> deleteMedicineByName(@RequestParam String name) {
-        inventoryService.deleteMedicineByName(name);
-        return ResponseEntity.ok( name+ ": Medicine deleted successfully" );
+    @DeleteMapping("/delete-by-name-and-strength")
+    public ResponseEntity<String> deleteByNameAndStrength(@RequestParam String name,
+                                                          @RequestParam String strength) {
+        inventoryService.deleteMedicineByNameAndStrength(name, strength);
+        return ResponseEntity.ok( name+ strength +"mg or ml" + ": Medicine deleted successfully" );
     }
 
-    @PutMapping("/update-by-name")
-    public ResponseEntity<Inventory> updateMedicine(@RequestParam String name, @RequestBody Inventory updatedInventory) {
-        Inventory updated = inventoryService.updateMedicineByName(name, updatedInventory);
+    @PutMapping("/update-by-name-and-strength")
+    public ResponseEntity<Inventory> updateMedicineByNameAndStrength(@RequestParam String name,@RequestParam String strength, @RequestBody Inventory updatedInventory) {
+        Inventory updated = inventoryService.updateMedicineByNameAndStrength(name, strength,  updatedInventory);
         return ResponseEntity.ok(updated);
     }
 }

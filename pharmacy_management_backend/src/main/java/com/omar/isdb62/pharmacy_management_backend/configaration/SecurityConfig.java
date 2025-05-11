@@ -49,11 +49,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/api/inventory/**").permitAll()
-
-                        // Anyone can access login/register
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Only ADMIN can access admin routes
-                        .anyRequest().authenticated() // All other routes require authentication
+                        .anyRequest().authenticated()
                 )
+
 
                 // Add our custom JWT filter before Spring's username/password filter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
