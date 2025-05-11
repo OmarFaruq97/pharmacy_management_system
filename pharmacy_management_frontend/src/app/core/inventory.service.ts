@@ -21,10 +21,11 @@ export class InventoryService {
   }
 
   deleteMedicineByNameAndStrength(name: string, strength: string): Observable<any> {
-    return this.http.delete(`${this.api}
-      /delete-by-name-and-strength
-      ?name=${name}&strength=${strength}`);
-  }
+  const cleanName = name.trim();
+  const cleanStrength = strength.trim();
+  return this.http.delete(`${this.api}/delete-by-name-and-strength?name=${cleanName}&strength=${cleanStrength}`);
+}
+
 
   updateByNameAndStrength(name: string, strength: string, updatedData: any): Observable<any> {
     return this.http.put(`${this.api}
