@@ -21,6 +21,12 @@
     </td>
     </tr>
     <tr>
+        <td>Generic:</td>
+        <td
+        ><input type="text" name="generic" [(ngModel)]="medicine.generic">
+    </td>
+    </tr>
+    <tr>
         <td>Category:</td>
         <td>
           <select name="category" [(ngModel)]="medicine.category" required>
@@ -42,7 +48,7 @@
         </td>
     </tr>
     <tr>
-        <td>Unit Price:</td>
+        <td>Purchase_Unit Price:</td>
         <td>
             <input type="number" name="unitPrice" [(ngModel)]="medicine.unitPrice" required>
         </td>

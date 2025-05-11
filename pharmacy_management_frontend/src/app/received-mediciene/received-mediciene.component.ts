@@ -13,20 +13,20 @@ export class ReceivedMedicieneComponent {
     companyName: '',
     itemName: '',
     strength: '',
+    generic:'',
     category: '',
     quantity: 0,
     unitPrice: 0,
     purchaseDiscount: 0,
     netPurchasePrice: 0,
-    sellPrice: 0,
-    totalInventoryValue: 0
+    sellPrice: 0
   };
 
   constructor(private inventoryService: InventoryService) {}
 
   onSubmit(form: NgForm) {
     this.medicine.netPurchasePrice = this.medicine.unitPrice - this.medicine.purchaseDiscount;
-    this.medicine.totalInventoryValue = this.medicine.quantity * this.medicine.netPurchasePrice;
+    
 
     this.inventoryService.addMedicine(this.medicine).subscribe({
       next: (res) => {
