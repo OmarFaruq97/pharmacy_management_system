@@ -24,10 +24,10 @@ export class InventoryService {
     const trimmedName = name.trim();
     const trimmedStrength = strength.trim();
     return this.http.delete(`${this.api}/delete-by-name-and-strength?name=${encodeURIComponent(trimmedName)}&strength=${encodeURIComponent(trimmedStrength)}`);
-  }
+  }  
 
   updateByNameAndStrength(name: string, strength: string, updatedData: any): Observable<any> {
-    return this.http.put(`${this.api}/update-by-name-and-strength
-      ?itemName=${name}&strength=${strength}`, updatedData);
+    return this.http.put(`${this.api}/update-by-name-and-strength?name=${name}&strength=${strength}`, updatedData);
   }
+  
 }

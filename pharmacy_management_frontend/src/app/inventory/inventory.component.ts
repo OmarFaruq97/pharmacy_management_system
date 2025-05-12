@@ -9,9 +9,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.css'
 })
+
 export class InventoryComponent implements OnInit{
 
+openUpdateModal(_t21: any) {
+throw new Error('Method not implemented.');
+}
+
   medicines: any[] = [];
+  selectedMedicine: any = null;
+  categoryOptions: string[] = ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Suppository', 'Other'];
+  showModal: any;
+  categories: any;
 
   constructor(private inventoryService: InventoryService) {}
 
@@ -37,6 +46,25 @@ export class InventoryComponent implements OnInit{
       });
     }
   }
-  
 
+  editMedicine(med: any) {
+    this.selectedMedicine = { ...med }; // clone to avoid direct mutation
+  }
+
+  closeModal() {
+    this.selectedMedicine = null;
+  }
+
+  updateMedicine() {
+    const { itemName, strength } = this.selectedMedicine;
+    this.inventoryService
+      .updateByNameAndStrength(itemName, strength, this.selectedMedicine)
+      .subscribe({
+        next: () => {
+          this.loadInventory();
+          this.closeModal();
+        },
+        error: (err) => console.error('Update failed:', err)
+      });
+    }
 }
