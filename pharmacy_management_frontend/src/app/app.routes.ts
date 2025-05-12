@@ -12,6 +12,5 @@ export const routes: Routes = [
     {path: 'registration', component: RegistrationComponent},
     {path: 'home', component: HomeComponent},
     {path: 'receive-med', component: ReceivedMedicieneComponent},    
-    {path: 'inventory', component: InventoryComponent},    
-    
+    {path: 'inventory', component: InventoryComponent},
 ];

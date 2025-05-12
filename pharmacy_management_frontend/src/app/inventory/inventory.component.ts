@@ -26,12 +26,17 @@ export class InventoryComponent implements OnInit{
     });
   }
 
-  deleteMedicine(name: string , strength: string) {
-    if (confirm(`Delete ${name} ${strength}?`)) {
-      this.inventoryService.deleteMedicineByNameAndStrength(name, strength).subscribe(() => {
-        this.loadInventory();
+  deleteMedicine(name: string, strength: string) {
+    const trimmedName = name.trim();
+    const trimmedStrength = strength.trim();
+  
+    if (confirm(`Delete ${trimmedName} ${trimmedStrength}?`)) {
+      this.inventoryService.deleteMedicineByNameAndStrength(trimmedName, trimmedStrength).subscribe({
+        next: () => this.loadInventory(),
+        error: (err) => console.error('Delete failed:', err)
       });
     }
   }
+  
 
 }

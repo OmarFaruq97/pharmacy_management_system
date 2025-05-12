@@ -29,13 +29,13 @@ public class InventoryService {
 
     public void deleteMedicineByNameAndStrength(String name, String strength) {
         Inventory inventory = inventoryRepository.findByItemNameAndStrength(name, strength)
-                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength+"mg or ml"));
+                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength));
         inventoryRepository.delete(inventory);
     }
 
     public Inventory updateMedicineByNameAndStrength(String name,String strength, Inventory updatedInventory) {
         Inventory inventory = inventoryRepository.findByItemNameAndStrength(name, strength)
-                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength+"mg or ml"));
+                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength));
 
         inventory.setUnitPrice(updatedInventory.getUnitPrice());
         inventory.setPurchaseDiscount(updatedInventory.getPurchaseDiscount());
