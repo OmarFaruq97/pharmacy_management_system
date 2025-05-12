@@ -5,16 +5,14 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-inventory',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.css'
 })
 
 export class InventoryComponent implements OnInit{
 
-openUpdateModal(_t21: any) {
-throw new Error('Method not implemented.');
-}
+
 
   medicines: any[] = [];
   selectedMedicine: any = null;

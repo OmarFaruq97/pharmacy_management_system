@@ -33,40 +33,33 @@
       
       <td>
         <button (click)="deleteMedicine(med.itemName, med.strength)">Delete</button>
-        <button (click)="openUpdateModal(med)">Update</button>        
+        <button (click)="editMedicine(med)">Update</button>   
       </td>
     </tr>
   </tbody>
 </table>
 
 <!-- Modal -->
-<div *ngIf="showModal" class="modal">
+<div class="modal" *ngIf="selectedMedicine">
   <div class="modal-content">
-    <h3>Update Medicine</h3>
-    <form (ngSubmit)="updateMedicine()">
-      <label>Item Name:</label>
-      <input type="text" [value]="selectedMedicine.itemName" disabled /><br />
+    <h3>Edit Medicine</h3>
 
-      <label>Strength:</label>
-      <input type="text" [value]="selectedMedicine.strength" disabled /><br />
+    <label>Category:</label>
+    <select [(ngModel)]="selectedMedicine.category">
+      <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
+    </select>
 
-      <label>Category:</label>
-      <select [(ngModel)]="selectedMedicine.category" name="category" required>
-        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
-      </select><br />
+    <label>Unit Price:</label>
+    <input [(ngModel)]="selectedMedicine.unitPrice" type="number" />
 
-      <label>Unit Price:</label>
-      <input type="number" [(ngModel)]="selectedMedicine.unitPrice" name="unitPrice" /><br />
+    <label>Purchase Discount:</label>
+    <input [(ngModel)]="selectedMedicine.purchaseDiscount" type="number" />
 
-      <label>Purchase Discount:</label>
-      <input type="number" [(ngModel)]="selectedMedicine.purchaseDiscount" name="purchaseDiscount" /><br />
+    <label>Sell Price:</label>
+    <input [(ngModel)]="selectedMedicine.sellPrice" type="number" />
 
-      <label>Sell Price:</label>
-      <input type="number" [(ngModel)]="selectedMedicine.sellPrice" name="sellPrice" /><br />
-
-      <button type="submit">Update</button>
-      <button type="button" (click)="closeModal()">Cancel</button>
-    </form>
+    <br />
+    <button (click)="updateMedicine()">Update</button>
+    <button (click)="closeModal()">Cancel</button>
   </div>
 </div>
-
