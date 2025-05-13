@@ -23,11 +23,11 @@
       <td>{{ med.companyName }}</td>
       <td>{{ med.itemName }}</td>
       <td>{{ med.strength }}</td>
-      <td>{{med.generic}}</td>
+      <td>{{ med.generic}}</td>
       <td>{{ med.category }}</td>
       <td>{{ med.quantity }}</td>
       <td>{{ med.unitPrice }}</td>
-      <td>{{med.purchaseDiscount}}</td>
+      <td>{{ med.purchaseDiscount}}</td>
       <td>{{ med.netPurchasePrice }}</td>
       <td>{{ med.sellPrice }}</td>
       
@@ -42,7 +42,7 @@
 <!-- Modal -->
 <div class="modal" *ngIf="selectedMedicine">
   <div class="modal-content">
-    <h3>Edit Medicine</h3>
+    <h5>Edit Medicine: {{ selectedMedicine?.itemName }} </h5>
 
     <label>Category:</label>
     <select [(ngModel)]="selectedMedicine.category">

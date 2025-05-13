@@ -4,6 +4,9 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { HomeComponent } from './home/home.component';
 import { ReceivedMedicieneComponent } from './received-mediciene/received-mediciene.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { SalesHistoryComponent } from './sales-history/sales-history.component';
+import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 
 export const routes: Routes = [
 
@@ -13,4 +16,7 @@ export const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'receive-med', component: ReceivedMedicieneComponent},    
     {path: 'inventory', component: InventoryComponent},
+    {path: 'invoice', component: InvoiceComponent},
+    {path: 'sales-history', component: SalesHistoryComponent},
+    {path: 'employee', component: EmployeeManagementComponent},
 ];

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class InventoryComponent implements OnInit{
+[x: string]: any;
 
 
 
@@ -19,7 +20,7 @@ export class InventoryComponent implements OnInit{
   categoryOptions: string[] = ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Suppository', 'Other'];
   showModal: any;
   categories: any;
-
+  
   constructor(private inventoryService: InventoryService) {}
 
   ngOnInit() {
