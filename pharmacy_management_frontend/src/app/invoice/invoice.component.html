@@ -1,6 +1,7 @@
 <a href="inventory" class="btn btn-primary">Inventory</a>
 <a href="home" class="btn btn-primary">Home</a>
 <a href="receive-med" class="btn btn-primary">Receive Medicine</a>
+<a href="invoice-history">Invoice-History</a>
 
 <div class="invoice-form">
   <!-- Remove ngForm and use [formGroup] instead -->  
@@ -50,8 +51,9 @@
     <input formControlName="amount" readonly><br>
 
     <label>Discount Amount:</label>
+    <!-- here have to implement readonly insteade manual discount -->
     <input formControlName="discountAmount" readonly><br>
-
+    
     <label>Net Payable:</label>
     <input formControlName="netPayable" readonly><br>
 
