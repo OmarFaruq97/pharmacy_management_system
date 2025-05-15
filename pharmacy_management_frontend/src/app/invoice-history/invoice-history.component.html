@@ -1,3 +1,88 @@
-<p>invoice-history works!</p>
-<a href="home" class="btn btn-primary">Home</a>
-<a href="invoice">Create-Invoice</a>
+<h2>Invoice History</h2>
+
+<table class="invoice-table">
+  <thead>
+    <tr>
+      <th>Invoice #</th>
+      <th>Customer</th>
+      <th>Contact</th>
+      <th>Item</th>
+      <th>Strength</th>
+      <th>Qty</th>
+      <th>Unit Price</th>
+      <th>Subtotal</th>
+      <th>Amount</th>
+      <th>Discount %</th>
+      <th>Discount Amount</th>
+      <th>Net Payable</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let inv of invoices">
+      <td>{{ inv.invoiceNumber }}</td>
+      <td>{{ inv.customerName }}</td>
+      <td>{{ inv.contactNumber }}</td>
+      <td>{{ inv.itemName }}</td>
+      <td>{{ inv.strength }}</td>
+      <td>{{ inv.quantity }}</td>
+      <td>{{ inv.unitPrice }}</td>
+      <td>{{ inv.subTotal }}</td>
+      <td>{{ inv.amount }}</td>
+      <td>{{ inv.discount }}</td>
+      <td>{{ inv.discountAmount }}</td>
+      <td>{{ inv.netPayable }}</td>
+      <td>
+        <button (click)="openEditModal(inv)">Edit</button>
+        <button (click)="deleteInvoice(inv.invoiceNumber)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Edit Modal -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>Edit Invoice: {{ selectedInvoice?.invoiceNumber }}</h3>
+    
+    <form [formGroup]="editInvoiceForm" (ngSubmit)="updateInvoice()">
+      <label>Customer Name:</label>
+      <input formControlName="customerName" /><br/>
+
+      <label>Contact Number:</label>
+      <input formControlName="contactNumber" /><br/>
+
+      <label>Item Name:</label>
+      <input formControlName="itemName" /><br/>
+
+      <label>Strength:</label>
+      <input formControlName="strength" /><br/>
+
+      <label>Quantity:</label>
+      <input formControlName="quantity" type="number" /><br/>
+
+      <label>Unit Price:</label>
+      <input formControlName="unitPrice" type="number" /><br/>
+
+      <label>Subtotal:</label>
+      <input formControlName="subTotal" type="number" /><br/>
+
+      <label>Amount:</label>
+      <input formControlName="amount" type="number" /><br/>
+
+      <label>Discount (%):</label>
+      <input formControlName="discount" type="number" /><br/>
+
+      <label>Discount Amount:</label>
+      <input formControlName="discountAmount" type="number" /><br/>
+
+      <label>Net Payable:</label>
+      <input formControlName="netPayable" type="number" /><br/>
+
+      <div class="modal-actions">
+        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -34,6 +34,7 @@ public class InvoiceHistoryService {
         InvoiceHistory invoice = invoiceHistoryRepository.findByInvoiceNumber(invoiceNumber)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with number: " + invoiceNumber));
 
+        //some lines need to be removed from here because all field not to need edit
         invoice.setCustomerName(updatedInvoice.getCustomerName());
         invoice.setContactNumber(updatedInvoice.getContactNumber());
         invoice.setItemName(updatedInvoice.getItemName());
