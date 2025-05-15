@@ -37,6 +37,7 @@ public class InventoryService {
         Inventory inventory = inventoryRepository.findByItemNameAndStrength(name, strength)
                 .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength));
 
+        inventory.setCategory(updatedInventory.getCategory());
         inventory.setUnitPrice(updatedInventory.getUnitPrice());
         inventory.setPurchaseDiscount(updatedInventory.getPurchaseDiscount());
         inventory.setSellPrice(updatedInventory.getSellPrice());
