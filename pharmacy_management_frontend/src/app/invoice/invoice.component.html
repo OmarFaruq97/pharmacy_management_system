@@ -1,1 +1,112 @@
-<p>invoice works!</p>
+<!-- <div class="invoice-form">
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+  <label>Customer Name:</label>
+  <input formControlName="customerName" required><br>
+
+  <label>Contact Number:</label>
+  <input formControlName="contactNumber"><br>
+
+  <div formArrayName="items">    
+    <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-row">  
+      <label for="itemName">Item-Name</label>    
+      <select formControlName="itemName" (change)="onItemChange(i)">
+        <option value="">--Select Item--</option>
+        <option *ngFor="let inv of inventoryItems" [value]="inv.itemName">
+          {{ inv.itemName }}
+        </option>
+      </select>
+
+      <label for="strength">Strength</label>      
+      <select formControlName="strength" (change)="onItemChange(i)">
+        <option value="">--Select strength--</option>
+        <option *ngFor="let inv of inventoryItems" [value]="inv.strength">
+          {{ inv.strength }}
+        </option>
+      </select>
+
+      <label>Price: {{ item.get('unitPrice')?.value }}</label>
+
+      <label for="quantity">Quantity</label>
+      <input formControlName="quantity" (input)="calculateRowSubTotal(i)">
+
+      
+      <label for="subTotal">Sub-Total</label>
+      <input formControlName="subTotal" readonly>
+
+      <button type="button" (click)="removeItem(i)">Remove</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="addItem()">Add Item</button>
+
+  <label>Discount %:</label>
+  <input formControlName="discount" (input)="calculateTotals()"><br>
+
+  <label>Amount:</label>
+  <input formControlName="amount" readonly><br>
+
+  <label>Discount Amount:</label>
+  <input formControlName="discountAmount" readonly><br>
+
+  <label>Net Payable:</label>
+  <input formControlName="netPayable" readonly><br>
+
+  <button type="submit">Submit</button>
+</form> -->
+
+<div class="invoice-form">
+  <!-- Remove ngForm and use [formGroup] instead -->
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+    <label>Customer Name:</label>
+    <input formControlName="customerName" required><br>
+
+    <label>Contact Number:</label>
+    <input formControlName="contactNumber"><br>
+
+    <div formArrayName="items">    
+      <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-row">  
+        <label for="itemName">Item-Name</label>    
+        <select formControlName="itemName" (change)="onItemChange(i)">
+          <option value="">--Select Item--</option>
+          <option *ngFor="let inv of inventoryItems" [value]="inv.itemName">
+            {{ inv.itemName }}
+          </option>
+        </select>
+
+        <label for="strength">Strength</label>      
+        <select formControlName="strength" (change)="onItemChange(i)">
+          <option value="">--Select strength--</option>
+          <option *ngFor="let inv of inventoryItems" [value]="inv.strength">
+            {{ inv.strength }}
+          </option>
+        </select>
+
+        <label>Price: {{ item.get('unitPrice')?.value }}</label>
+
+        <label for="quantity">Quantity</label>
+        <input formControlName="quantity" (input)="calculateRowSubTotal(i)">
+
+        <label for="subTotal">Sub-Total</label>
+        <input formControlName="subTotal" readonly>
+
+        <button type="button" (click)="removeItem(i)">Remove</button>
+      </div>
+    </div>
+
+    <button type="button" (click)="addItem()">Add Item</button>
+
+    <label>Discount %:</label>
+    <input formControlName="discount" (input)="calculateTotals()"><br>
+
+    <label>Amount:</label>
+    <input formControlName="amount" readonly><br>
+
+    <label>Discount Amount:</label>
+    <input formControlName="discountAmount" readonly><br>
+
+    <label>Net Payable:</label>
+    <input formControlName="netPayable" readonly><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
