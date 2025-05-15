@@ -255,7 +255,7 @@ export class InvoiceComponent implements OnInit {
     };
 
     // Send to backend service
-    this.invoiceService.createInvoices([invoiceData]).subscribe({
+    this.invoiceService.createInvoice(invoiceData).subscribe({
       next: (response) => {
         console.log('Invoice saved successfully', response);
         alert('Invoice saved successfully!');

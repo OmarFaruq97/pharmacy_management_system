@@ -10,9 +10,13 @@ export class InvoiceService {
 
   constructor(private http: HttpClient) {}
 
-  createInvoices(data: any[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}/create`, data);
+  // createInvoices(data: any[]): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/create`, data);
+  // }
+  createInvoice(data: any): Observable<any> {
+  return this.http.post(`${this.baseUrl}/create`, data);
   }
+
 
   getAllInvoices(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/all`);
