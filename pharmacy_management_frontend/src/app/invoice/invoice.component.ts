@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InventoryService } from '../core/inventory.service';
 import { CommonModule } from '@angular/common';
+import { InvoiceService } from '../core/invoice.service';
 
 @Component({
   selector: 'app-invoice',
@@ -13,8 +14,10 @@ export class InvoiceComponent implements OnInit {
   invoiceForm!: FormGroup;
   inventoryItems: any[] = [];
 
-  constructor(private fb: FormBuilder, private inventoryService: InventoryService) {}
-
+  constructor(private fb: FormBuilder
+    , private inventoryService: InventoryService
+    , private invoiceService: InvoiceService) {}
+    
   ngOnInit() {
     this.invoiceForm = this.fb.group({
       customerName: ['', Validators.required],
@@ -99,7 +102,11 @@ export class InvoiceComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.invoiceForm.value);
-    // send to backend
+  if (this.invoiceForm.valid) {
+    this.invoiceService.createInvoices([this.invoiceForm.value]).subscribe({
+      next: () => alert('Invoice saved successfully!'),
+      error: (err) => console.error('Error saving invoice:', err)
+    });
   }
+}
 }

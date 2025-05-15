@@ -1,65 +1,79 @@
-<p>inventory works!</p>
-<a href="receive-med" class="btn btn-primary">Reveive-Medicine</a>
-<h3>Inventory</h3>
-<table border="1">
-  <thead>
-    <tr>
-      <th>Company</th>
-      <th>Item-Name</th>
-      <th>Strength</th>
-      <th>Generic</th>
-      <th>Category</th>      
-      <th>Qty</th>
-      <th>Purchase Unit Price</th>
-      <th>Discount on Discount</th>
-      <th>Net Purchase</th>
-      <th>Sell Price</th>
+<div class="inventory-container">
+  <p class="inventory-header">Inventory Management</p>
+  <a href="receive-med" class="btn btn-primary">Receive Medicine</a>
+  <a href="home" class="btn btn-primary">Home</a>
+  <a href="invoice" class="btn btn-primary">Create-Invoice</a>
+  
+  <div class="table-container">
+    <h3>Inventory</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Item-Name</th>
+          <th>Strength</th>
+          <th>Generic</th>
+          <th>Category</th>      
+          <th>Qty</th>
+          <th>Purchase Price</th>
+          <th>Discount</th>
+          <th>Net Purchase</th>
+          <th>Sell Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let med of medicines">
+          <td>{{ med.companyName }}</td>
+          <td>{{ med.itemName }}</td>
+          <td>{{ med.strength }}</td>
+          <td>{{ med.generic}}</td>
+          <td>{{ med.category }}</td>
+          <td>{{ med.quantity }}</td>
+          <td>{{ med.unitPrice  }}</td>
+          <td>{{ med.purchaseDiscount }}</td>
+          <td>{{ med.netPurchasePrice  }}</td>
+          <td>{{ med.sellPrice }}</td>
+          <td class="action-cell">
+            <button (click)="deleteMedicine(med.itemName, med.strength)">Delete</button>
+            <button (click)="editMedicine(med)">Update</button>   
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" *ngIf="selectedMedicine">
+    <div class="modal-content">
+      <h5>Edit Medicine: {{ selectedMedicine?.itemName }}</h5>
       
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let med of medicines">
-      <td>{{ med.companyName }}</td>
-      <td>{{ med.itemName }}</td>
-      <td>{{ med.strength }}</td>
-      <td>{{ med.generic}}</td>
-      <td>{{ med.category }}</td>
-      <td>{{ med.quantity }}</td>
-      <td>{{ med.unitPrice }}</td>
-      <td>{{ med.purchaseDiscount}}</td>
-      <td>{{ med.netPurchasePrice }}</td>
-      <td>{{ med.sellPrice }}</td>
+      <div class="form-group">
+        <label>Category:</label>
+        <select [(ngModel)]="selectedMedicine.category">
+          <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
       
-      <td>
-        <button (click)="deleteMedicine(med.itemName, med.strength)">Delete</button>
-        <button (click)="editMedicine(med)">Update</button>   
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Modal -->
-<div class="modal" *ngIf="selectedMedicine">
-  <div class="modal-content">
-    <h5>Edit Medicine: {{ selectedMedicine?.itemName }} </h5>
-
-    <label>Category:</label>
-    <select [(ngModel)]="selectedMedicine.category">
-      <option *ngFor="let cat of categoryOptions" [value]="cat">{{ cat }}</option>
-    </select>
-
-    <label>Unit Price:</label>
-    <input [(ngModel)]="selectedMedicine.unitPrice" type="number" />
-
-    <label>Purchase Discount:</label>
-    <input [(ngModel)]="selectedMedicine.purchaseDiscount" type="number" />
-
-    <label>Sell Price:</label>
-    <input [(ngModel)]="selectedMedicine.sellPrice" type="number" />
-
-    <br />
-    <button (click)="updateMedicine()">Update</button>
-    <button (click)="closeModal()">Cancel</button>
+      <div class="form-group">
+        <label>Unit Price:</label>
+        <input [(ngModel)]="selectedMedicine.unitPrice" type="number" />
+      </div>
+      
+      <div class="form-group">
+        <label>Purchase Discount :</label>
+        <input [(ngModel)]="selectedMedicine.purchaseDiscount" type="number" />
+      </div>
+      
+      <div class="form-group">
+        <label>Sell Price:</label>
+        <input [(ngModel)]="selectedMedicine.sellPrice" type="number" />
+      </div>
+      
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeModal()">Cancel</button>
+        <button class="btn-confirm" (click)="updateMedicine()">Update</button>
+      </div>
+    </div>
   </div>
 </div>
