@@ -44,7 +44,7 @@
           <!-- Price -->
           <div class="col-12 col-sm-4 col-md-3 col-lg-2">
             <label class="form-label">Price</label>
-            <div class="form-control-plaintext">{{ item.get('unitPrice')?.value | currency }}</div>
+            <div class="form-control-plaintext">{{ item.get('unitPrice')?.value }}</div>
           </div>
 
           <!-- Quantity -->
@@ -73,16 +73,16 @@
       <div class="row justify-content-end">
         <div class="col-12 col-md-6 col-lg-4">
           <div class="mb-3">
+            <label class="form-label">Amount</label>
+            <input formControlName="amount" readonly class="form-control form-control-sm bg-light" />
+          </div>
+
+          <div class="mb-3">
             <label class="form-label">Discount %</label>
             <div class="input-group">
               <input type="number" formControlName="discount" (input)="calculateTotals()" class="form-control form-control-sm" />
               <span class="input-group-text">%</span>
             </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Amount</label>
-            <input formControlName="amount" readonly class="form-control form-control-sm bg-light" />
           </div>
 
           <div class="mb-3">
