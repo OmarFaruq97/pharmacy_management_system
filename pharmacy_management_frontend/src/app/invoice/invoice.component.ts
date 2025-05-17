@@ -125,38 +125,82 @@ export class InvoiceComponent implements OnInit {
     return this.inventoryItems.filter(item => item.itemName === itemName);
   }
 
+
+  //chatGPT nosto code
   onSubmit(): void {
-    this.invoiceForm.markAllAsTouched();
+  this.invoiceForm.markAllAsTouched();
 
-    if (this.invoiceForm.invalid) {
-      alert('Please fill in all required fields correctly.');
-      return;
-    }
-
-    if (this.isSubmitting) return;
-
-    this.isSubmitting = true;
-
-    const invoiceData = {
-      ...this.invoiceForm.value,
-      date: new Date().toISOString()
-    };
-
-    this.invoiceService.createInvoice(invoiceData).subscribe({
-      next: (response) => {
-        console.log('Invoice saved successfully', response);
-        alert('Invoice saved successfully!');
-        this.resetForm();
-      },
-      error: (error) => {
-        console.error('Error saving invoice', error);
-        alert('Error saving invoice. Please try again.');
-      },
-      complete: () => {
-        this.isSubmitting = false;
-      }
-    });
+  if (this.invoiceForm.invalid) {
+    alert('Please fill in all required fields correctly.');
+    return;
   }
+
+  if (this.isSubmitting) return;
+  this.isSubmitting = true;
+
+  const form = this.invoiceForm.value;
+  const invoiceList = form.items.map((item: any) => ({
+    customerName: form.customerName,
+    contactNumber: form.contactNumber,
+    itemName: item.itemName,
+    strength: item.strength,
+    quantity: item.quantity,
+    unitPrice: item.unitPrice,
+    subTotal: item.subTotal,
+    amount: form.amount,
+    discount: form.discount,
+    discountAmount: form.discountAmount,
+    netPayable: form.netPayable
+  }));
+
+  this.invoiceService.createInvoice(invoiceList).subscribe({
+    next: (res) => {
+      alert('Invoice(s) saved successfully!');
+      this.resetForm();
+    },
+    error: (err) => {
+      console.error('Error saving invoice', err);
+      alert('Error saving invoice.');
+    },
+    complete: () => {
+      this.isSubmitting = false;
+    }
+  });
+}
+
+
+  // onSubmit(): void {
+  //   this.invoiceForm.markAllAsTouched();
+
+  //   if (this.invoiceForm.invalid) {
+  //     alert('Please fill in all required fields correctly.');
+  //     return;
+  //   }
+
+  //   if (this.isSubmitting) return;
+
+  //   this.isSubmitting = true;
+
+  //   const invoiceData = {
+  //     ...this.invoiceForm.value,
+  //     date: new Date().toISOString()
+  //   };
+
+  //   this.invoiceService.createInvoice(invoiceData).subscribe({
+  //     next: (response) => {
+  //       console.log('Invoice saved successfully', response);
+  //       alert('Invoice saved successfully!');
+  //       this.resetForm();
+  //     },
+  //     error: (error) => {
+  //       console.error('Error saving invoice', error);
+  //       alert('Error saving invoice. Please try again.');
+  //     },
+  //     complete: () => {
+  //       this.isSubmitting = false;
+  //     }
+  //   });
+  // }
 
   private resetForm(): void {
     this.invoiceForm.reset({

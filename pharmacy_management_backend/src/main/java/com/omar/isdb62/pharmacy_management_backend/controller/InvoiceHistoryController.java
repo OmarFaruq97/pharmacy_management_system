@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,11 +31,23 @@ public class InvoiceHistoryController {
 
 
     // POST create new invoice (auto-generates invoice number)
+//   @PostMapping("/create")
+//    public ResponseEntity<InvoiceHistory> createInvoice(@RequestBody InvoiceHistory invoice) {
+//        InvoiceHistory created = invoiceHistoryService.createInvoice(invoice);
+//        return ResponseEntity.ok(created);
+//    }
+
+    //ChatGPT NOSTO code if not work above code then apply this code riha
     @PostMapping("/create")
-    public ResponseEntity<InvoiceHistory> createInvoice(@RequestBody InvoiceHistory invoice) {
-        InvoiceHistory created = invoiceHistoryService.createInvoice(invoice);
-        return ResponseEntity.ok(created);
+    public ResponseEntity<List<InvoiceHistory>> createInvoice(@RequestBody List<InvoiceHistory> invoices) {
+        List<InvoiceHistory> savedInvoices = new ArrayList<>();
+        for (InvoiceHistory invoice : invoices) {
+            invoice.setInvoiceNumber(invoiceHistoryService.generateInvoiceNumber());
+            savedInvoices.add(invoiceHistoryService.createInvoice(invoice));
+        }
+        return ResponseEntity.ok(savedInvoices);
     }
+
 
     // PUT (Update) by invoiceNumber
     @PutMapping("/update/{invoiceNumber}")
