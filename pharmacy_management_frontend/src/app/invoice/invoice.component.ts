@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { InventoryService } from '../core/inventory.service';
-import { CommonModule } from '@angular/common';
 import { InvoiceService } from '../core/invoice.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-invoice',
+  standalone: true,
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.css'],
   imports: [FormsModule, CommonModule, ReactiveFormsModule]
@@ -13,7 +21,7 @@ import { InvoiceService } from '../core/invoice.service';
 export class InvoiceComponent implements OnInit {
   invoiceForm!: FormGroup;
   inventoryItems: any[] = [];
-  isSubmitting = false; // Added loading state to prevent duplicate submissions
+  isSubmitting = false;
 
   constructor(
     private fb: FormBuilder,
@@ -21,18 +29,17 @@ export class InvoiceComponent implements OnInit {
     private invoiceService: InvoiceService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeForm();
     this.loadInventoryItems();
     this.addItem(); // Start with one empty item
   }
 
-  // Initialize the form with proper structure
   private initializeForm(): void {
     this.invoiceForm = this.fb.group({
-      customerName: [''], // Made non-required as requested
+      customerName: [''],
       contactNumber: [''],
-      items: this.fb.array([]), // Will contain invoice items
+      items: this.fb.array([]),
       discount: [0],
       amount: [0],
       discountAmount: [0],
@@ -40,56 +47,52 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  // Load inventory items from service
   private loadInventoryItems(): void {
     this.inventoryService.getAllMedicine().subscribe(data => {
       this.inventoryItems = data;
     });
   }
 
-  // Getter for items FormArray for cleaner template access
   get items(): FormArray {
     return this.invoiceForm.get('items') as FormArray;
   }
 
-  // Add a new empty item to the invoice
   addItem(): void {
     const item = this.fb.group({
-      itemName: ['', Validators.required], // Made required for valid items
-      strength: ['', Validators.required], // Made required for valid items
-      quantity: [1, [Validators.required, Validators.min(1)]], // Must be at least 1
-      unitPrice: [0, [Validators.required, Validators.min(0)]], // Must be >= 0
+      itemName: ['', Validators.required],
+      strength: ['', Validators.required],
+      quantity: [1, [Validators.required, Validators.min(1)]],
+      unitPrice: [0],
       subTotal: [0]
     });
     this.items.push(item);
   }
 
-  // Remove item at specified index
   removeItem(index: number): void {
     this.items.removeAt(index);
-    this.calculateTotals(); // Recalculate totals after removal
+    this.calculateTotals();
   }
 
-  // When item selection changes, update the price
   onItemChange(index: number): void {
     const itemForm = this.items.at(index);
-    const selectedName = itemForm.get('itemName')?.value;
-    const selectedStrength = itemForm.get('strength')?.value;
+    const itemName = itemForm.get('itemName')?.value;
+    const strength = itemForm.get('strength')?.value;
 
-    // Find matching inventory item
-    const matchedInventory = this.inventoryItems.find(
-      item => item.itemName === selectedName && item.strength === selectedStrength
+    if (!itemName || !strength) return;
+
+    const matched = this.inventoryItems.find(
+      item => item.itemName === itemName && item.strength === strength
     );
 
-    if (matchedInventory) {
-      itemForm.patchValue({
-        unitPrice: matchedInventory.sellPrice
-      });
-      this.calculateRowSubTotal(index); // Recalculate row total
+    if (matched) {
+      itemForm.patchValue({ unitPrice: matched.sellPrice }, { emitEvent: false });
+      this.calculateRowSubTotal(index);
+    } else {
+      itemForm.patchValue({ unitPrice: 0, subTotal: 0 }, { emitEvent: false });
+      this.calculateTotals();
     }
   }
 
-  // Calculate subtotal for a specific row
   calculateRowSubTotal(index: number): void {
     const item = this.items.at(index);
     const quantity = item.get('quantity')?.value || 0;
@@ -97,10 +100,9 @@ export class InvoiceComponent implements OnInit {
     const subTotal = quantity * price;
 
     item.get('subTotal')?.setValue(subTotal, { emitEvent: false });
-    this.calculateTotals(); // Update overall totals
+    this.calculateTotals();
   }
 
-  // Calculate all totals (amount, discount, net payable)
   calculateTotals(): void {
     let amount = 0;
     this.items.controls.forEach(item => {
@@ -118,31 +120,28 @@ export class InvoiceComponent implements OnInit {
     });
   }
 
-  // Handle form submission
+  getStrengthOptions(index: number): any[] {
+    const itemName = this.items.at(index)?.get('itemName')?.value;
+    return this.inventoryItems.filter(item => item.itemName === itemName);
+  }
+
   onSubmit(): void {
-    // Mark all fields as touched to show validation errors
     this.invoiceForm.markAllAsTouched();
 
-    // Check if form is valid and not already submitting
     if (this.invoiceForm.invalid) {
       alert('Please fill in all required fields correctly.');
       return;
     }
 
-    if (this.isSubmitting) {
-      return; // Prevent duplicate submissions
-    }
+    if (this.isSubmitting) return;
 
     this.isSubmitting = true;
 
-    // Prepare the invoice data
     const invoiceData = {
       ...this.invoiceForm.value,
-      // Add any additional fields needed by your backend
-      date: new Date().toISOString() // Example: add current date
+      date: new Date().toISOString()
     };
 
-    // Send to backend service
     this.invoiceService.createInvoice(invoiceData).subscribe({
       next: (response) => {
         console.log('Invoice saved successfully', response);
@@ -154,12 +153,11 @@ export class InvoiceComponent implements OnInit {
         alert('Error saving invoice. Please try again.');
       },
       complete: () => {
-        this.isSubmitting = false; // Reset loading state
+        this.isSubmitting = false;
       }
     });
   }
 
-  // Reset the form to initial state
   private resetForm(): void {
     this.invoiceForm.reset({
       discount: 0,
@@ -168,6 +166,6 @@ export class InvoiceComponent implements OnInit {
       netPayable: 0
     });
     this.items.clear();
-    this.addItem(); // Start with fresh empty item
+    this.addItem();
   }
 }
