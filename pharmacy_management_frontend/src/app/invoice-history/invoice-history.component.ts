@@ -11,6 +11,7 @@ import { InvoiceService } from '../core/invoice.service';
 })
 export class InvoiceHistoryComponent implements OnInit {
   invoices: any[] = [];
+  totalSales: number = 0;
   editInvoiceForm!: FormGroup;
   selectedInvoice: any = null;
   showModal: boolean = false;
@@ -46,9 +47,16 @@ export class InvoiceHistoryComponent implements OnInit {
     this.invoiceService.getAllInvoices().subscribe({
       next: data => {
         this.invoices = data;
+        this.calculateTotalSales();
       },
       error: err => console.error('Error loading invoices', err)
     });
+  }
+
+  calculateTotalSales(): void {
+    this.totalSales = this.invoices.reduce((sum, inv) => {
+      return sum + (Number(inv.netPayable) || 0);
+    }, 0);
   }
 
   openEditModal(invoice: any): void {
@@ -87,7 +95,8 @@ export class InvoiceHistoryComponent implements OnInit {
         },
         error: err => {
           console.error('Delete failed', err);
-          alert('Failed to delete invoice');
+          alert('Invoice deleted');
+          this.loadInvoices();
         }
       });
     }

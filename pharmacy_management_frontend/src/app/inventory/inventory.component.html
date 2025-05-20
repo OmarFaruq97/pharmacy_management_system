@@ -1,10 +1,4 @@
 <div class="inventory-container">
-  <p class="inventory-header">Inventory Management</p>
-  <a href="receive-med" class="btn btn-primary">Receive Medicine</a>
-  <a href="home" class="btn btn-primary">Home</a>
-  <a href="invoice" class="btn btn-primary">Create-Invoice</a>
-  <a href="invoice-history" class="btn btn-primary">Invoice-History</a>
-  
   <div class="table-container">
     <h3>Inventory</h3>
     <table>
@@ -33,7 +27,7 @@
           <td>{{ med.quantity }}</td>
           <td>{{ med.unitPrice  }}</td>
           <td>{{ med.purchaseDiscount }}</td>
-          <td>{{ med.netPurchasePrice  }}</td>
+          <td>{{ med.netPurchasePrice }}</td>
           <td>{{ med.sellPrice }}</td>
           <td class="action-cell">
             <button (click)="deleteMedicine(med.itemName, med.strength)">Delete</button>

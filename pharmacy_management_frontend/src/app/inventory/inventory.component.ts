@@ -41,8 +41,9 @@ export class InventoryComponent implements OnInit{
     if (confirm(`Delete ${trimmedName} ${trimmedStrength}?`)) {
       this.inventoryService.deleteMedicineByNameAndStrength(trimmedName, trimmedStrength).subscribe({
         next: () => this.loadInventory(),
-        error: (err) => console.error('Delete failed:', err)
+        error: (err) => console.error('Delete failed:', err)             
       });
+      
     }
   }
 
