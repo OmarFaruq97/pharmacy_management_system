@@ -20,6 +20,7 @@ export class InventoryComponent implements OnInit{
   categoryOptions: string[] = ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Suppository', 'Other'];
   showModal: any;
   categories: any;
+  totalInventoryValue: number = 0;
   
   constructor(private inventoryService: InventoryService) {}
 
@@ -29,10 +30,22 @@ export class InventoryComponent implements OnInit{
 
   loadInventory() {
     this.inventoryService.getAllMedicine().subscribe({
-      next: (data) => (this.medicines = data),
+      next: (data) => {
+        this.medicines = data;
+        this.calculateTotalInventoryValue();
+      },       
+            
       error: (err) => console.error(err)
     });
   }
+
+  calculateTotalInventoryValue(): void {
+  this.totalInventoryValue = this.medicines.reduce((total, med) => {
+    const netPrice = Number(med.netPurchasePrice) || 0;
+    const quantity = Number(med.quantity) || 0;
+    return total + (netPrice * quantity);
+  }, 0);
+}
 
   deleteMedicine(name: string, strength: string) {
     const trimmedName = name.trim();
