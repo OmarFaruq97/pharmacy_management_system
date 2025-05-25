@@ -61,7 +61,7 @@ export class InvoiceHistoryComponent implements OnInit {
 
   openEditModal(invoice: any): void {
     this.selectedInvoice = invoice;
-    this.editInvoiceForm.patchValue(invoice); // Populate form with invoice values
+    this.editInvoiceForm.patchValue(invoice); 
     this.showModal = true;
   }
 
@@ -100,5 +100,19 @@ export class InvoiceHistoryComponent implements OnInit {
         }
       });
     }
+  }
+  
+  downloadInvoiceReport(): void {
+    this.invoiceService.downloadInvoiceHistoryReport().then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'invoice-history.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }).catch(error => {
+      console.error('Error downloading invoice report:', error);
+      alert('Failed to download invoice report.');
+    });
   }
 }

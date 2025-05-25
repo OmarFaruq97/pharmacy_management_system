@@ -30,7 +30,7 @@ public class SecurityConfig {
     // Custom JWT filter that checks the token in each request
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig (JwtAuthenticationFilter jwtAuthenticationFilter){
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
@@ -49,6 +49,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/api/inventory/**").permitAll()
+                        .requestMatchers("/reports/**").permitAll()
                         .anyRequest().authenticated()
                 )
 

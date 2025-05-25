@@ -25,5 +25,14 @@ export class InvoiceService {
 
   deleteInvoice(invoiceNumber: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${invoiceNumber}`);
-  } 
+  }
+
+  
+downloadInvoiceHistoryReport(): Promise<Blob> {
+  const pdfurl = 'http://localhost:8080/reports/invoice-history';
+  return fetch(pdfurl)
+    .then(response => {    
+      return response.blob();
+    });
+  }
 }
