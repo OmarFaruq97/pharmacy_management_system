@@ -1,0 +1,56 @@
+  .registration-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: #e6f2ff; /* Light blue background */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .registration-container h2 {
+    color: #0066cc; /* Darker blue for heading */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .registration-container table {
+    width: 100%;
+  }
+
+  .registration-container label {
+    color: #0066cc; /* Darker blue for labels */
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  .registration-container input[type="text"],
+  .registration-container input[type="email"],
+  .registration-container input[type="password"],
+  .registration-container select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #99c2ff; /* Light blue border */
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .registration-container select {
+    height: 36px;
+  }
+
+  .registration-container button {
+    background-color: #4da6ff; /* Medium blue for button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .registration-container button:hover {
+    background-color: #1a8cff; /* Darker blue on hover */
+  }

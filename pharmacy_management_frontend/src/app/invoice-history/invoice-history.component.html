@@ -1,8 +1,10 @@
 <h2>Invoice History</h2>
 <h5>Total Sales: {{ totalSales | number:'1.2-2' }}</h5>
-<button (click)="downloadInvoiceReport()" class="btn btn-secondary">
-  Download Invoice-History Report
-</button>
+<div class="container">
+  <button (click)="downloadInvoiceReport()" class="btn btn-secondary">
+    Download Invoice-History Report
+  </button>
+</div>
 
 <table class="invoice-table">
   <thead>

@@ -4,6 +4,7 @@ import com.omar.isdb62.pharmacy_management_backend.model.Inventory;
 import com.omar.isdb62.pharmacy_management_backend.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,7 @@ public class InventoryService {
         inventory.setPurchaseDiscount(updatedInventory.getPurchaseDiscount());
         inventory.setSellPrice(updatedInventory.getSellPrice());
 
+
         return inventoryRepository.save(inventory);
     }
 
@@ -62,8 +64,11 @@ public class InventoryService {
             inventory.setPurchaseDiscount(newInventory.getPurchaseDiscount());
             inventory.setNetPurchasePrice(newInventory.getNetPurchasePrice());
             inventory.setSellPrice(newInventory.getSellPrice());
+            inventory.setReceivedDate(LocalDate.now());
+
             return inventoryRepository.save(inventory);
         } else {
+            newInventory.setReceivedDate(LocalDate.now());
             return inventoryRepository.save(newInventory);
         }
     }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -57,4 +58,9 @@ public class Inventory {
     //10
     @Column(name = "total_inventory_value", precision = 10, scale = 2)
     private BigDecimal totalInventoryValue;
+
+    //11
+    @Column(name = "received_date")
+    private LocalDate receivedDate;  // Add this field
+
 }

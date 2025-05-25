@@ -3,6 +3,8 @@ package com.omar.isdb62.pharmacy_management_backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -59,4 +61,9 @@ public class InvoiceHistory {
     //12
     @Column(name = "net_payable")
     private double netPayable;
+
+    //13
+    @Column(name = "date")
+    private LocalDate date;  // Add this field
+
 }

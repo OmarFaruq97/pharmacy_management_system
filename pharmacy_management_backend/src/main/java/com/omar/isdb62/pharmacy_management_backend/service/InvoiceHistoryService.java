@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class InvoiceHistoryService {
     // Create invoice and update inventory
     public InvoiceHistory createInvoice(InvoiceHistory invoice) {
         invoice.setInvoiceNumber(generateInvoiceNumber());
+        invoice.setDate(LocalDate.now());
 
         //  Find the matching inventory by itemName and category
         Inventory inventory = inventoryRepository.findByItemNameAndCategory(
@@ -67,6 +69,8 @@ public class InvoiceHistoryService {
         invoice.setDiscount(updatedInvoice.getDiscount());
         invoice.setDiscountAmount(updatedInvoice.getDiscountAmount());
         invoice.setNetPayable(updatedInvoice.getNetPayable());
+        invoice.setDate(LocalDate.now()); // set current date when creating invoice
+
 
         return invoiceHistoryRepository.save(invoice);
     }
@@ -85,4 +89,9 @@ public class InvoiceHistoryService {
         return invoiceHistoryRepository.findByInvoiceNumber(invoiceNumber)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with number: " + invoiceNumber));
     }
+
+    public List<InvoiceHistory> getTodaySales() {
+        return invoiceHistoryRepository.findByDate(LocalDate.now());
+    }
+
 }

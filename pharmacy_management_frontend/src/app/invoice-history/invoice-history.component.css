@@ -165,3 +165,34 @@ h2 {
     margin: 1px;
   }
 }
+
+
+
+/* Light Blue Button */
+.btn.btn-secondary {
+  background-color: #4da6ff;  /* Light blue */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: auto;  /* Pushes button to the right */
+  display: block;    /* Allows margin-left: auto to work */
+}
+
+.btn.btn-secondary:hover {
+  background-color: #3399ff;  /* Slightly darker blue on hover */
+}
+
+.btn.btn-secondary:active {
+  background-color: #1a8cff;  /* Even darker when clicked */
+}
+
+/* If you want the button inside a flex container for better alignment */
+.container {
+  display: flex;
+  justify-content: flex-end;  /* Aligns button to the right */
+  padding: 10px;
+}
