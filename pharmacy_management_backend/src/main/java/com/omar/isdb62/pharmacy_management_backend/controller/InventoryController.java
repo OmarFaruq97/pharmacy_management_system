@@ -40,7 +40,6 @@ public class InventoryController {
         return ResponseEntity.ok(name + category + " deleted successfully");
     }
 
-
     @PutMapping("/update-by-name-and-category")
     public ResponseEntity<Inventory> updateMedicineByNameAndStrength(@RequestParam String name, @RequestParam String category, @RequestBody Inventory updatedInventory) {
         Inventory updated = inventoryService.updateMedicineByNameAndCategory(name, category, updatedInventory);
@@ -49,6 +48,6 @@ public class InventoryController {
 
     @GetMapping("/low-stock")
     public List<Inventory> getLowStockMedicines() {
-        return inventoryService.getLowStockMedicines(10); // Threshold = 10
+        return inventoryService.getLowStockMedicines(10); // Threshold = 10 try to my best
     }
 }

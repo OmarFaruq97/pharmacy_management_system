@@ -20,6 +20,22 @@ public class InventoryService {
         return inventoryRepository.save(inventory);
     }
 
+    public Inventory getMedicineById(Long id) {
+        return inventoryRepository.findById(id).get();
+    }
+
+    public boolean updateInventoryCount(int count, String operator, Inventory inventory) {
+        try {
+            if (operator == "deduct") {
+                inventory.setQuantity(inventory.getQuantity() - count);
+            }
+            inventoryRepository.save(inventory);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public List<Inventory> getAllMedicine() {
         return inventoryRepository.findAll();
     }
@@ -46,10 +62,6 @@ public class InventoryService {
         return inventoryRepository.save(inventory);
     }
 
-    public List<Inventory> getLowStockMedicines(int threshold) {
-        return inventoryRepository.findByQuantityLessThan(threshold);
-    }
-
     // Modified receive logic to update quantity if item exists
     public Inventory receiveMedicine(Inventory newInventory) {
         Optional<Inventory> existing = inventoryRepository.findByItemNameAndCategory(
@@ -68,5 +80,7 @@ public class InventoryService {
         }
     }
 
-
+    public List<Inventory> getLowStockMedicines(int threshold) {
+        return inventoryRepository.findByQuantityLessThan(threshold);
+    }
 }
