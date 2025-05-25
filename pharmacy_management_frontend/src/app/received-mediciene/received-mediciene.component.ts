@@ -12,7 +12,6 @@ export class ReceivedMedicieneComponent {
   medicine = {
     companyName: '',
     itemName: '',
-    strength: '',
     generic:'',
     category: '',
     quantity: 0,

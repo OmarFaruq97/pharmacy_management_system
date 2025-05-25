@@ -18,15 +18,23 @@ export class InventoryComponent implements OnInit{
   medicines: any[] = [];
   selectedMedicine: any = null;
   categoryOptions: string[] = ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Suppository', 'Other'];
-  showModal: any;
+  showModal: boolean = false;
   categories: any;
   totalInventoryValue: number = 0;
+  lowStockMedicines: any[] = [];
   
   constructor(private inventoryService: InventoryService) {}
 
   ngOnInit() {
     this.loadInventory();
+    this.loadLowStockMedicines();
   }
+
+  loadLowStockMedicines() {
+  this.inventoryService.getLowStockMedicines().subscribe(data => {
+    this.lowStockMedicines = data;
+  });
+}
 
   loadInventory() {
     this.inventoryService.getAllMedicine().subscribe({
@@ -47,31 +55,42 @@ export class InventoryComponent implements OnInit{
   }, 0);
 }
 
-  deleteMedicine(name: string, strength: string) {
-    const trimmedName = name.trim();
-    const trimmedStrength = strength.trim();
-  
-    if (confirm(`Delete ${trimmedName} ${trimmedStrength}?`)) {
-      this.inventoryService.deleteMedicineByNameAndStrength(trimmedName, trimmedStrength).subscribe({
-        next: () => this.loadInventory(),
-        error: (err) => console.error('Delete failed:', err)             
-      });
-      
-    }
+  deleteMedicine(name: string, category: string) {
+  const trimmedName = name.trim();
+  const trimmedCategory = category.trim();
+
+  if (confirm(`Delete ${trimmedName} (${trimmedCategory})?`)) {
+    this.inventoryService.deleteMedicineByNameAndCategory(trimmedName, trimmedCategory).subscribe({
+      next: () => {
+        this.loadInventory();
+        alert('Medicine deleted');
+      },
+      error: (err) => {
+        console.error('Delete failed:', err);
+        alert('Delete failed!');
+      }
+    });
   }
+}
+
 
   editMedicine(med: any) {
-    this.selectedMedicine = { ...med }; // clone to avoid direct mutation
+    this.selectedMedicine = { ...med }; 
+    this.showModal = true; 
   }
 
   closeModal() {
     this.selectedMedicine = null;
+    this.showModal = false;
   }
 
+  
+
+  //  NEW UPDATE: Now using itemName + category
   updateMedicine() {
-    const { itemName, strength } = this.selectedMedicine;
+    const { itemName, category } = this.selectedMedicine;
     this.inventoryService
-      .updateByNameAndStrength(itemName, strength, this.selectedMedicine)
+      .updateByNameAndCategory(itemName, category, this.selectedMedicine)
       .subscribe({
         next: () => {
           this.loadInventory();
@@ -79,5 +98,5 @@ export class InventoryComponent implements OnInit{
         },
         error: (err) => console.error('Update failed:', err)
       });
-    }
+  }
 }

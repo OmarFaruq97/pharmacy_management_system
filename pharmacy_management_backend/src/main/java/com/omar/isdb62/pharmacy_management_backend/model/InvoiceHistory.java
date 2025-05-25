@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name= "pms_invoice_history")
+@Table(name = "pms_invoice_history")
 public class InvoiceHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,8 @@ public class InvoiceHistory {
     private String itemName;
 
     //5
-    private String strength;
+    @Column(name = "category")
+    private String category;
 
     //6
     private int quantity;

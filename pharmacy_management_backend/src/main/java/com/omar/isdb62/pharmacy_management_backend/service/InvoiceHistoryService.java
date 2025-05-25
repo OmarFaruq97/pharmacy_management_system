@@ -1,7 +1,9 @@
 package com.omar.isdb62.pharmacy_management_backend.service;
 
 import com.omar.isdb62.pharmacy_management_backend.model.InvoiceHistory;
+import com.omar.isdb62.pharmacy_management_backend.model.Inventory;
 import com.omar.isdb62.pharmacy_management_backend.repository.InvoiceHistoryRepository;
+import com.omar.isdb62.pharmacy_management_backend.repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,10 @@ public class InvoiceHistoryService {
     @Autowired
     private InvoiceHistoryRepository invoiceHistoryRepository;
 
-    // Generate invoice number in the format: INV-yyyyMMdd-xxxx
+    @Autowired
+    private InventoryRepository inventoryRepository;
+
+    // Generate invoice number
     public String generateInvoiceNumber() {
         String datePrefix = new SimpleDateFormat("yyyyMMdd").format(new Date());
         String prefix = "INV-" + datePrefix;
@@ -23,22 +28,38 @@ public class InvoiceHistoryService {
         return String.format("%s-%04d", prefix, count);
     }
 
-    // Create new invoice with generated number
+    // Create invoice and update inventory
     public InvoiceHistory createInvoice(InvoiceHistory invoice) {
         invoice.setInvoiceNumber(generateInvoiceNumber());
+
+        //  Find the matching inventory by itemName and category
+        Inventory inventory = inventoryRepository.findByItemNameAndCategory(
+                invoice.getItemName(),
+                invoice.getCategory()  // If "strength" now means "category"
+        ).orElseThrow(() -> new RuntimeException("Inventory item not found for invoice."));
+
+        // Check if enough quantity exists
+        if (inventory.getQuantity() < invoice.getQuantity()) {
+            throw new RuntimeException("Not enough stock to complete the sale.");
+        }
+
+        //  Reduce inventory quantity
+        inventory.setQuantity(inventory.getQuantity() - invoice.getQuantity());
+
+        //  Save the updated inventory
+        inventoryRepository.save(inventory);
+
+        // Save invoice record
         return invoiceHistoryRepository.save(invoice);
     }
 
-    // Update invoice by invoice number
     public InvoiceHistory updateInvoiceByInvoiceNumber(String invoiceNumber, InvoiceHistory updatedInvoice) {
         InvoiceHistory invoice = invoiceHistoryRepository.findByInvoiceNumber(invoiceNumber)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with number: " + invoiceNumber));
 
-        //some lines need to be removed from here because all field not to need edit
         invoice.setCustomerName(updatedInvoice.getCustomerName());
         invoice.setContactNumber(updatedInvoice.getContactNumber());
         invoice.setItemName(updatedInvoice.getItemName());
-        invoice.setStrength(updatedInvoice.getStrength());
         invoice.setQuantity(updatedInvoice.getQuantity());
         invoice.setUnitPrice(updatedInvoice.getUnitPrice());
         invoice.setSubTotal(updatedInvoice.getSubTotal());
@@ -50,7 +71,6 @@ public class InvoiceHistoryService {
         return invoiceHistoryRepository.save(invoice);
     }
 
-    // Delete invoice by invoice number
     public void deleteByInvoiceNumber(String invoiceNumber) {
         InvoiceHistory invoice = invoiceHistoryRepository.findByInvoiceNumber(invoiceNumber)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with number: " + invoiceNumber));

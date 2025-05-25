@@ -5,6 +5,7 @@ import com.omar.isdb62.pharmacy_management_backend.repository.InventoryRepositor
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InventoryService {
@@ -15,7 +16,7 @@ public class InventoryService {
         this.inventoryRepository = inventoryRepository;
     }
 
-    public  Inventory saveMedicine(Inventory inventory) {
+    public Inventory saveMedicine(Inventory inventory) {
         return inventoryRepository.save(inventory);
     }
 
@@ -27,15 +28,15 @@ public class InventoryService {
         return inventoryRepository.findAllByItemNameContainingIgnoreCase(name);
     }
 
-    public void deleteMedicineByNameAndStrength(String name, String strength) {
-        Inventory inventory = inventoryRepository.findByItemNameAndStrength(name, strength)
-                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength));
+    public void deleteMedicineByNameAndCategory(String name, String category) {
+        Inventory inventory = inventoryRepository.findByItemNameAndCategory(name, category)
+                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name + category));
         inventoryRepository.delete(inventory);
     }
 
-    public Inventory updateMedicineByNameAndStrength(String name,String strength, Inventory updatedInventory) {
-        Inventory inventory = inventoryRepository.findByItemNameAndStrength(name, strength)
-                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name+strength));
+    public Inventory updateMedicineByNameAndCategory(String name, String category, Inventory updatedInventory) {
+        Inventory inventory = inventoryRepository.findByItemNameAndCategory(name, category)
+                .orElseThrow(() -> new RuntimeException("Medicine not found with name: " + name + category));
 
         inventory.setCategory(updatedInventory.getCategory());
         inventory.setUnitPrice(updatedInventory.getUnitPrice());
@@ -44,4 +45,28 @@ public class InventoryService {
 
         return inventoryRepository.save(inventory);
     }
+
+    public List<Inventory> getLowStockMedicines(int threshold) {
+        return inventoryRepository.findByQuantityLessThan(threshold);
+    }
+
+    // Modified receive logic to update quantity if item exists
+    public Inventory receiveMedicine(Inventory newInventory) {
+        Optional<Inventory> existing = inventoryRepository.findByItemNameAndCategory(
+                newInventory.getItemName(), newInventory.getCategory());
+
+        if (existing.isPresent()) {
+            Inventory inventory = existing.get();
+            inventory.setQuantity(inventory.getQuantity() + newInventory.getQuantity());
+            inventory.setUnitPrice(newInventory.getUnitPrice());
+            inventory.setPurchaseDiscount(newInventory.getPurchaseDiscount());
+            inventory.setNetPurchasePrice(newInventory.getNetPurchasePrice());
+            inventory.setSellPrice(newInventory.getSellPrice());
+            return inventoryRepository.save(inventory);
+        } else {
+            return inventoryRepository.save(newInventory);
+        }
+    }
+
+
 }

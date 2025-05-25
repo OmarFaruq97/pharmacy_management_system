@@ -6,7 +6,7 @@
         <tr>
           <th>Company</th>
           <th>Item-Name</th>
-          <th>Strength</th>
+          
           <th>Generic</th>
           <th>Category</th>      
           <th>Qty</th>
@@ -20,8 +20,7 @@
       <tbody>
         <tr *ngFor="let med of medicines">
           <td>{{ med.companyName }}</td>
-          <td>{{ med.itemName }}</td>
-          <td>{{ med.strength }}</td>
+          <td>{{ med.itemName }}</td>          
           <td>{{ med.generic}}</td>
           <td>{{ med.category }}</td>
           <td>{{ med.quantity }}</td>
@@ -29,8 +28,8 @@
           <td>{{ med.purchaseDiscount }}</td>
           <td>{{ med.netPurchasePrice }}</td>
           <td>{{ med.sellPrice }}</td>
-          <td class="action-cell">
-            <button (click)="deleteMedicine(med.itemName, med.strength)">Delete</button>
+          <td class="action-cell">            
+            <button (click)="deleteMedicine(med.itemName, med.category)">Delete</button>
             <button (click)="editMedicine(med)">Update</button>   
           </td>
         </tr>

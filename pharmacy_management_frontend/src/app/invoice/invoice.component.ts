@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
+import {FormArray,FormBuilder,FormGroup,Validators,FormsModule,ReactiveFormsModule}
+ from '@angular/forms';
 import { InventoryService } from '../core/inventory.service';
 import { InvoiceService } from '../core/invoice.service';
 import { CommonModule } from '@angular/common';
@@ -15,7 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-invoice',
   standalone: true,
   templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.css'],
+  styleUrl: './invoice.component.css',
   imports: [FormsModule, CommonModule, ReactiveFormsModule]
 })
 export class InvoiceComponent implements OnInit {
@@ -59,8 +53,8 @@ export class InvoiceComponent implements OnInit {
 
   addItem(): void {
     const item = this.fb.group({
-      itemName: ['', Validators.required],
-      strength: ['', Validators.required],
+      itemName: [''],
+      category: [''],  //IF NEED ADD Validators.required
       quantity: [1, [Validators.required, Validators.min(1)]],
       unitPrice: [0],
       subTotal: [0]
@@ -74,24 +68,43 @@ export class InvoiceComponent implements OnInit {
   }
 
   onItemChange(index: number): void {
-    const itemForm = this.items.at(index);
-    const itemName = itemForm.get('itemName')?.value;
-    const strength = itemForm.get('strength')?.value;
+  const itemForm = this.items.at(index);
+  const itemName = itemForm.get('itemName')?.value;
+  const category = itemForm.get('category')?.value;
 
-    if (!itemName || !strength) return;
+  const matched = this.inventoryItems.find(
+    item => item.itemName === itemName && item.category === category
+  );
 
-    const matched = this.inventoryItems.find(
-      item => item.itemName === itemName && item.strength === strength
-    );
-
-    if (matched) {
-      itemForm.patchValue({ unitPrice: matched.sellPrice }, { emitEvent: false });
-      this.calculateRowSubTotal(index);
-    } else {
-      itemForm.patchValue({ unitPrice: 0, subTotal: 0 }, { emitEvent: false });
-      this.calculateTotals();
-    }
+  if (matched) {
+    itemForm.patchValue({ unitPrice: matched.sellPrice }, { emitEvent: false });
+    this.calculateRowSubTotal(index);
+  } else {
+    itemForm.patchValue({ unitPrice: 0, subTotal: 0 }, { emitEvent: false });
+    this.calculateTotals();
   }
+}
+
+
+  // onItemChange(index: number): void {
+  //   const itemForm = this.items.at(index);
+  //   const itemName = itemForm.get('itemName')?.value;
+  //   const strength = itemForm.get('strength')?.value;
+
+  //   if (!itemName || !strength) return;
+
+  //   const matched = this.inventoryItems.find(
+  //     item => item.itemName === itemName && item.strength === strength
+  //   );
+
+  //   if (matched) {
+  //     itemForm.patchValue({ unitPrice: matched.sellPrice }, { emitEvent: false });
+  //     this.calculateRowSubTotal(index);
+  //   } else {
+  //     itemForm.patchValue({ unitPrice: 0, subTotal: 0 }, { emitEvent: false });
+  //     this.calculateTotals();
+  //   }
+  // }
 
   calculateRowSubTotal(index: number): void {
     const item = this.items.at(index);
@@ -143,7 +156,7 @@ export class InvoiceComponent implements OnInit {
     customerName: form.customerName,
     contactNumber: form.contactNumber,
     itemName: item.itemName,
-    strength: item.strength,
+    category: item.category,
     quantity: item.quantity,
     unitPrice: item.unitPrice,
     subTotal: item.subTotal,

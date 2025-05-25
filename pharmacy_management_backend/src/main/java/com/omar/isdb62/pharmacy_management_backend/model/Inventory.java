@@ -26,37 +26,35 @@ public class Inventory {
     @Column(name = "item_name", nullable = false)
     private String itemName;
 
-    //3
-    private String strength;
 
-    //4
+    //3
     @Column(nullable = false)
     private String category;
 
-    //5
+    //4
     private String generic;
 
-    //6
+    //5
     @Column(nullable = false)
     private int quantity;
 
-    //7
+    //6
     @Column(name = "unit_price", precision = 10, scale = 2 , nullable = false)
     private BigDecimal unitPrice;   //regular purchase price
 
-    //8
+    //7
     @Column(name = "purchase_discount", precision = 10, scale = 2)
     private BigDecimal purchaseDiscount;
 
-    //9
+    //8
     @Column(name = "net_purchase_price", precision = 10, scale = 2)
     private BigDecimal netPurchasePrice;
 
-    //10
+    //9
     @Column(name = "sell_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal sellPrice;
 
-    //11
+    //10
     @Column(name = "total_inventory_value", precision = 10, scale = 2)
     private BigDecimal totalInventoryValue;
 }

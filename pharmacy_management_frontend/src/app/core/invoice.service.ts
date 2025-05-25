@@ -12,7 +12,7 @@ export class InvoiceService {
 
   createInvoice(data: any): Observable<any> {
   return this.http.post(`${this.baseUrl}/create`, data);
-  }
+  } 
 
 
   getAllInvoices(): Observable<any[]> {
@@ -25,5 +25,5 @@ export class InvoiceService {
 
   deleteInvoice(invoiceNumber: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${invoiceNumber}`);
-  }
+  } 
 }

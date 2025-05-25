@@ -11,13 +11,16 @@ import java.util.Optional;
 @Repository
 public interface InventoryRepository extends JpaRepository <Inventory, Long> {
 
-    Optional<Inventory> findByItemNameAndStrength(String itemName, String strength);
+    Optional<Inventory> findByItemNameAndCategory(String itemName, String category);
+
 
     List<Inventory> findAllByItemNameContainingIgnoreCase(String name);
 
-    void deleteByItemNameAndStrength(String itemName, String strength);
 
-    boolean existsByItemNameAndStrength(String itemName, String strength);
+    List<Inventory> findByQuantityLessThan(int quantity);
+
+
+
 
 
 }

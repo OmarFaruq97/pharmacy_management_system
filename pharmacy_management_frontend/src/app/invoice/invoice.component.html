@@ -21,18 +21,31 @@
             <label for="itemName{{ i }}" class="form-label">Item Name</label>
             <select id="itemName{{ i }}" formControlName="itemName" (change)="onItemChange(i)" class="form-select form-select-sm">
               <option value="">--Select Item--</option>
-              <option *ngFor="let inv of inventoryItems" [value]="inv.itemName">{{ inv.itemName }}</option>
+              <option *ngFor="let inv of inventoryItems" [value]="inv.itemName">{{ inv.itemName }} - {{ inv.category }} (Qty: {{ inv.quantity }})
+              </option>
             </select>
           </div>
 
-          <!-- Strength -->
+          <!-- Category Dropdown -->
           <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+            <label class="form-label">Category</label>
+            <select formControlName="category" (change)="onItemChange(i)" class="form-select form-select-sm">
+              <option value="">--Select Category--</option>
+              <option *ngFor="let inv of inventoryItems" [value]="inv.category">
+                {{ inv.category }}
+              </option>
+            </select>
+          </div>
+
+
+          <!-- Strength -->
+          <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-2">
             <label for="strength{{ i }}" class="form-label">Strength</label>
             <select id="strength{{ i }}" formControlName="strength" (change)="onItemChange(i)" class="form-select form-select-sm">
               <option value="">--Select Strength--</option>
               <option *ngFor="let inv of getStrengthOptions(i)" [value]="inv.strength">{{ inv.strength }}</option>
             </select>
-          </div>
+          </div> -->
 
           <!-- Price -->
           <div class="col-12 col-sm-4 col-md-3 col-lg-2">
@@ -96,170 +109,3 @@
     </form>
   </div>
 </div>
-
-
-
- <!-- 
-  <div class="d-flex flex-wrap gap-2 mb-3">
-    <a href="inventory" class="btn btn-primary">Inventory</a>
-    <a href="home" class="btn btn-primary">Home</a>
-    <a href="receive-med" class="btn btn-primary">Receive Medicine</a>
-    <a href="invoice-history" class="btn btn-primary">Invoice History</a>
-  </div>
-
-  <div class="invoice-form card p-3">
-    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
-      <div class="row mb-3">
-        <div class="col-md-6 mb-2 mb-md-0">
-          <label class="form-label"><b>Customer Name:</b></label>
-          <input formControlName="customerName" class="form-control" required />
-        </div>
-        <div class="col-md-6">
-          <label class="form-label"><b>Contact Number:</b></label>
-          <input formControlName="contactNumber" class="form-control" />
-        </div>
-      </div> -->
-
-      <!-- Items Table -->
-      <!-- <div class="mt-2" formArrayName="items">
-        <div
-          *ngFor="let item of items.controls; let i = index"
-          [formGroupName]="i"
-          class="item-row row g-2 mb-3 align-items-end"
-        >
-          <select
-            id="itemName{{ i }}"
-            formControlName="itemName"
-            (change)="onItemChange(i)"
-            class="form-select form-select-sm"
-          >
-            <option value="">--Select Item--</option>
-            <option *ngFor="let inv of inventoryItems" [value]="inv.itemName">
-              {{ inv.itemName }}
-            </option>
-          </select>
-
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <label for="strength{{ i }}" class="form-label">Strength</label>
-            <select
-              id="strength{{ i }}"
-              formControlName="strength"
-              (change)="onItemChange(i)"
-              class="form-select form-select-sm"
-            >
-              <option value="">--Select strength--</option>
-              <option *ngFor="let inv of inventoryItems" [value]="inv.strength">
-                {{ inv.strength }}
-              </option>
-            </select>
-          </div>
-
-          <div class="col-12 col-sm-4 col-md-3 col-lg-2">
-            <label class="form-label">Price</label>
-            <div class="form-control-plaintext">
-              {{ item.get("unitPrice")?.value | currency }}
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <label for="quantity{{ i }}" class="form-label">Quantity</label>
-            <input
-              id="quantity{{ i }}"
-              type="number"
-              formControlName="quantity"
-              (input)="calculateRowSubTotal(i)"
-              class="form-control form-control-sm"
-            />
-          </div> -->
-
-          <!-- Sub-Total -->
-          <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <label for="subTotal{{ i }}" class="form-label">Sub-Total</label>
-            <input
-              id="subTotal{{ i }}"
-              formControlName="subTotal"
-              readonly
-              class="form-control form-control-sm bg-light"
-            />
-          </div> -->
-
-          <!-- Buttons -->
-          <!-- <div class="col-12 col-sm-12 col-md-4 col-lg-2 d-flex gap-2">
-            <button
-              type="button"
-              (click)="removeItem(i)"
-              class="btn btn-outline-danger btn-sm flex-grow-1"
-            >
-              Remove
-            </button>
-            <button
-              type="button"
-              (click)="addItem()"
-              class="btn btn-outline-primary btn-sm flex-grow-1"
-            >
-              Add More
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <hr /> -->
-
-      <!-- Summary Section -->
-      <!-- <div class="row justify-content-end">
-        <div class="col-12 col-md-6 col-lg-4"> -->
-          <!-- Discount Percentage -->
-          <!-- <div class="mb-3">
-            <label class="form-label">Discount %</label>
-            <div class="input-group">
-              <input
-                type="number"
-                formControlName="discount"
-                (input)="calculateTotals()"
-                class="form-control form-control-sm"
-              />
-              <span class="input-group-text">%</span>
-            </div>
-          </div> -->
-
-          <!-- Amount -->
-          <!-- <div class="mb-3">
-            <label class="form-label">Amount</label>
-            <input
-              formControlName="amount"
-              readonly
-              class="form-control form-control-sm bg-light"
-            />
-          </div> -->
-
-          <!-- Discount Amount -->
-          <!-- <div class="mb-3">
-            <label class="form-label">Discount Amount</label>
-            <input
-              formControlName="discountAmount"
-              readonly
-              class="form-control form-control-sm bg-light"
-            />
-          </div> -->
-
-          <!-- Net Payable -->
-          <!-- <div class="mb-3">
-            <label class="form-label">Net Payable</label>
-            <input
-              formControlName="netPayable"
-              readonly
-              class="form-control form-control-sm bg-light"
-            />
-          </div> -->
-
-          <!-- Submit Button -->
-          <!-- <div class="d-flex justify-content-end mt-2">
-            <button type="submit" class="btn btn-primary px-4">
-              Submit Invoice
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-</div> -->

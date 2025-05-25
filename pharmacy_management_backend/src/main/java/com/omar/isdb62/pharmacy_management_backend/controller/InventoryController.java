@@ -16,30 +16,39 @@ public class InventoryController {
     private InventoryService inventoryService;
 
     @GetMapping("/all")
-    public List <Inventory> getAllMedicine(){
+    public List<Inventory> getAllMedicine() {
         return inventoryService.getAllMedicine();
     }
 
     @GetMapping("/search")
-    public List <Inventory> getMedByName(@RequestParam String name){
+    public List<Inventory> getMedByName(@RequestParam String name) {
         return inventoryService.getMedByName(name);
     }
 
+
     @PostMapping("/receive")
-    public Inventory receivedMed(@RequestBody Inventory inventory){
-        return inventoryService.saveMedicine(inventory);
+    public ResponseEntity<Inventory> receiveMedicine(@RequestBody Inventory inventory) {
+        Inventory saved = inventoryService.receiveMedicine(inventory); // This uses your accumulation logic
+        return ResponseEntity.ok(saved);
     }
 
-    @DeleteMapping("/delete-by-name-and-strength")
-    public ResponseEntity<String> deleteByNameAndStrength(@RequestParam String name,
-                                                          @RequestParam String strength) {
-        inventoryService.deleteMedicineByNameAndStrength(name, strength);
-        return ResponseEntity.ok( name+ strength +"mg or ml" + ": Medicine deleted successfully" );
+
+    @DeleteMapping("/delete-by-name-and-category")
+    public ResponseEntity<String> deleteByNameAndCategory(@RequestParam String name,
+                                                          @RequestParam String category) {
+        inventoryService.deleteMedicineByNameAndCategory(name, category);
+        return ResponseEntity.ok(name + category + " deleted successfully");
     }
 
-    @PutMapping("/update-by-name-and-strength")
-    public ResponseEntity<Inventory> updateMedicineByNameAndStrength(@RequestParam String name,@RequestParam String strength, @RequestBody Inventory updatedInventory) {
-        Inventory updated = inventoryService.updateMedicineByNameAndStrength(name, strength,  updatedInventory);
+
+    @PutMapping("/update-by-name-and-category")
+    public ResponseEntity<Inventory> updateMedicineByNameAndStrength(@RequestParam String name, @RequestParam String category, @RequestBody Inventory updatedInventory) {
+        Inventory updated = inventoryService.updateMedicineByNameAndCategory(name, category, updatedInventory);
         return ResponseEntity.ok(updated);
+    }
+
+    @GetMapping("/low-stock")
+    public List<Inventory> getLowStockMedicines() {
+        return inventoryService.getLowStockMedicines(10); // Threshold = 10
     }
 }
