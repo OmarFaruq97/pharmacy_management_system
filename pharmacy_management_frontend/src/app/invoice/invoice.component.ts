@@ -84,28 +84,6 @@ export class InvoiceComponent implements OnInit {
     this.calculateTotals();
   }
 }
-
-
-  // onItemChange(index: number): void {
-  //   const itemForm = this.items.at(index);
-  //   const itemName = itemForm.get('itemName')?.value;
-  //   const strength = itemForm.get('strength')?.value;
-
-  //   if (!itemName || !strength) return;
-
-  //   const matched = this.inventoryItems.find(
-  //     item => item.itemName === itemName && item.strength === strength
-  //   );
-
-  //   if (matched) {
-  //     itemForm.patchValue({ unitPrice: matched.sellPrice }, { emitEvent: false });
-  //     this.calculateRowSubTotal(index);
-  //   } else {
-  //     itemForm.patchValue({ unitPrice: 0, subTotal: 0 }, { emitEvent: false });
-  //     this.calculateTotals();
-  //   }
-  // }
-
   calculateRowSubTotal(index: number): void {
     const item = this.items.at(index);
     const quantity = item.get('quantity')?.value || 0;
@@ -180,41 +158,6 @@ export class InvoiceComponent implements OnInit {
     }
   });
 }
-
-
-  // onSubmit(): void {
-  //   this.invoiceForm.markAllAsTouched();
-
-  //   if (this.invoiceForm.invalid) {
-  //     alert('Please fill in all required fields correctly.');
-  //     return;
-  //   }
-
-  //   if (this.isSubmitting) return;
-
-  //   this.isSubmitting = true;
-
-  //   const invoiceData = {
-  //     ...this.invoiceForm.value,
-  //     date: new Date().toISOString()
-  //   };
-
-  //   this.invoiceService.createInvoice(invoiceData).subscribe({
-  //     next: (response) => {
-  //       console.log('Invoice saved successfully', response);
-  //       alert('Invoice saved successfully!');
-  //       this.resetForm();
-  //     },
-  //     error: (error) => {
-  //       console.error('Error saving invoice', error);
-  //       alert('Error saving invoice. Please try again.');
-  //     },
-  //     complete: () => {
-  //       this.isSubmitting = false;
-  //     }
-  //   });
-  // }
-
   private resetForm(): void {
     this.invoiceForm.reset({
       discount: 0,

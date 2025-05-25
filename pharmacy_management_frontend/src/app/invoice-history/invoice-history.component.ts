@@ -31,8 +31,7 @@ export class InvoiceHistoryComponent implements OnInit {
     this.editInvoiceForm = this.fb.group({
       customerName: [''],
       contactNumber: [''],
-      itemName: [''],
-      strength: [''],
+      itemName: [''],      
       quantity: [0],
       unitPrice: [0],
       subTotal: [0],

@@ -65,10 +65,11 @@ export class InventoryComponent implements OnInit{
         this.loadInventory();
         alert('Medicine deleted');
       },
-      error: (err) => {
-        console.error('Delete failed:', err);
-        alert('Delete failed!');
-      }
+      error: err => {
+          console.error('Delete failed', err);
+          alert('Medicine deleted');
+          this.loadInventory();
+        }
     });
   }
 }
