@@ -8,6 +8,8 @@ import { InvoiceService } from '../core/invoice.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './invoice-history.component.html',
   styleUrl: './invoice-history.component.css'
+
+  
 })
 export class InvoiceHistoryComponent implements OnInit {
   invoices: any[] = [];
@@ -15,6 +17,8 @@ export class InvoiceHistoryComponent implements OnInit {
   editInvoiceForm!: FormGroup;
   selectedInvoice: any = null;
   showModal: boolean = false;
+
+  groupedInvoices: { [date: string]: any[] } = {}; 
 
   constructor(
     private invoiceService: InvoiceService,
@@ -47,6 +51,14 @@ export class InvoiceHistoryComponent implements OnInit {
       next: data => {
         this.invoices = data;
         this.calculateTotalSales();
+        
+        this.groupedInvoices = data.reduce((acc: any, invoice: any) => {
+          const date = invoice.date;
+          if (!acc[date]) acc[date] = [];
+          acc[date].push(invoice);
+          return acc;
+        }, {});
+        
       },
       error: err => console.error('Error loading invoices', err)
     });
@@ -114,4 +126,7 @@ export class InvoiceHistoryComponent implements OnInit {
       alert('Failed to download invoice report.');
     });
   }
+
+  
+  
 }

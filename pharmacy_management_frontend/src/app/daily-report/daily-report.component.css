@@ -1,82 +1,33 @@
 .daily-report-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.report-sections {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.report-table {
+  flex: 1 1 45%;
+  border: 1px solid #ccc;
+  padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #f9f9f9;
 }
 
-.daily-report-container h2 {
-  color: #2c3e50;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-.daily-report-container h4 {
-  color: #3498db;
-  margin: 25px 0 15px 0;
-  font-size: 18px;
-}
-
-.daily-report-container table {
+table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 30px;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem;
 }
 
-.daily-report-container th {
-  background-color: #3498db;
-  color: white;
-  padding: 12px;
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
   text-align: left;
-  font-weight: 500;
 }
 
-.daily-report-container td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #e0e0e0;
-  color: #333;
-}
-
-.daily-report-container tr:nth-child(even) {
-  background-color: #f2f9ff;
-}
-
-.daily-report-container tr:hover {
-  background-color: #e6f2ff;
-}
-
-/* Emoji styling */
-.daily-report-container h2::before,
-.daily-report-container h4::before {
-  margin-right: 10px;
-  font-size: 1.1em;
-}
-
-/* Total sales amount highlight */
-.total-sales-amount {
-  font-weight: bold;
-  color: #27ae60;
-  background-color: #e8f5e9;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .daily-report-container {
-    padding: 15px;
-  }
-  
-  .daily-report-container th,
-  .daily-report-container td {
-    padding: 8px 10px;
-    font-size: 14px;
-  }
+th {
+  background-color: #eee;
 }

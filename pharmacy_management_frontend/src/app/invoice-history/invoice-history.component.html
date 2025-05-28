@@ -6,7 +6,52 @@
   </button>
 </div>
 
-<table class="invoice-table">
+<div *ngFor="let date of groupedInvoices | keyvalue">
+  <h4>📅 {{ date.key | date: 'dd/MM/yyyy' }}</h4>
+
+  <table class="invoice-table mb-4">
+    <thead>
+      <tr>
+        <th>Invoice #</th>
+        <th>Customer</th>
+        <th>Contact</th>
+        <th>Item</th>      
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Subtotal</th>
+        <th>Amount</th>
+        <th>Discount %</th>
+        <th>Discount Amount</th>
+        <th>Net Payable</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let inv of date.value">
+        <td>{{ inv.invoiceNumber }}</td>
+        <td>{{ inv.customerName }}</td>
+        <td>{{ inv.contactNumber }}</td>
+        <td>{{ inv.itemName }}</td>      
+        <td>{{ inv.quantity }}</td>
+        <td>{{ inv.unitPrice }}</td>
+        <td>{{ inv.subTotal }}</td>
+        <td>{{ inv.amount }}</td>
+        <td>{{ inv.discount }}</td>
+        <td>{{ inv.discountAmount }}</td>
+        <td>{{ inv.netPayable }}</td>
+        <td>
+          <button (click)="openEditModal(inv)">Edit</button>
+          <button (click)="deleteInvoice(inv.invoiceNumber)">Return Sell</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<!-- <table class="invoice-table">
   <thead>
     <tr>
       <th>Invoice #</th>
@@ -42,7 +87,7 @@
       </td>
     </tr>
   </tbody>
-</table>
+</table> -->
 
 <!-- Edit Modal -->
 <div class="modal" *ngIf="showModal">
