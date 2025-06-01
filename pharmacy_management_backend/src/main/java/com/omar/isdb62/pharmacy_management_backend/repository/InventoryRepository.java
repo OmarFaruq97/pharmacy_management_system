@@ -2,6 +2,7 @@ package com.omar.isdb62.pharmacy_management_backend.repository;
 
 import com.omar.isdb62.pharmacy_management_backend.model.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -21,4 +22,8 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     List<Inventory> findByQuantityLessThan(int quantity);
 
     List<Inventory> findByReceivedDate(LocalDate date);
+
+    @Query("SELECT DISTINCT i.companyName FROM Inventory i")
+    List<String> findDistinctCompanyNames();
+
 }

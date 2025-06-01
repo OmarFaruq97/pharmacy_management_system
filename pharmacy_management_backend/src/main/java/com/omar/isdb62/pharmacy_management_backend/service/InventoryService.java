@@ -73,5 +73,10 @@ public class InventoryService {
         }
     }
 
+    public List<String> getAllUniqueCompanies() {
+        return inventoryRepository.findDistinctCompanyNames();
+    }
+
+
 
 }

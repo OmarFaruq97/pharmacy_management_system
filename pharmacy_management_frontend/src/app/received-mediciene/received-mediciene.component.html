@@ -3,11 +3,19 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <table>
     <tr>
-        <td>Company:</td>
-        <td>
-            <input type="text" name="companyName" [(ngModel)]="medicine.companyName" required>
-        </td>
-    </tr>
+  <td><label>Select Company:</label></td>
+  <td>
+    <select class="form-select" [(ngModel)]="medicine.companyName" name="companyName" required>
+      <option value="">-- Select Company --</option>
+      <option *ngFor="let c of companies" [value]="c">{{ c }}</option>
+    </select>
+  </td>
+</tr>
+
+
+
+    
+
     <tr>
         <td>Item Name:</td>
         <td>

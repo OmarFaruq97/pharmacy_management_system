@@ -16,6 +16,7 @@ export class InvoiceComponent implements OnInit {
   invoiceForm!: FormGroup;
   inventoryItems: any[] = [];
   isSubmitting = false;
+  companies: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -23,10 +24,15 @@ export class InvoiceComponent implements OnInit {
     private invoiceService: InvoiceService
   ) {}
 
+  
+
   ngOnInit(): void {
     this.initializeForm();
     this.loadInventoryItems();
     this.addItem(); // Start with one empty item
+    this.inventoryService.getAllCompanies().subscribe(data => {
+    this.companies = data;
+  });
   }
 
   private initializeForm(): void {

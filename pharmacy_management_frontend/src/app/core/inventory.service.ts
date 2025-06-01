@@ -21,15 +21,6 @@ export class InventoryService {
     return this.http.get<any[]>(`${this.api}/all`);
   }
 
-  
-  // DELETE: Delete by name and category
-  // deleteMedicineByNameAndCategory(name: string, category: string): Observable<any> {
-  //   const trimmedName = name.trim();
-  //   const trimmedCategory = category.trim();
-  //   return this.http.delete(
-  //     `${this.api}/delete-by-name-and-category?name=${encodeURIComponent(trimmedName)}&category=${encodeURIComponent(trimmedCategory)}`
-  //   );
-  // }
 
   deleteMedicineByNameAndCategory(name: string, category: string): Observable<any> {
   const trimmedName = name.trim();
@@ -54,4 +45,10 @@ export class InventoryService {
   getLowStockMedicines(): Observable<any[]> {
     return this.http.get<any[]>(`${this.api}/low-stock`);
   }
+
+  //add companies
+  getAllCompanies(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.api}/companies`);
+}
+
 }
