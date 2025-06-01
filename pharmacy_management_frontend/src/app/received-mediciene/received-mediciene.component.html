@@ -1,84 +1,85 @@
-    
 <h3>Add Medicine</h3>
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <table>
     <tr>
-    <td><label for="companyName">Company Name:</label></td>
-    <td>
-      <select [(ngModel)]="medicine.companyName" name="companyName" class="form-select">
-  <option value="">-- Select Company --</option>
-  <option *ngFor="let c of companyMedicineList" [value]="c.companyName">
-    {{ c.companyName }}
-  </option>
-</select>
-
-    </td>
-  </tr>
-
-  <tr>
-    <td><label for="itemName">Medicine Name:</label></td>
-    <td>
-      <select [(ngModel)]="medicine.itemName" name="itemName" class="form-select">
-  <option value="">-- Select Medicine --</option>
-  <option *ngFor="let c of companyMedicineList" [value]="c.medicineName">
-    {{ c.medicineName }}
-  </option>
-</select>
-
-    </td>
-  </tr>
-
-  <tr>
-    <td><label for="generic">Generic:</label></td>
-    <td>
-      <select [(ngModel)]="medicine.generic" name="generic" class="form-select">
-  <option value="">-- Select Generic --</option>
-  <option *ngFor="let c of companyMedicineList" [value]="c.genric">
-    {{ c.genric }}
-  </option>
-</select>
-
-    </td>
-  </tr>
-
-    <tr>
-        <td>Category:</td>
-        <td>
-          <select name="category" [(ngModel)]="medicine.category" required>
-            <option value="">-- Select Category --</option>
-            <option value="Tablet">Tablet</option>
-            <option value="Capsule">Capsule</option>
-            <option value="Syrup">Syrup</option>
-            <option value="Injection">Injection</option>
-            <option value="Suppository">Suppository</option>
-            <option value="Other">Other</option>
-          </select>
-        </td>
-      </tr>
-      
-    <tr>
-        <td>Quantity:</td>
-        <td>
-            <input type="number" name="quantity" [(ngModel)]="medicine.quantity" required>
-        </td>
+      <td><label for="companyName">Company Name:</label></td>
+      <td>
+        <select [(ngModel)]="medicine.companyName" name="companyName" class="form-select" required>
+          <option value="">-- Select Company --</option>
+          <option *ngFor="let c of companyMedicineList" [value]="c.companyName">
+            {{ c.companyName }}
+          </option>
+        </select>
+      </td>
     </tr>
+
     <tr>
-        <td>Purchase_Unit Price:</td>
-        <td>
-            <input type="number" name="unitPrice" [(ngModel)]="medicine.unitPrice" required>
-        </td>
+      <td><label for="itemName">Medicine Name:</label></td>
+      <td>
+        <select [(ngModel)]="medicine.itemName" name="itemName" class="form-select" required>
+          <option value="">-- Select Medicine --</option>
+          <option *ngFor="let c of companyMedicineList" [value]="c.medicineName">
+            {{ c.medicineName }}
+          </option>
+        </select>
+      </td>
     </tr>
+
     <tr>
-        <td>Purchase Discount:</td>
-        <td>
-            <input type="number" name="purchaseDiscount" [(ngModel)]="medicine.purchaseDiscount">
-        </td>
+      <td><label for="generic">Generic:</label></td>
+      <td>
+        <select [(ngModel)]="medicine.generic" name="generic" class="form-select" required>
+          <option value="">-- Select Generic --</option>
+          <option *ngFor="let c of companyMedicineList" [value]="c.genric">
+            {{ c.genric }}
+          </option>
+        </select>
+      </td>
     </tr>
+
     <tr>
-        <td>Sell Price:</td>
-        <td>
-            <input type="number" name="sellPrice" [(ngModel)]="medicine.sellPrice" required></td>
-        </tr>
+      <td><label for="category">Category:</label></td>
+      <td>
+        <select name="category" [(ngModel)]="medicine.category" class="form-select" required>
+          <option value="">-- Select Category --</option>
+          <option value="Tablet">Tablet</option>
+          <option value="Capsule">Capsule</option>
+          <option value="Syrup">Syrup</option>
+          <option value="Injection">Injection</option>
+          <option value="Suppository">Suppository</option>
+          <option value="Other">Other</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="quantity">Quantity:</label></td>
+      <td>
+        <input type="number" name="quantity" [(ngModel)]="medicine.quantity" required class="form-control">
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="unitPrice">Purchase Unit Price:</label></td>
+      <td>
+        <input type="number" name="unitPrice" [(ngModel)]="medicine.unitPrice" required class="form-control">
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="purchaseDiscount">Purchase Discount:</label></td>
+      <td>
+        <input type="number" name="purchaseDiscount" [(ngModel)]="medicine.purchaseDiscount" class="form-control">
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="sellPrice">Sell Price:</label></td>
+      <td>
+        <input type="number" name="sellPrice" [(ngModel)]="medicine.sellPrice" required class="form-control">
+      </td>
+    </tr>
   </table>
-  <button type="submit">Save</button>
+
+  <button type="submit" class="btn btn-primary mt-3">Save</button>
 </form>
