@@ -72,11 +72,4 @@ public class InventoryService {
             return inventoryRepository.save(newInventory);
         }
     }
-
-    public List<String> getAllUniqueCompanies() {
-        return inventoryRepository.findDistinctCompanyNames();
-    }
-
-
-
 }

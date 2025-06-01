@@ -23,7 +23,5 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
     List<Inventory> findByReceivedDate(LocalDate date);
 
-    @Query("SELECT DISTINCT i.companyName FROM Inventory i")
-    List<String> findDistinctCompanyNames();
 
 }

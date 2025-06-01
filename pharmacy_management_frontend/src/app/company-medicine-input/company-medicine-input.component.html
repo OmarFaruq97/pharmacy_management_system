@@ -1,0 +1,13 @@
+<h2>Company & Medicine Entry</h2>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <label>Company Name:</label>
+  <input [(ngModel)]="add.companyName" name="companyName" required /><br />
+
+  <label>Medicine Name:</label>
+  <input [(ngModel)]="add.medicineName" name="medicineName" required /><br />
+
+  <label>Generic:</label>
+  <input [(ngModel)]="add.generic" name="generic" /><br />
+
+  <button type="submit">Save</button>
+</form>

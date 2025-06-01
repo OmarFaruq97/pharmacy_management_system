@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/api/inventory/**").permitAll()
                         .requestMatchers("/reports/**").permitAll()
+                        .requestMatchers("/api/access-company-medicine/**").permitAll()
                         .anyRequest().authenticated()
                 )
 

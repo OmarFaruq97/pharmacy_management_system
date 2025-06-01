@@ -62,10 +62,7 @@ public class InventoryController {
         return inventoryRepository.findByReceivedDate(LocalDate.now());
     }
 
-    @GetMapping("/companies")
-    public List<String> getAllCompanies() {
-        return inventoryService.getAllUniqueCompanies();
-    }
+
 
 
 }

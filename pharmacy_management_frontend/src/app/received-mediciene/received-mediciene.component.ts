@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { InventoryService } from '../core/inventory.service';
+import { CompanyMedicineServiceService } from '../core/company-medicine-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-received-mediciene',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './received-mediciene.component.html',
   styleUrl: './received-mediciene.component.css'
 })
@@ -18,16 +20,32 @@ export class ReceivedMedicieneComponent {
     unitPrice: 0,
     purchaseDiscount: 0,
     netPurchasePrice: 0,
-    sellPrice: 0
+    sellPrice: 0    
   };
+   
+   companyMedicineList: any[] = [];
 
-  constructor(private inventoryService: InventoryService) {}
+  constructor(
+    private inventoryService: InventoryService,
+    private companyMedicineService: CompanyMedicineServiceService
+  ) {}
+
+  ngOnInit(): void {
+    this.companyMedicineService.getAllCompanyMedicines().subscribe({
+      next: (data) => {
+        this.companyMedicineList = data;
+      },
+      error: (err) => {
+        console.error('Failed to fetch company medicines:', err);
+      }
+    });
+  }
 
   onSubmit(form: NgForm) {
-    this.medicine.netPurchasePrice = this.medicine.unitPrice - this.medicine.purchaseDiscount;    
+    this.medicine.netPurchasePrice = this.medicine.unitPrice - this.medicine.purchaseDiscount;
 
     this.inventoryService.addMedicine(this.medicine).subscribe({
-      next: (res) => {
+      next: () => {
         alert('Medicine added!');
         form.resetForm();
       },

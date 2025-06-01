@@ -2,7 +2,8 @@
 <h3>Add Medicine</h3>
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <table>
-    <tr>
+
+<!-- <tr>
   <td><label>Select Company:</label></td>
   <td>
     <select class="form-select" [(ngModel)]="medicine.companyName" name="companyName" required>
@@ -11,6 +12,7 @@
     </select>
   </td>
 </tr>
+
 
 
 
@@ -27,7 +29,62 @@
         <td
         ><input type="text" name="generic" [(ngModel)]="medicine.generic">
     </td>
-    </tr>
+    </tr> -->
+
+    <tr>
+    <td><label for="companyName">Company Name:</label></td>
+    <td>
+      <select
+        id="companyName"
+        name="companyName"
+        [(ngModel)]="medicine.companyName"
+        class="form-control"
+        required
+      >
+        <option value="">-- Select Company --</option>
+        <option *ngFor="let item of companyMedicineList" [value]="item.companyName">
+          {{ item.companyName }}
+        </option>
+      </select>
+    </td>
+  </tr>
+
+  <tr>
+    <td><label for="itemName">Medicine Name:</label></td>
+    <td>
+      <select
+        id="itemName"
+        name="itemName"
+        [(ngModel)]="medicine.itemName"
+        class="form-control"
+        required
+      >
+        <option value="">-- Select Medicine --</option>
+        <option *ngFor="let item of companyMedicineList" [value]="item.medicineName">
+          {{ item.medicineName }}
+        </option>
+      </select>
+    </td>
+  </tr>
+
+  <tr>
+    <td><label for="generic">Generic:</label></td>
+    <td>
+      <select
+        id="generic"
+        name="generic"
+        [(ngModel)]="medicine.generic"
+        class="form-control"
+        required
+      >
+        <option value="">-- Select Generic --</option>
+        <option *ngFor="let item of companyMedicineList" [value]="item.genric">
+          {{ item.genric }}
+        </option>
+      </select>
+    </td>
+  </tr>
+
     <tr>
         <td>Category:</td>
         <td>

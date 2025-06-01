@@ -32,13 +32,6 @@ public class InvoiceHistoryController {
     }
 
 
-    // POST create new invoice (auto-generates invoice number)
-//   @PostMapping("/create")
-//    public ResponseEntity<InvoiceHistory> createInvoice(@RequestBody InvoiceHistory invoice) {
-//        InvoiceHistory created = invoiceHistoryService.createInvoice(invoice);
-//        return ResponseEntity.ok(created);
-//    }
-
     //ChatGPT NOSTO code if not work above code then apply this code riha
     @PostMapping("/create")
     public ResponseEntity<List<InvoiceHistory>> createInvoice(@RequestBody List<InvoiceHistory> invoices) {
