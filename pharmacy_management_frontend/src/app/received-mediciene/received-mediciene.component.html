@@ -2,16 +2,17 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <table>
     <tr>
-      <td><label for="companyName">Company Name:</label></td>
-      <td>
-        <select [(ngModel)]="medicine.companyName" name="companyName" class="form-select" required>
-          <option value="">-- Select Company --</option>
-          <option *ngFor="let c of companyMedicineList" [value]="c.companyName">
-            {{ c.companyName }}
-          </option>
-        </select>
-      </td>
-    </tr>
+  <td><label for="companyName">Company Name:</label></td>
+  <td>
+    <select [(ngModel)]="medicine.companyName" name="companyName" class="form-select" required>
+      <option value="">-- Select Company --</option>
+      <option *ngFor="let c of companyMedicineList" [value]="c.companyName">
+        {{ c.companyName }}
+      </option>
+    </select>
+  </td>
+</tr>
+
 
     <tr>
       <td><label for="itemName">Medicine Name:</label></td>

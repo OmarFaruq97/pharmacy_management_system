@@ -1,17 +1,17 @@
-<p>company-name works!</p>
-<h3>Company Name Entry</h3>
-<form (ngSubmit)="onSubmit()">
-  <input [(ngModel)]="newCompany.companyName" name="companyName" required placeholder="Enter company name" />
-  <button type="submit">Save</button>
-</form>
+<div class="company-card">
+  <h3>Company Name Entry</h3>
+  <form (ngSubmit)="onSubmit()">
+    <input [(ngModel)]="newCompany.companyName" name="companyName" required placeholder="Enter company name" />
+    <button type="submit">Save</button>
+  </form>
 
-<hr />
+  <hr />
 
-<h4>Existing Companies</h4>
-<ul>
-  <li *ngFor="let c of companyList">
-    {{ c.companyName }}
-    <button (click)="deleteCompany(c.id)">Delete</button>
-  </li>
-</ul>
-
+  <h4>Existing Companies</h4>
+  <ul>
+    <li *ngFor="let c of companyList">
+      {{ c.companyName }}
+      <button (click)="deleteCompany(c.id)">Delete</button>
+    </li>
+  </ul>
+</div>

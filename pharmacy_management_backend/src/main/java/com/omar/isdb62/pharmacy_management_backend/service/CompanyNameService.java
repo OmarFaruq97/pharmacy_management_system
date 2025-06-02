@@ -12,6 +12,7 @@ public class CompanyNameService {
 
     @Autowired
     private CompanyNameRepository companyNameRepository;
+
     public List<CompanyName> getAllCompanies() {
         return companyNameRepository.findAll();
     }
