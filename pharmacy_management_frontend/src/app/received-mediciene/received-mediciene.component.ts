@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { InventoryService } from '../core/inventory.service';
-import { CompanyMedicineServiceService } from '../core/company-medicine-service.service';
+
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -27,19 +27,10 @@ export class ReceivedMedicieneComponent {
 
   constructor(
     private inventoryService: InventoryService,
-    private companyMedicineService: CompanyMedicineServiceService
+    
   ) {}
 
-  ngOnInit(): void {
-    this.companyMedicineService.getAllCompanyMedicines().subscribe({
-      next: (data) => {
-        this.companyMedicineList = data;
-      },
-      error: (err) => {
-        console.error('Failed to fetch company medicines:', err);
-      }
-    });
-  }
+  
 
   onSubmit(form: NgForm) {
     this.medicine.netPurchasePrice = this.medicine.unitPrice - this.medicine.purchaseDiscount;
