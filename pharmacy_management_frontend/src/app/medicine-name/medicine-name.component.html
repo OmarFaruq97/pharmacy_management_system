@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h4 class="mb-3">Manage Medicine Names</h4>
+
+  <form (ngSubmit)="addMedicineName()" class="mb-3 d-flex gap-2">
+    <input
+      type="text"
+      [(ngModel)]="newMedicineName"
+      name="medicineName"
+      class="form-control"
+      placeholder="Enter new medicine name"
+      required
+    />
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <th>Medicine Name</th>
+        <th style="width: 100px;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of medicineNames">
+        <td>{{ m.medicineName }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteMedicineName(m.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

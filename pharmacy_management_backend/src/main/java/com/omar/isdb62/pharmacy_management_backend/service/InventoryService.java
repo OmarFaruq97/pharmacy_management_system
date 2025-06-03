@@ -44,7 +44,6 @@ public class InventoryService {
         inventory.setPurchaseDiscount(updatedInventory.getPurchaseDiscount());
         inventory.setSellPrice(updatedInventory.getSellPrice());
 
-
         return inventoryRepository.save(inventory);
     }
 

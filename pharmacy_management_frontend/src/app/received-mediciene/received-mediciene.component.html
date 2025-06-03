@@ -1,6 +1,7 @@
 <h3>Add Medicine</h3>
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <table>
+    
     <tr>
   <td><label for="companyName">Company Name:</label></td>
   <td>
@@ -18,11 +19,11 @@
       <td><label for="itemName">Medicine Name:</label></td>
       <td>
         <select [(ngModel)]="medicine.itemName" name="itemName" class="form-select" required>
-          <option value="">-- Select Medicine --</option>
-          <option *ngFor="let c of companyMedicineList" [value]="c.medicineName">
-            {{ c.medicineName }}
-          </option>
-        </select>
+      <option value="">-- Select Medicine --</option>
+      <option *ngFor="let m of medicineNameList" [value]="m.medicineName">
+        {{ m.medicineName }}
+      </option>
+    </select>
       </td>
     </tr>
 

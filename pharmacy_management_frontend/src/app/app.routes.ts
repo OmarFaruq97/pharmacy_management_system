@@ -9,6 +9,7 @@ import { EmployeeManagementComponent } from './employee-management/employee-mana
 import { InvoiceHistoryComponent } from './invoice-history/invoice-history.component';
 import { DailyReportComponent } from './daily-report/daily-report.component';
 import { CompanyNameComponent } from './company-name/company-name.component';
+import { MedicineNameComponent } from './medicine-name/medicine-name.component';
 
 
 export const routes: Routes = [
@@ -23,5 +24,6 @@ export const routes: Routes = [
     {path: 'invoice-history', component: InvoiceHistoryComponent},
     {path: 'employee', component: EmployeeManagementComponent},
     { path: 'daily-report', component: DailyReportComponent },
-    { path: 'company-medicine-input', component: CompanyNameComponent}
+    { path: 'company-medicine-input', component: CompanyNameComponent},
+    { path: 'add-medicine', component: MedicineNameComponent}
 ];

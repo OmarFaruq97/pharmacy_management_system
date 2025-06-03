@@ -4,6 +4,7 @@ import { InventoryService } from '../core/inventory.service';
 
 import { CommonModule } from '@angular/common';
 import { CompanyNameService } from '../core/company-name.service';
+import { MedicineNameService } from '../core/medicine-name.service';
 
 @Component({
   selector: 'app-received-mediciene',
@@ -25,15 +26,18 @@ export class ReceivedMedicieneComponent {
   };
    
    companyMedicineList: any[] = [];
+   medicineNameList: any[] = [];
    
 
   constructor(
     private inventoryService: InventoryService,
-    private companyNameService: CompanyNameService
+    private companyNameService: CompanyNameService,
+    private medicineNameService: MedicineNameService
   ) {}
 
   ngOnInit(): void {
     this.loadCompanyNames();
+    this.loadMedicineNames(); 
   }
 
   loadCompanyNames() {
@@ -46,6 +50,17 @@ export class ReceivedMedicieneComponent {
       }
     });
   }  
+
+  loadMedicineNames() {
+    this.medicineNameService.getAll().subscribe({
+      next: (data) => {
+        this.medicineNameList = data;
+      },
+      error: (err) => {
+        console.error('Failed to load medicine names:', err);
+      }
+    });
+  }
 
   onSubmit(form: NgForm) {
     this.medicine.netPurchasePrice = this.medicine.unitPrice - this.medicine.purchaseDiscount;

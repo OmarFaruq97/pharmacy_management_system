@@ -14,17 +14,17 @@ public class MedicineController {
     private MedicineNameService medicineNameService;
 
     @GetMapping
-    public List<MedicineName> getAllMedicineNames(){
+    public List<MedicineName> getAllMedicineNames() {
         return medicineNameService.getAllMedicineNames();
     }
 
     @PostMapping
-    public MedicineName add(@RequestBody MedicineName medicineName){
+    public MedicineName add(@RequestBody MedicineName medicineName) {
         return medicineNameService.saveMedicine(medicineName);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMedicine(@PathVariable Long id){
+    public void deleteMedicine(@PathVariable Long id) {
         medicineNameService.deleteMedicine(id);
     }
 

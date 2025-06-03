@@ -6,7 +6,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name= "pms_company_name")
 public class CompanyName {
     @Id

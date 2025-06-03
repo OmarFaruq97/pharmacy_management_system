@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Data
 @Table(name = "pms_invoice_history")
 public class InvoiceHistory {
     @Id

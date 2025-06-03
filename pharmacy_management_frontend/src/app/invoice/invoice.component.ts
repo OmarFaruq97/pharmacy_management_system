@@ -6,8 +6,7 @@ import { InvoiceService } from '../core/invoice.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-invoice',
-  standalone: true,
+  selector: 'app-invoice',  
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css',
   imports: [FormsModule, CommonModule, ReactiveFormsModule]
@@ -23,7 +22,6 @@ export class InvoiceComponent implements OnInit {
     private inventoryService: InventoryService,
     private invoiceService: InvoiceService
   ) {}
-
   
 
   ngOnInit(): void {

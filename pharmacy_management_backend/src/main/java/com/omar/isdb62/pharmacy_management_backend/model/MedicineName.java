@@ -3,7 +3,8 @@ package com.omar.isdb62.pharmacy_management_backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

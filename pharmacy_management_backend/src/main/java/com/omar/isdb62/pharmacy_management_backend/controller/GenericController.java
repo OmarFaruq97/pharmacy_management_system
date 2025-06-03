@@ -16,14 +16,15 @@ public class GenericController {
     private GenericService genericService;
 
     @GetMapping
-    public List <Generic> getAll(){
+    public List<Generic> getAll() {
         return genericService.getAll();
     }
 
     @PostMapping
-    private Generic add(@RequestBody Generic generic){
+    private Generic add(@RequestBody Generic generic) {
         return genericService.save(generic);
     }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         genericService.delete(id);

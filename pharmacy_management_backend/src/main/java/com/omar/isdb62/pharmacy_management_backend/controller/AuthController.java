@@ -82,7 +82,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(HttpServletRequest request,
                                               HttpServletResponse response,
-                                              @Valid @RequestBody LoginRequest loginRequest){
+                                              @Valid @RequestBody LoginRequest loginRequest) {
         try {
             // Try to authenticate the user with email and password
             Authentication authentication = authenticationManager.authenticate(
@@ -103,12 +103,12 @@ public class AuthController {
             User user = userDetails.user();
 
             //Prepare response with token and user info
-            Map <String, Object> responseData = new HashMap<>();
+            Map<String, Object> responseData = new HashMap<>();
             responseData.put("access_token", jwt);
             responseData.put("tokenType", "Bearer");
 
             //Add user-specific info
-            Map<String, Object> userData= new HashMap<>();
+            Map<String, Object> userData = new HashMap<>();
             userData.put("id", user.getId());
             userData.put("email", user.getEmail());
             userData.put("role", user.getRole());
@@ -118,7 +118,7 @@ public class AuthController {
             responseData.put("user", userData);
 
             return ResponseEntity.ok(responseData);
-        }catch (AuthenticationException e){
+        } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid username or password");
         }
@@ -127,10 +127,10 @@ public class AuthController {
     // ========== VALIDATE TOKEN ==========
     @GetMapping("/validate-token")
     public ResponseEntity<?> validateToken(HttpServletRequest request) {
-            //Extract token from Authorization header
+        //Extract token from Authorization header
         String jwt = getJwtFromRequest(request);
 
-            //Validate the token
+        //Validate the token
         if (jwt != null && jwtTokenProvider.validateToken(jwt)) {
             //  Get email instead of username from token (we use email as subject)
             String email = jwtTokenProvider.getEmailFromToken(jwt);
@@ -159,11 +159,11 @@ public class AuthController {
 
 
     //========== HELPER METHOD: Extract JWT token from request ==========
-    private String getJwtFromRequest(HttpServletRequest request){
+    private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         //Token should be in format: "Bearer {token}"
 
-        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
             return bearerToken.substring(7); // remove "Bearer " prefix
         }
         return null;

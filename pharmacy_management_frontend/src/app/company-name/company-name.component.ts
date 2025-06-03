@@ -45,6 +45,4 @@ export class CompanyNameComponent implements OnInit {
       });
     }
   }
-}{
-
 }
