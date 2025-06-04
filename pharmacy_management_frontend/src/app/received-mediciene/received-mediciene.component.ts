@@ -5,6 +5,8 @@ import { InventoryService } from '../core/inventory.service';
 import { CommonModule } from '@angular/common';
 import { CompanyNameService } from '../core/company-name.service';
 import { MedicineNameService } from '../core/medicine-name.service';
+import { GenericService } from '../core/generic.service';
+import { CategoryService } from '../core/category.service';
 
 @Component({
   selector: 'app-received-mediciene',
@@ -25,19 +27,45 @@ export class ReceivedMedicieneComponent {
     sellPrice: 0    
   };
    
-   companyMedicineList: any[] = [];
-   medicineNameList: any[] = [];
+  companyMedicineList: any[] = [];
+  medicineNameList: any[] = [];
+  genericList: any[] = [];
+  categoryList: any[] = [];
    
 
   constructor(
     private inventoryService: InventoryService,
     private companyNameService: CompanyNameService,
-    private medicineNameService: MedicineNameService
+    private medicineNameService: MedicineNameService,
+    private genericService: GenericService,
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
     this.loadCompanyNames();
-    this.loadMedicineNames(); 
+    this.loadMedicineNames();
+    this.loadGenericNames();
+    this.loadCategories();
+  }
+
+  loadCategories() {
+  this.categoryService.getAll().subscribe({
+    next: (data) => {
+      console.log("Loaded categories:", data);
+      this.categoryList = data;
+    },
+    error: (err) => {
+      console.error('Failed to load categories:', err);
+    }
+  });
+}
+
+  
+  loadGenericNames() {
+    this.genericService.getAll().subscribe({
+      next: (data) => this.genericList = data,
+      error: (err) => console.error('Failed to load generic names:', err)
+    });
   }
 
   loadCompanyNames() {
