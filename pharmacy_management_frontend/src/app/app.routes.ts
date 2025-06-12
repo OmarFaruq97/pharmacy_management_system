@@ -10,6 +10,7 @@ import { InvoiceHistoryComponent } from './invoice-history/invoice-history.compo
 import { DailyReportComponent } from './daily-report/daily-report.component';
 import { CompanyNameComponent } from './company-name/company-name.component';
 import { MedicineNameComponent } from './medicine-name/medicine-name.component';
+import { LowStockAlertComponent } from './low-stock-alert/low-stock-alert.component';
 
 
 export const routes: Routes = [
@@ -26,5 +27,5 @@ export const routes: Routes = [
     { path: 'daily-report', component: DailyReportComponent },
     { path: 'company-medicine-input', component: CompanyNameComponent},
     { path: 'add-medicine', component: MedicineNameComponent},
-    
+    { path: 'low-stock', component: LowStockAlertComponent }    
 ];

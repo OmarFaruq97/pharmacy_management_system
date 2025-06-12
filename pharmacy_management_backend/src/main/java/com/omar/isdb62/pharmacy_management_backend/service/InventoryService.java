@@ -71,4 +71,16 @@ public class InventoryService {
             return inventoryRepository.save(newInventory);
         }
     }
+
+    //***Low stock working area start***
+
+    public List<Inventory> getLowStockItems() {
+        return inventoryRepository.findByQuantityLessThan(10);
+    }
+
+    public List<Inventory> getSufficientStockItems() {
+        return inventoryRepository.findByQuantityGreaterThanEqual(10);
+    }
+
+    // ** Low stock working area end **
 }

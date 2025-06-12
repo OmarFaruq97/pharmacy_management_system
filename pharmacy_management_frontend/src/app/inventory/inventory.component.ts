@@ -31,7 +31,7 @@ export class InventoryComponent implements OnInit{
   }
 
   loadLowStockMedicines() {
-  this.inventoryService.getLowStockMedicines().subscribe(data => {
+  this.inventoryService.getLowStockItems().subscribe(data => {
     this.lowStockMedicines = data;
   });
 }

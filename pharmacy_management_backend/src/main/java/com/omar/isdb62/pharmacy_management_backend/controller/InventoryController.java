@@ -49,10 +49,19 @@ public class InventoryController {
         return ResponseEntity.ok(updated);
     }
 
+    //***Low stock working area start***
+
     @GetMapping("/low-stock")
-    public List<Inventory> getLowStockMedicines() {
-        return inventoryService.getLowStockMedicines(10); // Threshold = 10
+    public ResponseEntity<List<Inventory>> getLowStockItems() {
+        return ResponseEntity.ok(inventoryService.getLowStockItems());
     }
+
+    @GetMapping("/sufficient-stock")
+    public ResponseEntity<List<Inventory>> getSufficientStockItems() {
+        return ResponseEntity.ok(inventoryService.getSufficientStockItems());
+    }
+
+    // ** Low stock working area end **
 
     @Autowired
     private InventoryRepository inventoryRepository;

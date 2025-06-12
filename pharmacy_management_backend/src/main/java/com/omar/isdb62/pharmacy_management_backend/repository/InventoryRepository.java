@@ -15,13 +15,12 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
     Optional<Inventory> findByItemNameAndCategory(String itemName, String category);
 
-
     List<Inventory> findAllByItemNameContainingIgnoreCase(String name);
-
 
     List<Inventory> findByQuantityLessThan(int quantity);
 
     List<Inventory> findByReceivedDate(LocalDate date);
 
+    List<Inventory> findByQuantityGreaterThanEqual(int threshold);
 
 }

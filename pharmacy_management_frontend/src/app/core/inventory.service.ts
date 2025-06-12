@@ -39,16 +39,20 @@ export class InventoryService {
       `${this.api}/update-by-name-and-category?name=${encodeURIComponent(trimmedName)}&category=${encodeURIComponent(trimmedCategory)}`,
       updatedData
     );
-  }
-
-  // GET: Low stock alert
-  getLowStockMedicines(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.api}/low-stock`);
-  }
+  }  
 
   //add companies
   getAllCompanies(): Observable<string[]> {
   return this.http.get<string[]>(`${this.api}/companies`);
 }
+
+getLowStockItems() {
+  return this.http.get<any[]>('http://localhost:8080/api/inventory/low-stock');
+}
+
+getSufficientStockItems() {
+  return this.http.get<any[]>('http://localhost:8080/api/inventory/sufficient-stock');
+}
+
 
 }
