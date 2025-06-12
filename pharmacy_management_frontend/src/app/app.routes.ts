@@ -14,16 +14,17 @@ import { MedicineNameComponent } from './medicine-name/medicine-name.component';
 
 export const routes: Routes = [
 
-    {path: '', component: HomeComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'registration', component: RegistrationComponent},
-    {path: 'home', component: HomeComponent},
-    {path: 'receive-med', component: ReceivedMedicieneComponent},    
-    {path: 'inventory', component: InventoryComponent},
-    {path: 'invoice', component: InvoiceComponent},
-    {path: 'invoice-history', component: InvoiceHistoryComponent},
-    {path: 'employee', component: EmployeeManagementComponent},
+    { path: '', component: HomeComponent},
+    { path: 'login', component: LoginComponent},
+    { path: 'registration', component: RegistrationComponent},
+    { path: 'home', component: HomeComponent},
+    { path: 'receive-med', component: ReceivedMedicieneComponent},    
+    { path: 'inventory', component: InventoryComponent},
+    { path: 'invoice', component: InvoiceComponent},
+    { path: 'invoice-history', component: InvoiceHistoryComponent},
+    { path: 'employee', component: EmployeeManagementComponent},
     { path: 'daily-report', component: DailyReportComponent },
     { path: 'company-medicine-input', component: CompanyNameComponent},
-    { path: 'add-medicine', component: MedicineNameComponent}
+    { path: 'add-medicine', component: MedicineNameComponent},
+    
 ];

@@ -17,7 +17,7 @@ export class InventoryComponent implements OnInit{
 
   medicines: any[] = [];
   selectedMedicine: any = null;
-  categoryOptions: string[] = ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Suppository', 'Other'];
+  categoryOptions: string[] = []; //inventory update modal need to correction from DB
   showModal: boolean = false;
   categories: any;
   totalInventoryValue: number = 0;
