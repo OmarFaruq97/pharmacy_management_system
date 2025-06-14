@@ -39,10 +39,11 @@ export class InventoryComponent implements OnInit{
   loadInventory() {
     this.inventoryService.getAllMedicine().subscribe({
       next: (data) => {
-        this.medicines = data;
+        this.medicines = data;          
         this.calculateTotalInventoryValue();
-      },       
-            
+        this.medicines = data.sort((a, b) => a.companyName.localeCompare(b.companyName));
+        
+      },            
       error: (err) => console.error(err)
     });
   }

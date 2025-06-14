@@ -49,47 +49,6 @@
 </div>
 
 
-
-
-<!-- <table class="invoice-table">
-  <thead>
-    <tr>
-      <th>Invoice #</th>
-      <th>Customer</th>
-      <th>Contact</th>
-      <th>Item</th>      
-      <th>Qty</th>
-      <th>Unit Price</th>
-      <th>Subtotal</th>
-      <th>Amount</th>
-      <th>Discount %</th>
-      <th>Discount Amount</th>
-      <th>Net Payable</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let inv of invoices">
-      <td>{{ inv.invoiceNumber }}</td>
-      <td>{{ inv.customerName }}</td>
-      <td>{{ inv.contactNumber }}</td>
-      <td>{{ inv.itemName }}</td>      
-      <td>{{ inv.quantity }}</td>
-      <td>{{ inv.unitPrice }}</td>
-      <td>{{ inv.subTotal }}</td>
-      <td>{{ inv.amount }}</td>
-      <td>{{ inv.discount }}</td>
-      <td>{{ inv.discountAmount }}</td>
-      <td>{{ inv.netPayable }}</td>
-      <td>
-        <button (click)="openEditModal(inv)">Edit</button>
-        <button (click)="deleteInvoice(inv.invoiceNumber)">Return Sell</button>
-      </td>
-    </tr>
-  </tbody>
-</table> -->
-
-<!-- Edit Modal -->
 <div class="modal" *ngIf="showModal">
   <div class="modal-content">
     <h3>Edit Invoice: {{ selectedInvoice?.invoiceNumber }}</h3>
@@ -135,3 +94,142 @@
     </form>
   </div>
 </div>
+
+<!-- <h2>Invoice History</h2>
+<h5>Total Sales: {{ totalSales | number:'1.2-2' }}</h5>
+<div class="container">
+  <button (click)="downloadInvoiceReport()" class="btn btn-secondary">
+    Download Invoice-History Report
+  </button>
+</div>
+
+<div *ngFor="let date of groupedInvoices | keyvalue">
+  <h4>📅 {{ date.key | date: 'dd/MM/yyyy' }}</h4>
+
+  <table class="invoice-table mb-4">
+    <thead>
+      <tr>
+        <th>Invoice #</th>
+        <th>Customer</th>
+        <th>Contact</th>
+        <th>Item</th>      
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Subtotal</th>
+        <th>Amount</th>
+        <th>Discount %</th>
+        <th>Discount Amount</th>
+        <th>Net Payable</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let inv of date.value">
+        <td>{{ inv.invoiceNumber }}</td>
+        <td>{{ inv.customerName }}</td>
+        <td>{{ inv.contactNumber }}</td>
+        <td>{{ inv.itemName }}</td>      
+        <td>{{ inv.quantity }}</td>
+        <td>{{ inv.unitPrice }}</td>
+        <td>{{ inv.subTotal }}</td>
+        <td>{{ inv.amount }}</td>
+        <td>{{ inv.discount }}</td>
+        <td>{{ inv.discountAmount }}</td>
+        <td>{{ inv.netPayable }}</td>
+        <td>
+          <button (click)="openEditModal(inv)">Edit</button>
+          <button (click)="deleteInvoice(inv.invoiceNumber)">Return Sell</button>
+          <button (click)="printInvoice(inv)">Print</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="printSection" style="display: none;">
+  <h3 style="text-align:center">Cash Memo</h3>
+  <p><strong>Date:</strong> {{ selectedInvoice?.date }}</p>
+  <p><strong>Invoice No:</strong> {{ selectedInvoice?.invoiceNumber }}</p>
+  <p><strong>Customer:</strong> {{ selectedInvoice?.customerName }}</p>
+  <p><strong>Contact:</strong> {{ selectedInvoice?.contactNumber }}</p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ selectedInvoice?.itemName }}</td>
+        <td>{{ selectedInvoice?.quantity }}</td>
+        <td>{{ selectedInvoice?.unitPrice }}</td>
+        <td>{{ selectedInvoice?.amount }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
+        <td>{{ selectedInvoice?.subTotal }}</td>
+      </tr>
+      <tr>
+        <td colspan="3" class="text-end"><strong>Discount:</strong></td>
+        <td>{{ selectedInvoice?.discountAmount }}</td>
+      </tr>
+      <tr>
+        <td colspan="3" class="text-end"><strong>Net Payable:</strong></td>
+        <td>{{ selectedInvoice?.netPayable }}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>Edit Invoice: {{ selectedInvoice?.invoiceNumber }}</h3>
+
+    <form [formGroup]="editInvoiceForm" (ngSubmit)="updateInvoice()">
+      <label>Customer Name:</label>
+      <input formControlName="customerName" /><br />
+
+      <label>Contact Number:</label>
+      <input formControlName="contactNumber" /><br />
+
+      <label>Item Name:</label>
+      <input formControlName="itemName" /><br />
+
+      <label>Strength:</label>
+      <input formControlName="strength" /><br />
+
+      <label>Quantity:</label>
+      <input formControlName="quantity" type="number" /><br />
+
+      <label>Unit Price:</label>
+      <input formControlName="unitPrice" type="number" /><br />
+
+      <label>Subtotal:</label>
+      <input formControlName="subTotal" type="number" /><br />
+
+      <label>Amount:</label>
+      <input formControlName="amount" type="number" /><br />
+
+      <label>Discount (%):</label>
+      <input formControlName="discount" type="number" /><br />
+
+      <label>Discount Amount:</label>
+      <input formControlName="discountAmount" type="number" /><br />
+
+      <label>Net Payable:</label>
+      <input formControlName="netPayable" type="number" /><br />
+
+      <div class="modal-actions">
+        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div> -->
