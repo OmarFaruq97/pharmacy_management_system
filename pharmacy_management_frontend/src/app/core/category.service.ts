@@ -6,6 +6,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CategoryService {
+  addCategory(newCategory: { category: string; }) {
+    throw new Error('Method not implemented.');
+  }
+  deleteCategory(id: number) {
+    throw new Error('Method not implemented.');
+  }
+  getAllCategories() {
+    throw new Error('Method not implemented.');
+  }
 
   private apiUrl = 'http://localhost:8080/api/category';
 
