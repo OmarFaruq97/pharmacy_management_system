@@ -29,6 +29,7 @@ export class InvoiceComponent implements OnInit {
     private invoiceService: InvoiceService
   ) {}
 
+  //unique category
   get uniqueCategories(): string[] {
     const categories = this.inventoryItems.map((item) => item.category);
     return [...new Set(categories)];
