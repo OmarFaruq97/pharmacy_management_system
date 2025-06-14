@@ -26,6 +26,6 @@ export const routes: Routes = [
     { path: 'employee', component: EmployeeManagementComponent},
     { path: 'daily-report', component: DailyReportComponent },
     { path: 'company-medicine-input', component: CompanyNameComponent},
-    { path: 'add-medicine', component: MedicineNameComponent},
-    { path: 'low-stock', component: LowStockAlertComponent }    
+    { path: 'add-medicine', component: MedicineNameComponent},    
+    { path: 'low-stock', component: LowStockAlertComponent }   
 ];
