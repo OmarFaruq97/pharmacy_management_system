@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyNameService } from '../core/company-name.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-company-name',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './company-name.component.html',
-  styleUrl: './company-name.component.css'
+  styleUrl: './company-name.component.css',
 })
 export class CompanyNameComponent implements OnInit {
   companyList: any[] = [];
@@ -20,9 +19,20 @@ export class CompanyNameComponent implements OnInit {
     this.loadCompanies();
   }
 
+  // loadCompanies(): void {
+  //   this.companyService.getAllCompanies().subscribe(data => {
+  //     this.companyList = data;
+  //   });
+  // }
+
   loadCompanies(): void {
-    this.companyService.getAllCompanies().subscribe(data => {
-      this.companyList = data;
+    this.companyService.getAllCompanies().subscribe({
+      next: (data) => {
+        this.companyList = data.sort((a, b) =>
+          a.companyName.toLowerCase().localeCompare(b.companyName.toLowerCase())
+        );
+      },
+      error: (err) => console.error('Error loading company', err),
     });
   }
 
@@ -34,7 +44,7 @@ export class CompanyNameComponent implements OnInit {
         this.loadCompanies();
         this.newCompany.companyName = '';
       },
-      error: err => alert('Error adding company')
+      error: (err) => alert('Error adding company'),
     });
   }
 

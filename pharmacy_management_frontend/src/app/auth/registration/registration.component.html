@@ -1,4 +1,4 @@
-<div class="registration-container">
+<!-- <div class="registration-container">
     <h2>Register</h2>
     <form #registerForm="">
       <table>
@@ -40,4 +40,21 @@
       </table>
     </form>
   </div>
+   -->
+<h2>Register</h2>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <input formControlName="firstName" placeholder="First Name" /><br />
+  <input formControlName="lastName" placeholder="Last Name" /><br />
+  <input formControlName="email" placeholder="Email" type="email" required /><br />
+  <input formControlName="password" placeholder="Password" type="password" required /><br />
+  <input formControlName="phoneNumber" placeholder="Phone Number" /><br />
   
+  <select formControlName="role">
+    <option value="USER">User</option>
+    <option value="ADMIN">Admin</option>
+  </select><br /><br />
+
+  <button type="submit">Register</button>
+</form>
+

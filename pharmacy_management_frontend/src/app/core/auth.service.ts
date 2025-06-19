@@ -17,11 +17,31 @@ export class AuthService {
     return this.http.post<any>('http:localhost:8080/api/auth/login', credentials);
 
   }
-  setToken(token : string){
-    localStorage.setItem(this.tokenKey, token);
+
+    register(data: any) {
+    return this.http.post<any>('http://localhost:8080/api/auth/register', data);
+  }
+
+setToken(token: string) {
+  if (!token) {
+    console.error('Token is undefined!');
+    return;
+  }
+
+  localStorage.setItem(this.tokenKey, token);
+
+  try {
     const payload = JSON.parse(atob(token.split('.')[1]));
     this.roleSubject.next(payload.role);
+  } catch (e) {
+    console.error('Invalid token format!', e);
   }
+}
+  // setToken(token : string){
+  //   localStorage.setItem(this.tokenKey, token);
+  //   const payload = JSON.parse(atob(token.split('.')[1]));
+  //   this.roleSubject.next(payload.role);
+  // }
 
   getRole(){
     return this.roleSubject.asObservable();

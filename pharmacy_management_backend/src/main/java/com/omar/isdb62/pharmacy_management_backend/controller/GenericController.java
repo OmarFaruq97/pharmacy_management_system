@@ -1,9 +1,7 @@
 package com.omar.isdb62.pharmacy_management_backend.controller;
 
-
 import com.omar.isdb62.pharmacy_management_backend.model.Generic;
 import com.omar.isdb62.pharmacy_management_backend.service.GenericService;
-import jakarta.persistence.GeneratedValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +18,16 @@ public class GenericController {
         return genericService.getAll();
     }
 
+//    @PostMapping
+//    public Generic add(@RequestBody Generic generic) {
+//        return genericService.save(generic);
+//    }
+
     @PostMapping
-    private Generic add(@RequestBody Generic generic) {
+    public Generic add(@RequestBody Generic generic) {
         return genericService.save(generic);
     }
+
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {

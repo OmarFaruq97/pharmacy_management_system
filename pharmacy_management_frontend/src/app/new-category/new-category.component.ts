@@ -5,10 +5,10 @@ import { CategoryService } from '../core/category.service';
 import { Category, NewCategoryService } from '../core/new-category.service';
 
 @Component({
-  selector: 'app-new-category',  
+  selector: 'app-new-category',
   imports: [CommonModule, FormsModule],
   templateUrl: './new-category.component.html',
-  styleUrl: './new-category.component.css'
+  styleUrl: './new-category.component.css',
 })
 export class NewCategoryComponent implements OnInit {
   categoryList: Category[] = [];
@@ -20,10 +20,21 @@ export class NewCategoryComponent implements OnInit {
     this.loadCategories();
   }
 
+  // loadCategories(): void {
+  //   this.categoryService.getAllCategories().subscribe({
+  //     next: (data) => (this.categoryList = data),
+  //     error: (err) => console.error('Error loading categories:', err),
+  //   });
+  // }
+
   loadCategories(): void {
     this.categoryService.getAllCategories().subscribe({
-      next: (data) => this.categoryList = data,
-      error: (err) => console.error('Error loading categories:', err)
+      next: (data) => {        
+        this.categoryList = data.sort((a, b) =>
+          a.category.toLowerCase().localeCompare(b.category.toLowerCase())
+        );
+      },
+      error: (err) => console.error('Error loading generics', err),
     });
   }
 
@@ -38,7 +49,7 @@ export class NewCategoryComponent implements OnInit {
       error: (err) => {
         alert('Error adding category');
         console.error('Error adding category:', err);
-      }
+      },
     });
   }
 
@@ -50,7 +61,7 @@ export class NewCategoryComponent implements OnInit {
       error: (err) => {
         alert('Error deleting category');
         console.error('Error deleting category:', err);
-      }
+      },
     });
   }
 }
