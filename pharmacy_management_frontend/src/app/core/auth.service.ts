@@ -14,34 +14,34 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login (credentials: {email: string; password: string}) {
-    return this.http.post<any>('http:localhost:8080/api/auth/login', credentials);
+   return this.http.post<any>('http://localhost:8080/api/auth/login', credentials);
 
   }
 
-    register(data: any) {
-    return this.http.post<any>('http://localhost:8080/api/auth/register', data);
-  }
+  //   register(data: any) {
+  //   return this.http.post<any>('http://localhost:8080/api/auth/register', data);
+  // }
 
-setToken(token: string) {
-  if (!token) {
-    console.error('Token is undefined!');
-    return;
-  }
+// setToken(token: string) {
+//   if (!token) {
+//     console.error('Token is undefined!');
+//     return;
+//   }
 
-  localStorage.setItem(this.tokenKey, token);
+//   localStorage.setItem(this.tokenKey, token);
 
-  try {
+//   try {
+//     const payload = JSON.parse(atob(token.split('.')[1]));
+//     this.roleSubject.next(payload.role);
+//   } catch (e) {
+//     console.error('Invalid token format!', e);
+//   }
+// }
+  setToken(token : string){
+    localStorage.setItem(this.tokenKey, token);
     const payload = JSON.parse(atob(token.split('.')[1]));
     this.roleSubject.next(payload.role);
-  } catch (e) {
-    console.error('Invalid token format!', e);
   }
-}
-  // setToken(token : string){
-  //   localStorage.setItem(this.tokenKey, token);
-  //   const payload = JSON.parse(atob(token.split('.')[1]));
-  //   this.roleSubject.next(payload.role);
-  // }
 
   getRole(){
     return this.roleSubject.asObservable();
@@ -50,7 +50,7 @@ setToken(token: string) {
   logout(){
     localStorage.removeItem(this.tokenKey);
     this.roleSubject.next(null);
-    this.router.navigate(['/'], { replaceUrl: true });
+    this.router.navigate(['/home'], { replaceUrl: true });
   }
 
   getToken(){

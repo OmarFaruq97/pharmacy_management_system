@@ -4,6 +4,7 @@ import { AuthService } from '../../core/auth.service';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import {RegisterRequest ,ServiceService } from '../../services/service.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,38 +14,47 @@ import { CommonModule } from '@angular/common';
 })
 export class RegistrationComponent{
 
- registrationForm: FormGroup;
+   showOverlay = true;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    this.registrationForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
-      role: ['USER'], // default role
-      firstName: [''],
-      lastName: [''],
-      phoneNumber: ['']
-    });
+  closeOverlay() {
+    this.showOverlay = false;
   }
+//registration
+user: RegisterRequest = {
+  email: '',
+  password: '',
+  role: 'PHARMACIST',
+  firstName: '',
+  lastName: '',
+  phoneNumber: ''
+};
+// confirmPassword = '';
+registrationSuccess = false;
+registrationError = '';
 
-  onSubmit(): void {
-    if (this.registrationForm.invalid) return;
+constructor(
+  private router: Router,
+  private userService: ServiceService,
+) { }
 
-    this.authService.register(this.registrationForm.value).subscribe({
-      next: (res: any) => {
-        if (res?.token) {
-          this.authService.setToken(res.token);
-          this.router.navigate(['/dashboard']);
-        }
+onSubmit() {
+  // debugger;
+  // if (this.user.password === this.confirmPassword) {
+    this.userService.registerUser(this.user).subscribe({
+      next: (response) => {
+        console.log('Registration successful:', response);
+        this.registrationSuccess = true;
+        this.registrationError = '';
+        alert('Registration successful! Please log in.');
+        this.router.navigate(['/login']);
       },
-      error: (err) => {
-        alert('Registration failed. Please check the form and try again.');
-        console.error('Registration error:', err);
-      }
+      error: (error: Error) => {
+        console.error('Registration error:', error.message);
+        this.registrationError = error.message;
+        this.registrationSuccess = false;
+        alert(error.message);
+      },
     });
-  }
   
+  }
 }

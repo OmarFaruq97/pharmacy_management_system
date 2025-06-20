@@ -52,3 +52,15 @@
     text-decoration: none;
   }
   
+  /* Registration link */
+a {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover {
+  text-decoration: underline;
+}
