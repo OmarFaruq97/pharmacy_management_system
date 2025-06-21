@@ -6,7 +6,7 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, NgIf ],
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -36,9 +36,10 @@ export class LoginComponent {
           //localStorage.setItem('role', res.role)
           //const role = localStorage.getItem('role');
           const role = this.auth.getUserRole();
+          window.location.href="/home";
 
           //role based navigation
-          switch(role){
+          /*switch(role){
             case 'admin':
               window.location.href="/admin";
 
@@ -50,7 +51,7 @@ export class LoginComponent {
 
             default:
               alert('Unknow role. Please contact support.');  
-          }
+          }*/
         },
         error: (error) => {
           alert('Invalid credentials')

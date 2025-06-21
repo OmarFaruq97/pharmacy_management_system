@@ -13,24 +13,32 @@ import { MedicineNameComponent } from './medicine-name/medicine-name.component';
 import { LowStockAlertComponent } from './low-stock-alert/low-stock-alert.component';
 import { NewGenericComponent } from './new-generic/new-generic.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
-
+import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'home', component: HomeComponent },
 
-    { path: '', component: HomeComponent},
-    { path: 'login', component: LoginComponent},
-    { path: 'registration', component: RegistrationComponent},
-    { path: 'home', component: HomeComponent},
-    { path: 'receive-med', component: ReceivedMedicieneComponent},    
-    { path: 'inventory', component: InventoryComponent},
-    { path: 'invoice', component: InvoiceComponent},
-    { path: 'invoice-history', component: InvoiceHistoryComponent},
-    { path: 'employee', component: EmployeeManagementComponent},
-    { path: 'daily-report', component: DailyReportComponent },
-    { path: 'company-medicine-input', component: CompanyNameComponent},
-    { path: 'add-medicine', component: MedicineNameComponent},    
-    { path: 'low-stock', component: LowStockAlertComponent },
-    { path: 'new-generic', component: NewGenericComponent },
-    { path: 'new-category', component: NewCategoryComponent },
-     
+  {
+    path: 'dashboard',
+    component: LayoutComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'receive-med', component: ReceivedMedicieneComponent },
+      { path: 'inventory', component: InventoryComponent },
+      { path: 'invoice', component: InvoiceComponent },
+      { path: 'invoice-history', component: InvoiceHistoryComponent },
+      { path: 'employee', component: EmployeeManagementComponent },
+      { path: 'daily-report', component: DailyReportComponent },
+      { path: 'company-medicine-input', component: CompanyNameComponent },
+      { path: 'add-medicine', component: MedicineNameComponent },
+      { path: 'low-stock', component: LowStockAlertComponent },
+      { path: 'new-generic', component: NewGenericComponent },
+      { path: 'new-category', component: NewCategoryComponent },
+    ],
+  },
+
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' },
 ];
