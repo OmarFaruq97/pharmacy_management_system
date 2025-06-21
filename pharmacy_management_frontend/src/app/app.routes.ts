@@ -14,6 +14,7 @@ import { LowStockAlertComponent } from './low-stock-alert/low-stock-alert.compon
 import { NewGenericComponent } from './new-generic/new-generic.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { LayoutComponent } from './layout/layout.component';
+import { AccessNewComponent } from './access-new/access-new.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -36,6 +37,7 @@ export const routes: Routes = [
       { path: 'low-stock', component: LowStockAlertComponent },
       { path: 'new-generic', component: NewGenericComponent },
       { path: 'new-category', component: NewCategoryComponent },
+      { path: 'access-new', component: AccessNewComponent },
     ],
   },
 
