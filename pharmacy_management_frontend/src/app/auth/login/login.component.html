@@ -1,72 +1,23 @@
-<!-- <div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
-    <table>
-      <tr>
-        <td><label for="email">Email:</label></td>
-        <td>
-          <input type="email" id="email" name="email" [(ngModel)]="email" required />
-        </td>
-      </tr>
-      <tr>
-        <td><label for="password">Password:</label></td>
-        <td>
-          <input type="password" id="password" name="password" [(ngModel)]="password" required />
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <button type="submit">Login</button>
-        </td>
-        <td colspan="2" >
-           <a href="registration" style="color: blue;">Registration Here</a>
-        </td>
-      </tr>
-    </table>
-  </form>
-</div> -->
-
 <div class="login-container">
   <!-- Optional Overlay -->
-  <!-- <div class="overlay" *ngIf="showOverlay">
-    <div class="overlay-content">
-      <h3>Welcome</h3>
-      <p>Please log in to continue</p>
-      <button (click)="closeOverlay()">Close</button>
-    </div>
-  </div> -->
+
 
   <h2>Login</h2>
 
   <form (ngSubmit)="onLogin()" #loginForm="ngForm">
     <div class="form-group">
       <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        class="form-control"
-        [(ngModel)]="email"
-        required
-      />
+      <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required />
     </div>
 
     <div class="form-group">
       <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        class="form-control"
-        [(ngModel)]="password"
-        required
-        minlength="4"
-      />
+      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required
+        minlength="4" />
     </div>
 
     <div class="form-group mt-3">
       <button class="btn btn-primary" type="submit">Login</button>
-    </div>
-    <a style="color: blue;" href="registration">Registration</a>
+    </div>    
   </form>
 </div>
