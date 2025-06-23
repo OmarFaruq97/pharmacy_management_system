@@ -1,17 +1,36 @@
 <div class="company-card">
-  <h3>Company Name Entry</h3>
+  <h2>Company Name Entry</h2>
+
+
   <form (ngSubmit)="onSubmit()">
-    <input [(ngModel)]="newCompany.companyName" name="companyName" required placeholder="Enter company name" />
-    <button type="submit">Save</button>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="newCompany.companyName"
+      name="companyName" required
+      placeholder="Enter company name"
+      required/>      
+    <button class="btn btn-primary" type="submit">➕Save</button>
   </form>
 
-  <hr />
 
-  <h4>Existing Companies</h4>
-  <ul>
-    <li *ngFor="let c of companyList">
-      {{ c.companyName }}
-      <button (click)="deleteCompany(c.id)"> Remove</button>
-    </li>
-  </ul>
+  <h3 class="mt-4">Existing Companies</h3>
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Company List</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of companyList; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{ c.companyName }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-danger" (click)="deleteCompany(c.id)">🗑️Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>  
 </div>

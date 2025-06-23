@@ -1,30 +1,33 @@
-<div class="container mt-4">
-  <h4 class="mb-3">Manage Medicine Names</h4>
+<div class="container mb-4">
+  <h2 class="text-center">Medicine Names</h2>
 
-  <form (ngSubmit)="addMedicineName()" class="mb-3 d-flex gap-2">
+  <form (ngSubmit)="addMedicineName()" class="d-flex gap-2 mb-4">
     <input
       type="text"
-      [(ngModel)]="newMedicineName"
-      name="medicineName"
       class="form-control"
+      [(ngModel)]="newMedicineName"
+      name="medicineName"      
       placeholder="Enter new medicine name"
       required
     />
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn btn-primary">➕Add</button>
   </form>
 
-  <table class="table table-bordered table-sm">
-    <thead>
+  <h3 class="mt-4">Medicine List</h3>
+  <table class="table table-bordered table-hover table-striped" >
+    <thead class="table-dark">
       <tr>
-        <th>Medicine Name</th>
-        <th style="width: 100px;">Action</th>
+        <th>#</th>
+        <th>Medicine List</th>
+        <th class="text-center">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let m of medicineNames">
+      <tr *ngFor="let m of medicineNames; let i = index">
+        <td>{{i+1}}</td>
         <td>{{ m.medicineName }}</td>
         <td>
-          <button class="btn btn-danger btn-sm" (click)="deleteMedicineName(m.id)">🗑️ Remove</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteMedicineName(m.id)">🗑️Remove</button>
         </td>
       </tr>
     </tbody>
