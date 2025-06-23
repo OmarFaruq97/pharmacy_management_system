@@ -30,11 +30,10 @@ export const routes: Routes = [
       { path: 'receive-med', component: ReceivedMedicieneComponent },
       { path: 'inventory', component: InventoryComponent },
       { path: 'invoice', component: InvoiceComponent },
-      { path: 'invoice-history', component: InvoiceHistoryComponent },      
+      { path: 'invoice-history', component: InvoiceHistoryComponent },
       { path: 'daily-report', component: DailyReportComponent },
       { path: 'low-stock', component: LowStockAlertComponent },
       { path: 'user-list', component: UserListComponent },
-
 
       // Access-New with child routes
       {
@@ -45,12 +44,12 @@ export const routes: Routes = [
           { path: 'add-medicine', component: MedicineNameComponent },
           { path: 'new-generic', component: NewGenericComponent },
           { path: 'new-category', component: NewCategoryComponent },
-          { path: '', redirectTo: 'add-medicine', pathMatch: 'full' }
-        ]
-      }
-    ]
+          { path: '', redirectTo: 'add-medicine', pathMatch: 'full' },
+        ],
+      },
+    ],
   },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+  { path: '**', redirectTo: '/login' },
 ];

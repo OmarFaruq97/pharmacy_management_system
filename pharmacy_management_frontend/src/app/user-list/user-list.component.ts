@@ -7,9 +7,9 @@ import { CommonModule } from '@angular/common';
   selector: 'app-user-list',
   imports: [CommonModule],
   templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.css'
+  styleUrl: './user-list.component.css',
 })
-export class  UserListComponent implements OnInit {
+export class UserListComponent implements OnInit {
   users: any[] = [];
 
   constructor(private userService: ServiceService) {}
@@ -20,8 +20,8 @@ export class  UserListComponent implements OnInit {
 
   loadUsers() {
     this.userService.getAllUsers().subscribe({
-      next: (data) => this.users = data,
-      error: (err) => console.error('Error loading users:', err)
+      next: (data) => (this.users = data),
+      error: (err) => console.error('Error loading users:', err),
     });
   }
 }
