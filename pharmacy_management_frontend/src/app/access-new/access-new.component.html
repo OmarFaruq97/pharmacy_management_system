@@ -1,4 +1,24 @@
-<app-company-name></app-company-name>
+<div style="display: flex; min-height: 100vh;">
+  <!-- Sidebar -->
+  <nav style="width: 250px; background-color: #f0f0f0; padding: 20px;">
+    <h3>Access Menu</h3>
+    <ul style="list-style: none; padding: 0;">
+      <li><a routerLink="add-medicine" routerLinkActive="active">Add New Medicine</a></li>
+      <li><a routerLink="new-generic" routerLinkActive="active">Add New Generic</a></li>
+      <li><a routerLink="new-category" routerLinkActive="active">Add New Category</a></li>
+      <li><a routerLink="company-medicine-input" routerLinkActive="active">Add New Company</a></li>
+    </ul>
+  </nav>
+
+  <!-- Content Area -->
+  <div style="flex: 1; padding: 20px;">
+    <router-outlet></router-outlet>
+    
+  </div>
+</div>
+
+
+<!-- <app-company-name></app-company-name>
 <app-medicine-name></app-medicine-name>
 <app-new-generic></app-new-generic>
-<app-new-category></app-new-category>
+<app-new-category></app-new-category> -->
