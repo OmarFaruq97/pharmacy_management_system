@@ -51,6 +51,7 @@ public class UserController {
 
     //ADMIN or the user himself can view a specific user by ID
     @GetMapping("/{id}")
+
     // Allow access if the user is an ADMIN or accessing their own user ID
     @PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id)")
     public ResponseEntity<UserResponse> getUsersById (@PathVariable Long id) {
@@ -81,7 +82,8 @@ public class UserController {
 
                 userCreateRequest.firstName(),
                 userCreateRequest.lastName(),
-                userCreateRequest.phoneNumber()
+                userCreateRequest.phoneNumber(),
+                userCreateRequest.salary()
         );
 
         User createdUser = userService.createUser(user);
@@ -172,6 +174,7 @@ public class UserController {
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setPhoneNumber(user.getPhoneNumber());
+
 
         dto.setCreatedAt(user.getCreateAt());
         dto.setUpdatedAt(user.getUpdateAt());

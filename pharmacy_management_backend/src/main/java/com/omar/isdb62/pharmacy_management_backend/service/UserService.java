@@ -24,26 +24,26 @@ public class UserService {
 
     @Autowired
     public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder){
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id){
+    public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    public List <User> getUsersByRole(Role role) {
+    public List<User> getUsersByRole(Role role) {
         return userRepository.findByRole(role);
     }
 
     @Transactional
-    public User createUser(User user){
-        if (userRepository.existsByEmail(user.getEmail())){
+    public User createUser(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("Email is already in use");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -51,17 +51,17 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(Long id, User userDetails){
-        User user= userRepository.findById(id).orElseThrow(()
+    public User updateUser(Long id, User userDetails) {
+        User user = userRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("User not found with id: " + id));
 
         user.setFirstName(userDetails.getFirstName());
         user.setLastName(userDetails.getLastName());
         user.setPhoneNumber(userDetails.getPhoneNumber());
 
-        if(!user.getEmail().equals(userDetails.getEmail())){
-            if (userRepository.existsByEmail(userDetails.getEmail())){
-                throw  new RuntimeException("Email is already in use");
+        if (!user.getEmail().equals(userDetails.getEmail())) {
+            if (userRepository.existsByEmail(userDetails.getEmail())) {
+                throw new RuntimeException("Email is already in use");
             }
             user.setEmail(userDetails.getEmail());
         }
@@ -71,7 +71,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
         }
 
-        if (userDetails.getRole() != null){
+        if (userDetails.getRole() != null) {
             user.setRole(userDetails.getRole());
         }
         return userRepository.save(user);
@@ -79,17 +79,17 @@ public class UserService {
 
     @Transactional
     public void deleteUser(Long id) {
-        if (!userRepository.existsById(id)){
+        if (!userRepository.existsById(id)) {
             throw new RuntimeException("User not found with id: " + id);
         }
         userRepository.deleteById(id);
     }
 
-    public User getCurrentUser (Authentication authentication) {
+    public User getCurrentUser(Authentication authentication) {
         if (authentication == null)
             return null;
 
-        if (authentication.getPrincipal() instanceof CustomUserDetails){
+        if (authentication.getPrincipal() instanceof CustomUserDetails) {
             return ((CustomUserDetails) authentication.getPrincipal()).user();
         }
         return null;
@@ -98,7 +98,7 @@ public class UserService {
     @Transactional
     public void changePassword(Long userId, String currentPassword, String newPassword) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: "+ userId));
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
             throw new RuntimeException("Current password is incorrect");
@@ -108,8 +108,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public UserDetails loadUserByUsername(String username){
-        Optional <User> byEmail = userRepository.findByEmail(username);
+    public UserDetails loadUserByUsername(String username) {
+        Optional<User> byEmail = userRepository.findByEmail(username);
 
         return byEmail.map(CustomUserDetails::new).orElseThrow(null);
     }
