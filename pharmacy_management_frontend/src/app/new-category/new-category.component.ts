@@ -20,13 +20,7 @@ export class NewCategoryComponent implements OnInit {
     this.loadCategories();
   }
 
-  // loadCategories(): void {
-  //   this.categoryService.getAllCategories().subscribe({
-  //     next: (data) => (this.categoryList = data),
-  //     error: (err) => console.error('Error loading categories:', err),
-  //   });
-  // }
-
+  
   loadCategories(): void {
     this.categoryService.getAllCategories().subscribe({
       next: (data) => {        

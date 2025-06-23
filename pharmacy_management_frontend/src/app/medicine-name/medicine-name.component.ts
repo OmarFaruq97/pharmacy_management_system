@@ -20,11 +20,16 @@ export class MedicineNameComponent implements OnInit {
   }
 
   loadMedicineNames() {
-    this.medicineNameService.getAll().subscribe({
-      next: data => this.medicineNames = data,
-      error: err => console.error('Error loading medicine names:', err)
-    });
-  }
+  this.medicineNameService.getAll().subscribe({
+    next: data => {
+      // Sort alphabetically by name
+      this.medicineNames = data.sort((a, b) => a.medicineName.localeCompare(b.medicineName));
+    },
+    error: err => console.error('Error loading medicine names:', err)
+  });
+}
+
+
 
   addMedicineName() {
     if (!this.newMedicineName.trim()) return;
