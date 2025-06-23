@@ -1,6 +1,7 @@
 package com.omar.isdb62.pharmacy_management_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.omar.isdb62.pharmacy_management_backend.constants.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

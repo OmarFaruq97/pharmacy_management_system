@@ -58,6 +58,7 @@ public class UserService {
         user.setFirstName(userDetails.getFirstName());
         user.setLastName(userDetails.getLastName());
         user.setPhoneNumber(userDetails.getPhoneNumber());
+        user.setSalary(userDetails.getSalary());
 
         if (!user.getEmail().equals(userDetails.getEmail())) {
             if (userRepository.existsByEmail(userDetails.getEmail())) {

@@ -29,7 +29,7 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -51,10 +51,9 @@ public class UserController {
 
     //ADMIN or the user himself can view a specific user by ID
     @GetMapping("/{id}")
-
     // Allow access if the user is an ADMIN or accessing their own user ID
     @PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id)")
-    public ResponseEntity<UserResponse> getUsersById (@PathVariable Long id) {
+    public ResponseEntity<UserResponse> getUsersById(@PathVariable Long id) {
         return userService.getUserById(id)
                 .map(user -> ResponseEntity.ok(convertToDTO(user)))
                 .orElse(ResponseEntity.notFound().build());
@@ -63,7 +62,7 @@ public class UserController {
     //ADMIN can view users by role
     @GetMapping("/role/{role}")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<UserResponse> getUsersByRole(@PathVariable Role role){
+    public List<UserResponse> getUsersByRole(@PathVariable Role role) {
         return userService.getUsersByRole(role).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -73,7 +72,7 @@ public class UserController {
     //Only ADMIN can create new users
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest){
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
         User user = new User(
                 userCreateRequest.email(),
                 userCreateRequest.password(),
@@ -94,7 +93,7 @@ public class UserController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or @userSecurity.hasUserId(authentication, #id)")
     public ResponseEntity<UserResponse>
-    updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest userUpdateRequest){
+    updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest userUpdateRequest) {
         try {
             User userDetails = new User();
 
@@ -122,7 +121,7 @@ public class UserController {
     //Only ADMIN can delete users
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);
             return ResponseEntity.ok().build();
@@ -133,9 +132,9 @@ public class UserController {
 
     //Return the currently authenticated user's info
     @GetMapping("/me")
-    public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication){
+    public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
         User currentUser = userService.getCurrentUser(authentication);
-        if (currentUser == null){
+        if (currentUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         return ResponseEntity.ok(convertToDTO(currentUser));
@@ -144,10 +143,10 @@ public class UserController {
     //Allow a user to change their password
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword
-            (Authentication authentication, @Valid @RequestBody PasswordChangeRequest request){
+    (Authentication authentication, @Valid @RequestBody PasswordChangeRequest request) {
         try {
             User currentUser = userService.getCurrentUser(authentication);
-            if (currentUser == null){
+            if (currentUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
 
@@ -156,14 +155,14 @@ public class UserController {
                     request.newPassword());
 
             return ResponseEntity.ok().build();
-    } catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     //Convert user entity to UserResponse DTO
     // Helper method to convert User entity to UserDTO (this method create as solve error)
-    private UserResponse convertToDTO (User user){
+    private UserResponse convertToDTO(User user) {
         UserResponse dto = new UserResponse();
 
         dto.setId(user.getId());

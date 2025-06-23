@@ -56,7 +56,8 @@ public class AuthController {
                     registerRequest.role(),    // e.g., ROLE_ADMIN or ROLE_PHARMACIST
                     registerRequest.firstName(),
                     registerRequest.lastName(),
-                    registerRequest.phoneNumber()
+                    registerRequest.phoneNumber(),
+                    registerRequest.salary()
             );
 
             // Save the user using the service layer
@@ -70,6 +71,7 @@ public class AuthController {
             userResponse.setFirstName(savedUser.getFirstName());
             userResponse.setLastName(savedUser.getLastName());
             userResponse.setPhoneNumber(savedUser.getPhoneNumber());
+            userResponse.setSalary(savedUser.getSalary());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
         } catch (RuntimeException e) {
@@ -114,6 +116,7 @@ public class AuthController {
             userData.put("role", user.getRole());
             userData.put("firstName", user.getFirstName());
             userData.put("lastName", user.getLastName());
+            userData.put("salary", user.getSalary());
 
             responseData.put("user", userData);
 
@@ -149,6 +152,7 @@ public class AuthController {
             userResponse.setRole(user.getRole());
             userResponse.setFirstName(user.getFirstName());
             userResponse.setLastName(user.getLastName());
+            userResponse.setSalary(userResponse.getSalary());
 
             return ResponseEntity.ok(userResponse);
         }

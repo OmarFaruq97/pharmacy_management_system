@@ -15,6 +15,7 @@ import { NewCategoryComponent } from './new-category/new-category.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AccessNewComponent } from './access-new/access-new.component';
 import { Routes } from '@angular/router';
+import { UserListComponent } from './user-list/user-list.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +33,8 @@ export const routes: Routes = [
       { path: 'invoice-history', component: InvoiceHistoryComponent },      
       { path: 'daily-report', component: DailyReportComponent },
       { path: 'low-stock', component: LowStockAlertComponent },
+      { path: 'user-list', component: UserListComponent },
+
 
       // Access-New with child routes
       {
