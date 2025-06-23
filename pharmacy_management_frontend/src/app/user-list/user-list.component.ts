@@ -9,9 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
-export class UserListComponent implements OnInit {
-  users: UserResponse[] = [];
-  errorMessage = '';
+export class  UserListComponent implements OnInit {
+  users: any[] = [];
 
   constructor(private userService: ServiceService) {}
 
@@ -22,10 +21,7 @@ export class UserListComponent implements OnInit {
   loadUsers() {
     this.userService.getAllUsers().subscribe({
       next: (data) => this.users = data,
-      error: (error) => {
-        this.errorMessage = error.message;
-        console.error(error);
-      }
+      error: (err) => console.error('Error loading users:', err)
     });
   }
 }
