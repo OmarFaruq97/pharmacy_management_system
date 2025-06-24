@@ -26,7 +26,7 @@ public class MemoService {
 
         try {
             // Load and compile JRXML file
-            File jrxmlFile = ResourceUtils.getFile("classpath:report/Memo.jrxml");
+            File jrxmlFile = ResourceUtils.getFile("classpath:report/memo.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlFile.getAbsolutePath());
 
             // Prepare data source
