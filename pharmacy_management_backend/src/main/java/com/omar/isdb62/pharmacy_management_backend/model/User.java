@@ -35,7 +35,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private int salary;
+    private Long salary;
 
     @Column(name = "created_at")
     private LocalDateTime createAt;
@@ -43,7 +43,7 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updateAt;
 
-    public User(String email, String password, String role, String firstName, String lastName, String phoneNumber, int salary) {
+    public User(String email, String password, String role, String firstName, String lastName, String phoneNumber, Long salary) {
         this.email = email;
         this.password = password;
         this.role = role;

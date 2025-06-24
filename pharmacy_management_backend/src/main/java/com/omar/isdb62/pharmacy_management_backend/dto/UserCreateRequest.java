@@ -10,6 +10,6 @@ public record UserCreateRequest(
         String firstName,
         String lastName,
         String phoneNumber,
-        int salary
+        Long salary
 ) {
 }

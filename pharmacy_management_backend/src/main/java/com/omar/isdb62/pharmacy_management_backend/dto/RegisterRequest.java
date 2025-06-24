@@ -19,6 +19,6 @@ public record RegisterRequest(
         String firstName,
         String lastName,
         String phoneNumber,
-        int salary
+        Long salary
 ) {
 }

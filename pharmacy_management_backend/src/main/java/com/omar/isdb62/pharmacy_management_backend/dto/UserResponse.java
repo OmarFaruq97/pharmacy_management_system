@@ -18,7 +18,7 @@ public class UserResponse {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private int salary;
+    private Long salary;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

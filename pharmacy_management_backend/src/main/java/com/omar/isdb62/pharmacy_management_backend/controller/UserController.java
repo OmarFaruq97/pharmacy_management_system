@@ -167,12 +167,11 @@ public class UserController {
 
         dto.setId(user.getId());
         dto.setEmail(user.getEmail());
-
         dto.setRole(user.getRole());
-
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setSalary(user.getSalary());
 
 
         dto.setCreatedAt(user.getCreateAt());
