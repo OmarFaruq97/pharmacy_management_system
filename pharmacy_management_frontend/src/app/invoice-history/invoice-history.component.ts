@@ -4,12 +4,10 @@ import { CommonModule } from '@angular/common';
 import { InvoiceService } from '../core/invoice.service';
 
 @Component({
-  selector: 'app-invoice-history',  
+  selector: 'app-invoice-history',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './invoice-history.component.html',
-  styleUrl: './invoice-history.component.css'
-
-  
+  styleUrl: './invoice-history.component.css',
 })
 export class InvoiceHistoryComponent implements OnInit {
   invoices: any[] = [];
@@ -18,7 +16,7 @@ export class InvoiceHistoryComponent implements OnInit {
   selectedInvoice: any = null;
   showModal: boolean = false;
 
-  groupedInvoices: { [date: string]: any[] } = {}; 
+  groupedInvoices: { [date: string]: any[] } = {};
 
   constructor(
     private invoiceService: InvoiceService,
@@ -35,32 +33,31 @@ export class InvoiceHistoryComponent implements OnInit {
     this.editInvoiceForm = this.fb.group({
       customerName: [''],
       contactNumber: [''],
-      itemName: [''],      
+      itemName: [''],
       quantity: [0],
       unitPrice: [0],
       subTotal: [0],
       amount: [0],
       discount: [0],
       discountAmount: [0],
-      netPayable: [0]
+      netPayable: [0],
     });
   }
 
   loadInvoices(): void {
     this.invoiceService.getAllInvoices().subscribe({
-      next: data => {
+      next: (data) => {
         this.invoices = data;
         this.calculateTotalSales();
-        
+
         this.groupedInvoices = data.reduce((acc: any, invoice: any) => {
           const date = invoice.date;
           if (!acc[date]) acc[date] = [];
           acc[date].push(invoice);
           return acc;
         }, {});
-        
       },
-      error: err => console.error('Error loading invoices', err)
+      error: (err) => console.error('Error loading invoices', err),
     });
   }
 
@@ -72,7 +69,7 @@ export class InvoiceHistoryComponent implements OnInit {
 
   openEditModal(invoice: any): void {
     this.selectedInvoice = invoice;
-    this.editInvoiceForm.patchValue(invoice); 
+    this.editInvoiceForm.patchValue(invoice);
     this.showModal = true;
   }
 
@@ -84,17 +81,19 @@ export class InvoiceHistoryComponent implements OnInit {
   updateInvoice(): void {
     const updatedData = this.editInvoiceForm.value;
 
-    this.invoiceService.updateInvoice(this.selectedInvoice.invoiceNumber, updatedData).subscribe({
-      next: () => {
-        alert('Invoice updated successfully');
-        this.closeModal();
-        this.loadInvoices();
-      },
-      error: err => {
-        console.error('Update failed', err);
-        alert('Failed to update invoice');
-      }
-    });
+    this.invoiceService
+      .updateInvoice(this.selectedInvoice.invoiceNumber, updatedData)
+      .subscribe({
+        next: () => {
+          alert('Invoice updated successfully');
+          this.closeModal();
+          this.loadInvoices();
+        },
+        error: (err) => {
+          console.error('Update failed', err);
+          alert('Failed to update invoice');
+        },
+      });
   }
 
   deleteInvoice(invoiceNumber: string): void {
@@ -104,29 +103,29 @@ export class InvoiceHistoryComponent implements OnInit {
           alert('Invoice deleted');
           this.loadInvoices();
         },
-        error: err => {
+        error: (err) => {
           console.error('Delete failed', err);
           alert('Invoice deleted');
           this.loadInvoices();
-        }
+        },
       });
     }
   }
-  
-  downloadInvoiceReport(): void {
-    this.invoiceService.downloadInvoiceHistoryReport().then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'invoice-history.pdf';
-      a.click();
-      window.URL.revokeObjectURL(url);
-    }).catch(error => {
-      console.error('Error downloading invoice report:', error);
-      alert('Failed to download invoice report.');
-    });
-  }
 
-  
-  
+  downloadInvoiceReport(): void {
+    this.invoiceService
+      .downloadInvoiceHistoryReport()
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'invoice-history.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error('Error downloading invoice report:', error);
+        alert('Failed to download invoice report.');
+      });
+  }
 }
