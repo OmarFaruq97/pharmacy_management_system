@@ -46,10 +46,11 @@ public class SecurityConfig {
                 // Set up route access rules
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/api/auth/**").permitAll()
-
                                 .requestMatchers("/api/inventory/**").permitAll()
                                 .requestMatchers("/reports/**").permitAll()
-                                .requestMatchers("/api/access-company-medicine/**").hasRole("admin")
+                                .requestMatchers("/api/access-new/add-medicine/**").hasRole("admin")
+                                .requestMatchers("/api/auth/register/**").hasRole("admin")
+                                .requestMatchers("/api/registration/**").hasRole("admin")
 
 //                        .requestMatchers("/api/generic/**").permitAll()
 
