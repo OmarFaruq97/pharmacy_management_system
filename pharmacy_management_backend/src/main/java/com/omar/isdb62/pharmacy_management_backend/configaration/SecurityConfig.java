@@ -45,15 +45,15 @@ public class SecurityConfig {
 
                 // Set up route access rules
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/api/inventory/**").permitAll()
-                        .requestMatchers("/reports/**").permitAll()
-                        .requestMatchers("/api/access-company-medicine/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/api/generic/**").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
 
-                        .anyRequest().authenticated()
+                                .requestMatchers("/api/inventory/**").permitAll()
+                                .requestMatchers("/reports/**").permitAll()
+                                .requestMatchers("/api/access-company-medicine/**").hasRole("admin")
+
+//                        .requestMatchers("/api/generic/**").permitAll()
+
+                                .anyRequest().authenticated()
                 )
 
 
