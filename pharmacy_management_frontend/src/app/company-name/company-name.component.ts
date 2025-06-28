@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyNameService } from '../core/company-name.service';
+import { CompanyNameService } from '../services/company-name.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

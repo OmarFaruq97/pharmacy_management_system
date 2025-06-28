@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DailyReportService } from '../core/daily-report.service';
+import { DailyReportService } from '../services/daily-report.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

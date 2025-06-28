@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { InvoiceService } from '../core/invoice.service';
+import { InvoiceService } from '../services/invoice.service';
 
 @Component({
   selector: 'app-invoice-history',

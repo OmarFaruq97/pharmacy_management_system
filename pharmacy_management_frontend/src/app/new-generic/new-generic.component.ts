@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Generic, NewGenericService } from '../core/new-generic.service';
+import { Generic, NewGenericService } from '../services/new-generic.service';
 
 @Component({
   selector: 'app-new-generic',

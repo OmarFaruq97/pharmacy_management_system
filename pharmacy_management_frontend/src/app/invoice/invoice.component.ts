@@ -7,8 +7,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { InventoryService } from '../core/inventory.service';
-import { InvoiceService } from '../core/invoice.service';
+import { InventoryService } from '../services/inventory.service';
+import { InvoiceService } from '../services/invoice.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

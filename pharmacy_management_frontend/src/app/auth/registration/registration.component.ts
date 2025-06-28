@@ -64,7 +64,7 @@ import { CommonModule } from '@angular/common';
 import {
   RegisterRequest,
   ServiceService,
-} from '../../services/service.service';
+} from '../../services/registration.service';
 
 // Required for Bootstrap modal
 declare var bootstrap: any;

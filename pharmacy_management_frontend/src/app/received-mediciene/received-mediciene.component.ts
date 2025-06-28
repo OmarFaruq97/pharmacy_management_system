@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { InventoryService } from '../core/inventory.service';
+import { InventoryService } from '../services/inventory.service';
 
 import { CommonModule } from '@angular/common';
-import { CompanyNameService } from '../core/company-name.service';
-import { MedicineNameService } from '../core/medicine-name.service';
-import { GenericService } from '../core/generic.service';
-import { CategoryService } from '../core/category.service';
+import { CompanyNameService } from '../services/company-name.service';
+import { MedicineNameService } from '../services/medicine-name.service';
+import { GenericService } from '../services/generic.service';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'app-received-mediciene',
