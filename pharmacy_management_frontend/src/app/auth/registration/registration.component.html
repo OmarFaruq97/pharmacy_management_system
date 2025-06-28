@@ -2,116 +2,82 @@
   <h2>Pharmacist Registration</h2>
 
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <!-- Basic Fields -->
     <div class="form-group">
       <label>Email *</label>
-      <input
-        type="email"
-        name="email"
-        class="form-control"
-        [(ngModel)]="user.email"
-        required
-        email
-      />
+      <input type="email" name="email" class="form-control" [(ngModel)]="user.email" required email />
     </div>
 
     <div class="form-group">
       <label>Password *</label>
-      <input
-        type="password"
-        name="password"
-        class="form-control"
-        [(ngModel)]="user.password"
-        required
-        minlength="4"
-      />
+      <input type="password" name="password" class="form-control" [(ngModel)]="user.password" required minlength="4" />
     </div>
 
-    <!-- Optional Role Selector -->
+    <!-- Role -->
     <div class="form-group">
-  <label>Role *</label>
-  <div class="form-check">
-    <input
-      class="form-check-input"
-      type="radio"
-      name="role"
-      id="adminRole"
-      value="ADMIN"
-      [(ngModel)]="user.role"
-      required
-    />
-    <label class="form-check-label" for="adminRole">Admin</label>
-  </div>
+      <label>Role *</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="role" id="adminRole" value="ADMIN" [(ngModel)]="user.role" required />
+        <label class="form-check-label" for="adminRole">Admin</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="role" id="pharmacistRole" value="PHARMACIST" [(ngModel)]="user.role" />
+        <label class="form-check-label" for="pharmacistRole">Pharmacist</label>
+      </div>
+    </div>
 
-  <div class="form-check">
-    <input
-      class="form-check-input"
-      type="radio"
-      name="role"
-      id="pharmacistRole"
-      value="PHARMACIST"
-      [(ngModel)]="user.role"
-    />
-    <label class="form-check-label" for="pharmacistRole">Pharmacist</label>
-  </div>
-</div>
-
-
+    <!-- Optional Fields -->
     <div class="form-group">
       <label>First Name</label>
-      <input
-        type="text"
-        name="firstName"
-        class="form-control"
-        [(ngModel)]="user.firstName"
-      />
+      <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" />
     </div>
 
     <div class="form-group">
       <label>Last Name</label>
-      <input
-        type="text"
-        name="lastName"
-        class="form-control"
-        [(ngModel)]="user.lastName"
-      />
+      <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" />
     </div>
 
     <div class="form-group">
       <label>Phone Number</label>
-      <input
-        type="text"
-        name="phoneNumber"
-        class="form-control"
-        [(ngModel)]="user.phoneNumber"
-      />
+      <input type="text" name="phoneNumber" class="form-control" [(ngModel)]="user.phoneNumber" />
     </div>
 
     <div class="form-group">
-  <label>Salary</label>
-  <input
-    type="number"
-    name="salary"
-    class="form-control"
-    [(ngModel)]="user.salary"
-    required
-  />
-</div>
-
+      <label>Salary</label>
+      <input type="number" name="salary" class="form-control" [(ngModel)]="user.salary" required />
+    </div>
 
     <div class="form-group mt-3">
       <button class="btn btn-primary" type="submit">Register</button>
     </div>
   </form>
 
-  <!-- Success Message -->
+  <!-- Optional success/error alerts (keep or remove) -->
   <div *ngIf="registrationSuccess" class="alert alert-success mt-3">
     New Pharmacist Registration successful!
   </div>
 
-  <!-- Error Message -->
   <div *ngIf="registrationError" class="alert alert-danger mt-3">
     {{ registrationError }}
   </div>
 </div>
 
+<!-- SUCCESS MODAL -->
+<!-- Add this block at the end of the HTML file -->
 
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="successModalLabel"> Registration Successful</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Role: {{ user.role }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="navigateToLogin()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
