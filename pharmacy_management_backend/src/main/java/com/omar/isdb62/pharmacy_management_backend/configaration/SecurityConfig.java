@@ -52,12 +52,8 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/register/**").hasRole("admin")
                                 .requestMatchers("/api/registration/**").hasRole("admin")
 
-//                        .requestMatchers("/api/generic/**").permitAll()
-
                                 .anyRequest().authenticated()
                 )
-
-
                 // Add our custom JWT filter before Spring's username/password filter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
