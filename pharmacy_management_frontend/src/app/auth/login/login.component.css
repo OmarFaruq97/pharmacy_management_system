@@ -56,19 +56,15 @@
 
 .btn-primary:hover {
   background-color: #3a7bc8;
+  color: white;
 }
 
 a {
-  display: block;
-  text-align: center;
-  margin-top: 15px;
-  text-decoration: none;
-  color: #4a90e2 !important;
+  background-color: #3a7bc8;
+  color: white;
+  
 }
 
-a:hover {
-  text-decoration: underline;
-}
 
 /* Optional: Add some responsive adjustments */
 @media (max-width: 480px) {
