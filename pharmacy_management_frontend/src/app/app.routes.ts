@@ -16,6 +16,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { AccessNewComponent } from './access-new/access-new.component';
 import { Routes } from '@angular/router';
 import { UserListComponent } from './user-list/user-list.component';
+import { ReturnProductComponent } from './return-product/return-product.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,6 +35,7 @@ export const routes: Routes = [
       { path: 'daily-report', component: DailyReportComponent },
       { path: 'low-stock', component: LowStockAlertComponent },
       { path: 'user-list', component: UserListComponent },
+      {path: 'product-list', component: ReturnProductComponent},
 
       // Access-New with child routes
       {
